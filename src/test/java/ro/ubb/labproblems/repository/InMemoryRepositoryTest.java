@@ -14,6 +14,7 @@ public class InMemoryRepositoryTest {
     @Before
     public void setUp() {
         this.repository = new InMemoryRepository<>(entity -> {
+            // TODO think how to replace if
             if (entity.name.length() == 0) throw new ValidatorException();
         });
     }

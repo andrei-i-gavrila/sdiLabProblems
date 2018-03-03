@@ -39,7 +39,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
         requireNonNull(entity);
 
         validator.validate(entity);
-
+        // TODO if
         if (!elements.containsKey(entity.getIdentifier())) {
             elements.put(entity.getIdentifier(), entity);
 
@@ -61,7 +61,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
         requireNonNull(entity);
 
         validator.validate(entity);
-
+        // TODO if
         if (elements.containsKey(entity.getIdentifier())) {
             elements.put(entity.getIdentifier(), entity);
 
