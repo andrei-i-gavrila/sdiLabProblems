@@ -9,5 +9,5 @@ public interface Validator<T> {
      * @return true if the entity is valid, false otherwise
      * @throws IllegalArgumentException if the entity is null
      */
-    boolean validate(T entity);
+    void validate(T entity) throws ValidatorException;
 }
