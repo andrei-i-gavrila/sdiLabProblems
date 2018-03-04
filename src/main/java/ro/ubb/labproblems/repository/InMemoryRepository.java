@@ -1,15 +1,14 @@
 package ro.ubb.labproblems.repository;
 
-import ro.ubb.labproblems.domain.BaseEntity;
+import ro.ubb.labproblems.domain.entities.BaseEntity;
 import ro.ubb.labproblems.domain.validators.Validator;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static java.util.Objects.requireNonNull;
+import static ro.ubb.labproblems.utils.Guards.nullGuard;
 
 public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Repository<ID, T> {
 
@@ -17,7 +16,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
     private Validator<T> validator;
 
     public InMemoryRepository(Validator<T> validator) {
-        requireNonNull(validator);
+        nullGuard(validator);
         this.validator = validator;
         elements = new HashMap<>();
     }
@@ -25,43 +24,44 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
 
     @Override
     public Optional<T> find(ID id) {
-        requireNonNull(id);
+        nullGuard(id);
         return Optional.ofNullable(elements.get(id));
     }
 
     @Override
-    public Collection<T> all() {
+    public Iterable<T> findAll() {
         return elements.values();
     }
 
     @Override
     public Optional<T> save(T entity) throws ValidatorException {
-        requireNonNull(entity);
+        nullGuard(entity);
 
         validator.validate(entity);
         // TODO if
-        if (!elements.containsKey(entity.getIdentifier())) {
-            elements.put(entity.getIdentifier(), entity);
-
-            return Optional.empty();
+        if (elements.containsKey(entity.getIdentifier())) {
+            return Optional.of(entity);
         }
+        elements.put(entity.getIdentifier(), entity);
 
-        return Optional.of(entity);
+        return Optional.empty();
+
     }
 
     @Override
     public Optional<T> delete(ID id) {
-        requireNonNull(id);
+        nullGuard(id);
 
         return Optional.ofNullable(elements.remove(id));
     }
 
     @Override
     public Optional<T> update(T entity) throws ValidatorException {
-        requireNonNull(entity);
+        nullGuard(entity);
 
         validator.validate(entity);
-        // TODO if
+
+
         if (elements.containsKey(entity.getIdentifier())) {
             elements.put(entity.getIdentifier(), entity);
 

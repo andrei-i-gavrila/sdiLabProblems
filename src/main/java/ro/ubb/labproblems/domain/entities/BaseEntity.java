@@ -1,4 +1,4 @@
-package ro.ubb.labproblems.domain;
+package ro.ubb.labproblems.domain.entities;
 
 /**
  * Used as a base model for all the domain entities.

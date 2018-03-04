@@ -1,6 +1,6 @@
 package ro.ubb.labproblems.repository;
 
-import ro.ubb.labproblems.domain.BaseEntity;
+import ro.ubb.labproblems.domain.entities.BaseEntity;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
 
 import java.util.Collection;
@@ -25,7 +25,7 @@ public interface Repository<ID, T extends BaseEntity<ID>> {
     /**
      * @return all entities.
      */
-    Collection<T> all();
+    Iterable<T> findAll();
 
     /**
      * Saves the given entity.
@@ -33,6 +33,7 @@ public interface Repository<ID, T extends BaseEntity<ID>> {
      * @param entity must not be null.
      * @return an {@code Optional} - null if the entity was saved otherwise (e.g. id already exists) returns the entity.
      * @throws NullPointerException if the given entity is null.
+     * @throws ValidatorException if the given entity is invalid
      */
     Optional<T> save(T entity) throws ValidatorException;
 
@@ -52,6 +53,7 @@ public interface Repository<ID, T extends BaseEntity<ID>> {
      * @return an {@code Optional} - null if the entity was updated otherwise (e.g. id does not exist) returns the
      * entity.
      * @throws NullPointerException if the given entity is null.
+     * @throws ValidatorException if the given entity is invalid
      */
     Optional<T> update(T entity) throws ValidatorException;
 }

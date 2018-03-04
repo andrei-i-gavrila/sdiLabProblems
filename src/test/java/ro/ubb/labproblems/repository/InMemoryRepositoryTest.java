@@ -3,6 +3,7 @@ package ro.ubb.labproblems.repository;
 import org.junit.Before;
 import org.junit.Test;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
+import ro.ubb.labproblems.utils.IteratorUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,7 +29,7 @@ public class InMemoryRepositoryTest {
     public void save() throws ValidatorException {
         assertFalse(repository.save(new MockBaseEntity(1, "1")).isPresent());
         assertFalse(repository.save(new MockBaseEntity(2, "1")).isPresent());
-        assertEquals(2, repository.all().size());
+        assertEquals(2, IteratorUtils.size(repository.findAll()));
     }
 
     @Test
@@ -41,7 +42,7 @@ public class InMemoryRepositoryTest {
     @Test
     public void deleteNothing() {
         assertFalse(repository.delete(1).isPresent());
-        assertEquals(0, repository.all().size());
+        assertEquals(0, IteratorUtils.size(repository.findAll()));
     }
 
     @Test
@@ -50,7 +51,7 @@ public class InMemoryRepositoryTest {
         repository.save(e);
 
         assertEquals(e, repository.delete(e.getIdentifier()).orElseThrow(AssertionError::new));
-        assertEquals(0, repository.all().size());
+        assertEquals(0, IteratorUtils.size(repository.findAll()));
     }
 
     @Test
@@ -83,31 +84,31 @@ public class InMemoryRepositoryTest {
         repository.save(e);
         repository.save(new MockBaseEntity(2, "3"));
 
-        assertEquals(2, repository.all().size());
-        assertEquals(e, repository.all().stream().findFirst().orElseThrow(AssertionError::new));
+        assertEquals(2, IteratorUtils.size(repository.findAll()));
+        assertEquals(e, IteratorUtils.stream(repository.findAll()).findFirst().orElseThrow(AssertionError::new));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void findNull() {
         repository.find(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void saveNull() throws ValidatorException {
         repository.save(null);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void deleteNull() throws ValidatorException {
+    @Test(expected = IllegalArgumentException.class)
+    public void deleteNull() {
         repository.delete(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void updateNull() throws ValidatorException {
         repository.update(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void requiresValidator() {
         new InMemoryRepository<Integer, MockBaseEntity>(null);
     }

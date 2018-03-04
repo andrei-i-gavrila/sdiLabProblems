@@ -1,6 +1,6 @@
 package ro.ubb.labproblems.repository;
 
-import ro.ubb.labproblems.domain.BaseEntity;
+import ro.ubb.labproblems.domain.entities.BaseEntity;
 
 public class MockBaseEntity implements BaseEntity<Integer> {
 
