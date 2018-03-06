@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class StudentController {
 
-    private Repository<Integer, Student> studentRepository;
+    private final Repository<Integer, Student> studentRepository;
 
     public StudentController(Repository<Integer, Student> studentRepository) {
         this.studentRepository = studentRepository;
@@ -25,6 +25,9 @@ public class StudentController {
     }
 
     public String showAll() {
-        return IteratorUtils.stream(studentRepository.findAll()).map(Object::toString).collect(Collectors.joining("\n"));
+        return IteratorUtils
+                .stream(studentRepository.findAll())
+                .map(Object::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

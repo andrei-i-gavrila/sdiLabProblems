@@ -7,41 +7,41 @@ package ro.ubb.labproblems.repository.domain;
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Problem;
 
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class ProblemTest {
-    private static final Integer ID=new Integer(1);
-    private static final String tit1="Initial title";
-    private static final String tit2="New title";
-    private static final String desc1="Initial description";
-    private static final String desc2="New description";
 
-    private Problem problem=new Problem(ID,tit1,desc1);
+    private static final String initialTitle = "Initial title";
+    private static final String newTitle = "New title";
+    private static final String initialDescription = "Initial description";
+    private static final String newDescription = "New description";
+
+    private Problem problem = new Problem(initialTitle, initialDescription);
 
     @Test
-    public void testGetID(){
-        assert(problem.getIdentifier()==ID);
+    public void testGetID() {
+        assertEquals(initialTitle, problem.getIdentifier());
     }
 
     @Test
     public void testGetTitle() {
-        assert (problem.getTitle()==tit1);
+        assertEquals(initialTitle, problem.getTitle());
     }
 
     @Test
     public void testSetName() {
-        problem.setTitle(tit2);
-        assert (problem.getTitle()==tit2);
+        problem.setTitle(newTitle);
+        assertEquals(newTitle, problem.getTitle());
     }
 
     @Test
     public void testGetGroup() {
-        assert (problem.getDescription()==desc1);
+        assertEquals(initialDescription, problem.getDescription());
     }
 
     @Test
     public void testSetGroup() {
-        problem.setDescription(desc2);
-        assert (problem.getDescription()==desc2);
+        problem.setDescription(newDescription);
+        assertEquals(newDescription, problem.getDescription());
     }
 }
