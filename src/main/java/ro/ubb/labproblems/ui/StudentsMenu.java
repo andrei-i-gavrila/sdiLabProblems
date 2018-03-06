@@ -11,12 +11,14 @@ public class StudentsMenu extends CommandMenu {
     public StudentsMenu(StudentController studentController, Scanner scanner) {
         super("Students operations", scanner);
         this.studentController = studentController;
+        registerCommands();
     }
 
     @Override
     protected void registerCommands() {
         registerCommand("add", "Adds a new student", this::addCommand);
         registerCommand("all", "Shows all students", this::showAllCommand);
+        super.registerCommands();
     }
 
     private void showAllCommand() {

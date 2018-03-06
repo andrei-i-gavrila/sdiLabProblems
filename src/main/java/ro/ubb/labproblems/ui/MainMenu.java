@@ -12,11 +12,13 @@ public class MainMenu extends CommandMenu {
         super("");
         this.studentController = studentController;
         this.problemController = problemController;
+        registerCommands();
     }
 
     @Override
     protected void registerCommands() {
         subCommands.put("students", new StudentsMenu(studentController, scanner));
         subCommands.put("problems", new ProblemsMenu(problemController, scanner));
+        super.registerCommands();
     }
 }

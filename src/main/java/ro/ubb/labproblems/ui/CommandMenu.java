@@ -11,14 +11,10 @@ public abstract class CommandMenu extends Command {
 
     public CommandMenu(String description, Scanner scanner) {
         super(description, scanner, null);
-        registerCommands();
-        registerExitCommand();
     }
 
     public CommandMenu(String description) {
         super(description, null);
-        registerCommands();
-        registerExitCommand();
     }
 
     private void printSubCommands() {
@@ -26,7 +22,8 @@ public abstract class CommandMenu extends Command {
     }
 
     private Command readCommand() {
-        String inputCommand = scanner.next();
+        System.out.print(">> ");
+        String inputCommand = scanner.nextLine();
         Command command = subCommands.get(inputCommand);
 
         return command != null ? command : retryReadCommand();
@@ -59,9 +56,7 @@ public abstract class CommandMenu extends Command {
         subCommands.put(key, new Command(description, scanner, runnable));
     }
 
-    private void registerExitCommand() {
+    protected void registerCommands() {
         registerCommand("exit", "Exits the application or the current menu.", () -> running = false);
-    }
-
-    protected abstract void registerCommands();
+    };
 }

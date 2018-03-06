@@ -10,10 +10,12 @@ public class ProblemsMenu extends CommandMenu {
     public ProblemsMenu(ProblemController problemController, Scanner scanner) {
         super("Problems operations", scanner);
         this.problemController = problemController;
+        registerCommands();
     }
 
     @Override
     protected void registerCommands() {
 
+        super.registerCommands();
     }
 }
