@@ -1,4 +1,4 @@
-package ro.ubb.labproblems.repository.domain;
+package ro.ubb.labproblems.domain;
 
 /**
  * Created by Sandy on 3/5/2018.
@@ -20,7 +20,7 @@ public class ProblemTest {
 
     @Test
     public void testGetID() {
-        assertEquals(initialTitle, problem.getIdentifier());
+        assertEquals(problem.getTitle(), problem.getIdentifier());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ProblemTest {
     }
 
     @Test
-    public void testSetName() {
+    public void testSetTitle() {
         problem.setTitle(newTitle);
         assertEquals(newTitle, problem.getTitle());
     }
@@ -43,5 +43,10 @@ public class ProblemTest {
     public void testSetGroup() {
         problem.setDescription(newDescription);
         assertEquals(newDescription, problem.getDescription());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals(initialTitle + "\n" + initialDescription, problem.toString());
     }
 }

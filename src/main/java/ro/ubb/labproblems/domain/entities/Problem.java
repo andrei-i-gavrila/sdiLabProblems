@@ -8,10 +8,9 @@ public class Problem implements BaseEntity<String> {
     private String title;
     private String description;
 
-    public Problem(String tit, String desc)
-    {
-        this.description=desc;
-        this.title=tit;
+    public Problem(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
 
     public String getTitle() {
