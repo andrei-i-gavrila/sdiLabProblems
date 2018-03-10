@@ -1,11 +1,10 @@
-package ro.ubb.labproblems.repository.controller;
+package ro.ubb.labproblems.controller;
 
 /**
  * Created by Sandy on 3/6/2018.
  */
 
 import org.junit.Test;
-import ro.ubb.labproblems.controller.ProblemController;
 import ro.ubb.labproblems.domain.entities.Problem;
 import ro.ubb.labproblems.domain.validators.ProblemValidator;
 import ro.ubb.labproblems.repository.InMemoryRepository;
@@ -20,9 +19,24 @@ public class ProblemControllerTest {
 
     @Test
     public void testAdd() {
-        assert (problemController.add(title, description) == "Problem registered successfully");
+        assert (problemController.add(title, description) == "Problem added successfully");
     }
 
+    @Test
+    public void testRemove() {
+        problemController.add(title, description);
+        assert (problemController.remove("title2").equals("No problem with such title was found"));
+        assert (problemController.remove(title).equals("Problem removed successfully"));
+    }
+
+    @Test
+    public void testUpdate() {
+        problemController.add(title, description);
+        assert (problemController.update("title2", description).equals("No problem was found with the given title"));
+        assert (problemController.update(title, description).equals("Problem updated successfully"));
+    }
+
+    @Test
     public void testPrintAll() {
         problemController.add(title, description);
         assert (problemController.showAll().equals(problem.toString()));
