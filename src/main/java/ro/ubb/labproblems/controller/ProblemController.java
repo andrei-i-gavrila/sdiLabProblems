@@ -9,9 +9,8 @@ import ro.ubb.labproblems.domain.validators.ValidatorException;
 import ro.ubb.labproblems.repository.Repository;
 import ro.ubb.labproblems.utils.IteratorUtils;
 
-import java.util.Set;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class ProblemController {
 
@@ -23,8 +22,29 @@ public class ProblemController {
 
     public String add(String title, String description) {
         try {
-            problemRepository.save(new Problem(title, description));
-            return "Problem registered successfully";
+            if (problemRepository.save(new Problem(title, description)).equals(Optional.empty()))
+                return "Problem added successfully";
+            else
+                return "A problem with such title already exists";
+        } catch (ValidatorException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String remove(String title) {
+        if (problemRepository.delete(title).equals(Optional.empty()))
+            return "No problem with such title was found";
+        else
+            return "Problem removed successfully";
+
+    }
+
+    public String update(String title, String description) {
+        try {
+            if (problemRepository.update(new Problem(title, description)).equals(Optional.empty()))
+                return "Problem updated successfully";
+            else
+                return "No problem was found with the given title";
         } catch (ValidatorException e) {
             return e.getMessage();
         }
