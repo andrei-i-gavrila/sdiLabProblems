@@ -2,10 +2,13 @@ package ro.ubb.labproblems.repository;
 
 import ro.ubb.labproblems.domain.entities.BaseEntity;
 
+/**
+ * A basic {@link BaseEntity BaseEntity} class, used for testing only
+ */
 public class MockBaseEntity implements BaseEntity<Integer> {
 
-    private Integer id;
     public String name;
+    private Integer id;
 
     public MockBaseEntity(Integer id, String name) {
         this.id = id;

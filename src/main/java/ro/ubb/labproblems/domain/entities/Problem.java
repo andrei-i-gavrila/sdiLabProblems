@@ -1,13 +1,25 @@
 package ro.ubb.labproblems.domain.entities;
 
 /**
- * Created by Sandy on 3/5/2018.
+ * Implements the problem entity as a BaseEntity
  */
 public class Problem implements BaseEntity<String> {
 
+    /**
+     * The problem's title
+     */
     private String title;
+    /**
+     * The problem's whole description
+     */
     private String description;
 
+    /**
+     * Constructor for the problem entity
+     *
+     * @param title       Unique title for the problem
+     * @param description The problem's description
+     */
     public Problem(String title, String description) {
         this.title = title;
         this.description = description;

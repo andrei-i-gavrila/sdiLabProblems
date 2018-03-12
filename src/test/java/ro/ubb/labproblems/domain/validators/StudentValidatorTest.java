@@ -6,6 +6,9 @@ import ro.ubb.labproblems.domain.entities.Student;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+/**
+ * Class to test every function of {@link StudentValidator StudentValidator}, supporting JUnit testing
+ */
 public class StudentValidatorTest {
 
     private StudentValidator validator = new StudentValidator();

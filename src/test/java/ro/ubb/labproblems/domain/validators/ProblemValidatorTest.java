@@ -6,6 +6,9 @@ import ro.ubb.labproblems.domain.entities.Problem;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+/**
+ * Class to test every function of {@link ProblemValidator ProblemValidator}, supporting JUnit testing
+ */
 public class ProblemValidatorTest {
 
     private final ProblemValidator validator = new ProblemValidator();

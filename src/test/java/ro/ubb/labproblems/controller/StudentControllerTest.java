@@ -1,9 +1,5 @@
 package ro.ubb.labproblems.controller;
 
-/**
- * Created by Sandy on 3/6/2018.
- */
-
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Student;
 import ro.ubb.labproblems.domain.validators.StudentValidator;
@@ -14,6 +10,9 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 
+/**
+ * Class to test every function of {@link StudentController StudentController}, supporting JUnit testing
+ */
 public class StudentControllerTest {
 
     private static final String NAME = "student1";

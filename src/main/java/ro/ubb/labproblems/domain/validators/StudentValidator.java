@@ -4,9 +4,17 @@ import ro.ubb.labproblems.domain.entities.Student;
 
 import static ro.ubb.labproblems.utils.Guards.nullGuard;
 
+/**
+ * Validator class for the student-type entities
+ */
 public class StudentValidator implements Validator<Student> {
 
-
+    /**
+     * Validates a given student entity
+     *
+     * @param entity The entity to be validated
+     * @throws ValidatorException Is thrown, if the entity is invalid in some way
+     */
     @Override
     public void validate(Student entity) throws ValidatorException {
         nullGuard(entity);

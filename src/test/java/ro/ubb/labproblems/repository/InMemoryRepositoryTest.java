@@ -8,6 +8,9 @@ import ro.ubb.labproblems.utils.IteratorUtils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+/**
+ * Class to test every function of {@link InMemoryRepository InMemoryRepository}
+ */
 public class InMemoryRepositoryTest {
 
     private Repository<Integer, MockBaseEntity> repository;

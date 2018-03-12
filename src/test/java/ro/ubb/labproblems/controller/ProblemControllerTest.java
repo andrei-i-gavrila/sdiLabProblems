@@ -1,9 +1,5 @@
 package ro.ubb.labproblems.controller;
 
-/**
- * Created by Sandy on 3/6/2018.
- */
-
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Problem;
 import ro.ubb.labproblems.domain.validators.ProblemValidator;
@@ -14,6 +10,9 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 
+/**
+ * Class to test every function of {@link ProblemController ProblemController}, supporting JUnit testing
+ */
 public class ProblemControllerTest {
     private static final String TITLE1 = "title1";
     private static final String TITLE2 = "title2";

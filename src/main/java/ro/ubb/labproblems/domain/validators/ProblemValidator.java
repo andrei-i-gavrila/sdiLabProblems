@@ -1,15 +1,20 @@
 package ro.ubb.labproblems.domain.validators;
 
-/**
- * Created by Sandy on 3/5/2018.
- */
-
 import ro.ubb.labproblems.domain.entities.Problem;
 
 import static ro.ubb.labproblems.utils.Guards.nullGuard;
 
+/**
+ * Validator class for the problem-type entities
+ */
 public class ProblemValidator implements Validator<Problem> {
 
+    /**
+     * Validates a given problem entity
+     *
+     * @param entity The entity to be validated
+     * @throws ValidatorException Is thrown, if the entity is invalid in some way
+     */
     @Override
     public void validate(Problem entity) throws ValidatorException {
         nullGuard(entity);

@@ -10,6 +10,9 @@ import ro.ubb.labproblems.repository.InMemoryRepository;
 import ro.ubb.labproblems.repository.Repository;
 import ro.ubb.labproblems.ui.MainMenu;
 
+/**
+ * Public class containing the main function
+ */
 public class LabProblemsApplication {
 
     public static void main(String... args) {

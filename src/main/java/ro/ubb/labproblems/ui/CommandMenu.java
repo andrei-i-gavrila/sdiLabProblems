@@ -4,9 +4,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Abstract class to manage the input. Sets up a map for commands, and then communicates with the user
+ */
 public abstract class CommandMenu extends Command {
 
+    /**
+     * Storage for commands
+     */
     protected Map<String, Command> subCommands = new LinkedHashMap<>();
+
     private boolean running = false;
 
     public CommandMenu(String description, Scanner scanner) {

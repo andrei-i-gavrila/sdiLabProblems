@@ -1,5 +1,8 @@
 package ro.ubb.labproblems.domain.validators;
 
+/**
+ * Throwable ValidatorException class, extending the {@link Exception Exception} class
+ */
 public class ValidatorException extends Exception {
 
     private Object invalidObject;

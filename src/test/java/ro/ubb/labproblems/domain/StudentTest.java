@@ -1,14 +1,13 @@
 package ro.ubb.labproblems.domain;
 
-/**
- * Created by Sandy on 3/5/2018.
- */
-
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Student;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Class to test every function and constructor of {@link Student student} entity
+ */
 public class StudentTest {
     private static final Integer registrationNumber = 1;
     private static final Integer newRegistrationNumber = 5;

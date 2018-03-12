@@ -1,9 +1,5 @@
 package ro.ubb.labproblems.controller;
 
-/**
- * Created by Sandy on 3/5/2018.
- */
-
 import ro.ubb.labproblems.domain.entities.Problem;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
 import ro.ubb.labproblems.repository.Repository;
