@@ -1,0 +1,5 @@
+ro.ubb.labproblems.controller
+ro.ubb.labproblems.domain.entities
+ro.ubb.labproblems.domain.validators
+ro.ubb.labproblems.repository
+ro.ubb.labproblems.utils
