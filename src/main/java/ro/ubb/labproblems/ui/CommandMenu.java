@@ -18,7 +18,7 @@ public abstract class CommandMenu extends Command {
     }
 
     private void printSubCommands() {
-        subCommands.forEach((key, description) -> System.out.println(key + ": " + description));
+        subCommands.forEach((key, command) -> System.out.println(key + ": " + command.getDescription()));
     }
 
     private Command readCommand() {
@@ -58,5 +58,5 @@ public abstract class CommandMenu extends Command {
 
     protected void registerCommands() {
         registerCommand("exit", "Exits the application or the current menu.", () -> running = false);
-    };
+    }
 }

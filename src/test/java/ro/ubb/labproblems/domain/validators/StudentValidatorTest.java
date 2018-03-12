@@ -3,7 +3,8 @@ package ro.ubb.labproblems.domain.validators;
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Student;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class StudentValidatorTest {
 

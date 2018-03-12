@@ -4,7 +4,6 @@ package ro.ubb.labproblems.domain;
  * Created by Sandy on 3/5/2018.
  */
 
-import org.junit.Assert;
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Student;
 

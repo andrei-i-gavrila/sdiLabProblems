@@ -5,7 +5,6 @@ import ro.ubb.labproblems.domain.validators.ValidatorException;
 import ro.ubb.labproblems.repository.Repository;
 import ro.ubb.labproblems.utils.IteratorUtils;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StudentController {
@@ -16,31 +15,27 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
-    public String add(String name, Integer registrationNumner, Integer groupNumber) {
+    public String add(String name, Integer registrationNumber, Integer groupNumber) {
         try {
-            if (studentRepository.save(new Student(registrationNumner, name, groupNumber)).equals(Optional.empty()))
-                return "Student added successfully";
-            else
-                return "A student with such registration number already exists";
+            return studentRepository.save(new Student(registrationNumber, name, groupNumber))
+                    .map(student -> "A student with such registration number already exists")
+                    .orElse("Student added successfully");
         } catch (ValidatorException e) {
             return e.getMessage();
         }
     }
 
     public String remove(Integer registrationNumber) {
-        if (studentRepository.delete(registrationNumber).equals(Optional.empty()))
-            return "No student with such registration ID was found";
-        else
-            return "Student removed successfully";
-
+        return studentRepository.delete(registrationNumber)
+                .map(student -> "Student removed successfully")
+                .orElse("No student with such registration ID was found");
     }
 
-    public String update(String name, Integer registrationNumner, Integer groupNumber) {
+    public String update(String name, Integer registrationNumber, Integer groupNumber) {
         try {
-            if (studentRepository.update(new Student(registrationNumner, name, groupNumber)).equals(Optional.empty()))
-                return "Student updated successfully";
-            else
-                return "No student was found with the given registration number";
+            return studentRepository.update(new Student(registrationNumber, name, groupNumber))
+                    .map(student -> "No student was found with the given registration number")
+                    .orElse("Student updated successfully");
         } catch (ValidatorException e) {
             return e.getMessage();
         }

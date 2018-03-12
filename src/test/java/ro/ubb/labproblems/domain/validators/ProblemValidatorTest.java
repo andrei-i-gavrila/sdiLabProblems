@@ -3,7 +3,8 @@ package ro.ubb.labproblems.domain.validators;
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Problem;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class ProblemValidatorTest {
 
@@ -25,6 +26,7 @@ public class ProblemValidatorTest {
         Problem invalidTitleProblem = new Problem("", "asd");
         try {
             validator.validate(invalidTitleProblem);
+            fail();
         } catch (ValidatorException e) {
             assertEquals("The title can't be empty", e.getMessage());
             assertEquals(invalidTitleProblem, e.getInvalidObject());
@@ -36,6 +38,7 @@ public class ProblemValidatorTest {
         Problem invalidDescriptionProblem = new Problem("asd", "");
         try {
             validator.validate(invalidDescriptionProblem);
+            fail();
         } catch (ValidatorException e) {
             assertEquals("The description can't be empty", e.getMessage());
             assertEquals(invalidDescriptionProblem, e.getInvalidObject());
