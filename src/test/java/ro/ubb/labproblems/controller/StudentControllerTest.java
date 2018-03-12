@@ -60,4 +60,10 @@ public class StudentControllerTest {
         studentController.add(NAME, FAKE_REG_NUMBER, GROUP);
         assertEquals(student + "\n" + student2, studentController.showAll());
     }
+
+    @Test
+    public void testValidationHappens() {
+        assertEquals("Students must have a name", studentController.add("", REG_NUMBER, GROUP));
+        assertEquals("Students must have a name", studentController.update("", REG_NUMBER, GROUP));
+    }
 }

@@ -58,4 +58,10 @@ public class ProblemControllerTest {
         problemController.add(TITLE2, DESCRIPTION2);
         assertEquals(problem + "\n" + problem2, problemController.showAll());
     }
+
+    @Test
+    public void testValidationHappens() {
+        assertEquals("The title can't be empty", problemController.add("", DESCRIPTION1));
+        assertEquals("The title can't be empty", problemController.update("", DESCRIPTION1));
+    }
 }
