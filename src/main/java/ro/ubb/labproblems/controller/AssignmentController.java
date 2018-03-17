@@ -3,6 +3,9 @@ package ro.ubb.labproblems.controller;
 import ro.ubb.labproblems.domain.entities.Assignment;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
 import ro.ubb.labproblems.repository.Repository;
+import ro.ubb.labproblems.utils.IteratorUtils;
+
+import java.util.stream.Collectors;
 
 public class AssignmentController {
 
@@ -40,5 +43,12 @@ public class AssignmentController {
         return assignmentRepository.delete(new Assignment(problemTitle, studentRegistrationNumber).getIdentifier())
                 .map(assignment -> "Unassigned successfully")
                 .orElse("No assignment was present");
+    }
+
+    public String showAll() {
+        return IteratorUtils
+                .stream(assignmentRepository.findAll())
+                .map(Object::toString)
+                .collect(Collectors.joining("\n"));
     }
 }
