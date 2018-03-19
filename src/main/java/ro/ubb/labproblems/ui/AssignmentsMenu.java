@@ -6,7 +6,9 @@ import ro.ubb.labproblems.controller.StudentController;
 
 import java.util.Scanner;
 
+
 public class AssignmentsMenu extends CommandMenu {
+
     private final AssignmentController assignmentController;
     private final StudentController studentController;
     private final ProblemController problemController;
@@ -29,6 +31,8 @@ public class AssignmentsMenu extends CommandMenu {
         registerCommand("grade", "Grade an assignment", this::gradeCommand);
         registerCommand("unassign", "Unassign a problem from a student", this::unassignCommand);
         registerCommand("show", "Shows all assignments", this::showAllCommand);
+        registerCommand("all", "All problems assigned to a student", this::allProblems);
+        registerCommand("most", "Most times assigned problem", this::mostAssignedProblem);
         super.registerCommands();
     }
 
@@ -68,5 +72,18 @@ public class AssignmentsMenu extends CommandMenu {
         String problemTitle = readProblemTitle();
 
         System.out.println(assignmentController.assign(problemTitle, studentRegistrationNumber));
+    }
+
+    public void allProblems() {
+        System.out.print("Student id: ");
+        Integer registrationNumber = scanner.nextInt();
+
+        System.out.println(assignmentController.filterByStudent(registrationNumber).toString());
+    }
+
+    public void mostAssignedProblem() {
+        System.out.print("The most times assigned problem is ");
+        System.out.println(assignmentController.mostAssignedProblem());
+
     }
 }
