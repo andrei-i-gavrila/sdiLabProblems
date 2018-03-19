@@ -16,8 +16,8 @@ public class StudentValidatorTest {
     @Test
     public void validateCorrect() {
         try {
-            validator.validate(new Student(1234, "andrei", 923));
-            validator.validate(new Student(2020, "d", 933));
+            validator.validate(new Student("1234", "andrei", 923));
+            validator.validate(new Student("2020", "d", 933));
         } catch (ValidatorException e) {
             e.printStackTrace();
             fail();
@@ -26,7 +26,7 @@ public class StudentValidatorTest {
 
     @Test
     public void validateRegistrationNumber() {
-        Student invalidRegistrationNumberStudent = new Student(123, "asd", 123);
+        Student invalidRegistrationNumberStudent = new Student("123", "asd", 123);
         try {
             validator.validate(invalidRegistrationNumberStudent);
             fail();
@@ -38,7 +38,7 @@ public class StudentValidatorTest {
 
     @Test
     public void validateNameNotEmpty() {
-        Student invalidNameStudent = new Student(1234, "", 123);
+        Student invalidNameStudent = new Student("1234", "", 123);
         try {
             validator.validate(invalidNameStudent);
             fail();
@@ -50,7 +50,7 @@ public class StudentValidatorTest {
 
     @Test
     public void validateGroupNotCorrect() {
-        Student invalidGroupStudent = new Student(1234, "asd", 950);
+        Student invalidGroupStudent = new Student("1234", "asd", 950);
         try {
             validator.validate(invalidGroupStudent);
             fail();

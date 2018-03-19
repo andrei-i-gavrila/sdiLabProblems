@@ -9,8 +9,8 @@ import static org.junit.Assert.assertEquals;
  * Class to test every function and constructor of {@link Student student} entity
  */
 public class StudentTest {
-    private static final Integer registrationNumber = 1;
-    private static final Integer newRegistrationNumber = 5;
+    private static final String registrationNumber = "1";
+    private static final String newRegistrationNumber = "5";
     private static final String name = "Initial student";
     private static final String newName = "New student";
     private static final Integer groupNumber = 921;
@@ -57,6 +57,6 @@ public class StudentTest {
 
     @Test
     public void testToString() {
-        assertEquals(name + " " + registrationNumber.toString() + " " + groupNumber.toString(), student.toString());
+        assertEquals(name + " " + registrationNumber + " " + groupNumber.toString(), student.toString());
     }
 }

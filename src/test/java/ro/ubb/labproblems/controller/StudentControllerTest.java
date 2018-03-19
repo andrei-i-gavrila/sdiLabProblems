@@ -16,12 +16,12 @@ import static org.junit.Assert.*;
 public class StudentControllerTest {
 
     private static final String NAME = "student1";
-    private static final int REG_NUMBER = 1234;
-    private static final int FAKE_REG_NUMBER = 9494;
+    private static final String REG_NUMBER = "1234";
+    private static final String FAKE_REG_NUMBER = "9494";
     private static final int GROUP = 925;
 
     private Student student = new Student(REG_NUMBER, NAME, GROUP);
-    private Repository<Integer, Student> studentRepository = new InMemoryRepository<>(new StudentValidator());
+    private Repository<String, Student> studentRepository = new InMemoryRepository<>(new StudentValidator());
     private StudentController studentController = new StudentController(studentRepository);
 
     @Test

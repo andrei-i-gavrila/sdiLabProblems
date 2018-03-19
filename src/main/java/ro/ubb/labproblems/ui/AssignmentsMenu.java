@@ -37,7 +37,7 @@ public class AssignmentsMenu extends CommandMenu {
     }
 
     private void unassignCommand() {
-        Integer studentRegistrationNumber = readRegistrationNumber();
+        String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
         System.out.println(assignmentController.unnassign(problemTitle, studentRegistrationNumber));
@@ -48,13 +48,13 @@ public class AssignmentsMenu extends CommandMenu {
         return scanner.nextLine();
     }
 
-    private Integer readRegistrationNumber() {
+    private String readRegistrationNumber() {
         System.out.print("Student registration number: ");
-        return scanner.nextInt();
+        return scanner.nextLine();
     }
 
     private void gradeCommand() {
-        Integer studentRegistrationNumber = readRegistrationNumber();
+        String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
         System.out.print("Grade: ");
@@ -64,7 +64,7 @@ public class AssignmentsMenu extends CommandMenu {
     }
 
     private void assignCommand() {
-        Integer studentRegistrationNumber = readRegistrationNumber();
+        String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
         System.out.println(assignmentController.assign(problemTitle, studentRegistrationNumber));

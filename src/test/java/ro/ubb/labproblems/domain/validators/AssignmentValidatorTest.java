@@ -13,7 +13,7 @@ import static org.junit.Assert.fail;
 
 public class AssignmentValidatorTest {
 
-    private Repository<Integer, Student> studentRepository;
+    private Repository<String, Student> studentRepository;
     private Repository<String, Problem> problemRepository;
     private AssignmentValidator assignmentValidator;
 
@@ -27,11 +27,11 @@ public class AssignmentValidatorTest {
 
     @Test
     public void validatesCorrectEntity() throws ValidatorException {
-        studentRepository.save(new Student(1234, "Andrei", 926));
+        studentRepository.save(new Student("1234", "Andrei", 926));
         problemRepository.save(new Problem("knapsack", "dp problem"));
 
         try {
-            assignmentValidator.validate(new Assignment("knapsack", 1234));
+            assignmentValidator.validate(new Assignment("knapsack", "1234"));
         } catch (ValidatorException e) {
             fail("It should not fail");
         }
@@ -42,7 +42,7 @@ public class AssignmentValidatorTest {
         problemRepository.save(new Problem("asd", "asddd"));
 
         try {
-            assignmentValidator.validate(new Assignment("asd", 1234));
+            assignmentValidator.validate(new Assignment("asd", "1234"));
             fail();
         } catch (ValidatorException e) {
             assertEquals("Registration number does not exist", e.getMessage());
@@ -51,10 +51,10 @@ public class AssignmentValidatorTest {
 
     @Test
     public void failsNoProblem() throws ValidatorException {
-        studentRepository.save(new Student(1234, "asd", 927));
+        studentRepository.save(new Student("1234", "asd", 927));
 
         try {
-            assignmentValidator.validate(new Assignment("ddsd", 1234));
+            assignmentValidator.validate(new Assignment("ddsd", "1234"));
             fail();
         } catch (ValidatorException e) {
             assertEquals("Problem title does not exist", e.getMessage());
@@ -63,11 +63,11 @@ public class AssignmentValidatorTest {
 
     @Test
     public void failsNegativeGrade() throws ValidatorException {
-        studentRepository.save(new Student(1234, "Andrei", 926));
+        studentRepository.save(new Student("1234", "Andrei", 926));
         problemRepository.save(new Problem("knapsack", "dp problem"));
 
         try {
-            Assignment assignment = new Assignment("knapsack", 1234);
+            Assignment assignment = new Assignment("knapsack", "1234");
             assignment.setGrade(-1.0);
             assignmentValidator.validate(assignment);
             fail();

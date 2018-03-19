@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 
 public class AssignmentController {
 
-    private final Repository<Integer, Assignment> assignmentRepository;
+    private final Repository<String, Assignment> assignmentRepository;
 
 
-    public AssignmentController(Repository<Integer, Assignment> assignmentRepository) {
+    public AssignmentController(Repository<String, Assignment> assignmentRepository) {
         this.assignmentRepository = assignmentRepository;
     }
 
 
-    public String assign(String problemTitle, Integer studentRegistrationNumber) {
+    public String assign(String problemTitle, String studentRegistrationNumber) {
         try {
             return assignmentRepository.save(new Assignment(problemTitle, studentRegistrationNumber))
                     .map(student -> "Problem was already assigned to student")
@@ -27,7 +27,7 @@ public class AssignmentController {
         }
     }
 
-    public String grade(String problemTitle, Integer studentRegistrationNumber, Double grade) {
+    public String grade(String problemTitle, String studentRegistrationNumber, Double grade) {
         Assignment assignment = new Assignment(problemTitle, studentRegistrationNumber);
         assignment.setGrade(grade);
         try {
@@ -39,7 +39,7 @@ public class AssignmentController {
         }
     }
 
-    public String unnassign(String problemTitle, Integer studentRegistrationNumber) {
+    public String unnassign(String problemTitle, String studentRegistrationNumber) {
         return assignmentRepository.delete(new Assignment(problemTitle, studentRegistrationNumber).getIdentifier())
                 .map(assignment -> "Unassigned successfully")
                 .orElse("No assignment was present");

@@ -15,12 +15,12 @@ import static org.junit.Assert.assertEquals;
 
 public class AssignmentControllerTest {
 
-    public static final int REGISTRATION_NUMBER = 1234;
+    public static final String REGISTRATION_NUMBER = "1234";
     public static final String PROBLEM_TITLE = "problem";
 
-    private Repository<Integer, Student> studentRepository;
+    private Repository<String, Student> studentRepository;
     private Repository<String, Problem> problemRepository;
-    private Repository<Integer, Assignment> assignmentRepository;
+    private Repository<String, Assignment> assignmentRepository;
     private AssignmentController assignmentController;
 
     @Before

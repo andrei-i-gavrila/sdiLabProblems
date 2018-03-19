@@ -50,7 +50,7 @@ public class StudentsMenu extends CommandMenu {
         String name = scanner.nextLine();
 
         System.out.print("Registration number: ");
-        Integer registrationNumber = scanner.nextInt();
+        String registrationNumber = scanner.nextLine();
 
         System.out.print("Group number: ");
         Integer groupNumber = scanner.nextInt();
@@ -63,7 +63,7 @@ public class StudentsMenu extends CommandMenu {
      */
     private void removeCommand() {
         System.out.print("Registration number: ");
-        Integer registrationNumber = scanner.nextInt();
+        String registrationNumber = scanner.nextLine();
 
         System.out.println(studentController.remove(registrationNumber));
 
@@ -77,7 +77,7 @@ public class StudentsMenu extends CommandMenu {
         String name = scanner.nextLine();
 
         System.out.print("Registration number: ");
-        Integer registrationNumber = scanner.nextInt();
+        String registrationNumber = scanner.nextLine();
 
         System.out.print("Group number: ");
         Integer groupNumber = scanner.nextInt();

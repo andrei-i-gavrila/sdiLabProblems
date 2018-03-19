@@ -16,14 +16,14 @@ public class StudentController {
     /**
      * Storage for the students
      */
-    private final Repository<Integer, Student> studentRepository;
+    private final Repository<String, Student> studentRepository;
 
     /**
      * Constructs the controller
      *
      * @param studentRepository {@link Repository} to use for storage
      */
-    public StudentController(Repository<Integer, Student> studentRepository) {
+    public StudentController(Repository<String, Student> studentRepository) {
         this.studentRepository = studentRepository;
     }
 
@@ -35,7 +35,7 @@ public class StudentController {
      * @param groupNumber        The group number of the student
      * @return The string containing the success message, or the reason it failed
      */
-    public String add(String name, Integer registrationNumber, Integer groupNumber) {
+    public String add(String name, String registrationNumber, Integer groupNumber) {
         try {
             return studentRepository.save(new Student(registrationNumber, name, groupNumber))
                     .map(student -> "A student with such registration number already exists")
@@ -51,7 +51,7 @@ public class StudentController {
      * @param registrationNumber The registration number of the {@link Student student} to be removed
      * @return The string containing the success message, or the reason it failed
      */
-    public String remove(Integer registrationNumber) {
+    public String remove(String registrationNumber) {
         return studentRepository.delete(registrationNumber)
                 .map(student -> "Student removed successfully")
                 .orElse("No student with such registration ID was found");
@@ -65,7 +65,7 @@ public class StudentController {
      * @param groupNumber The current/new group number
      * @return The string containing the success message, or the reason it failed
      */
-    public String update(String name, Integer registrationNumber, Integer groupNumber) {
+    public String update(String name, String registrationNumber, Integer groupNumber) {
         try {
             return studentRepository.update(new Student(registrationNumber, name, groupNumber))
                     .map(student -> "No student was found with the given registration number")

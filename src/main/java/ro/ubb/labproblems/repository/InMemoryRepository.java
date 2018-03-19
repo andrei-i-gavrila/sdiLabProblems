@@ -21,7 +21,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
     /**
      * Storage for the elements
      */
-    protected final Map<ID, T> elements;
+    protected Map<ID, T> elements;
     /**
      * Validator of type T
      */

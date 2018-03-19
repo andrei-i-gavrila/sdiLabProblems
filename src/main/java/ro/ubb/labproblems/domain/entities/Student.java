@@ -3,9 +3,9 @@ package ro.ubb.labproblems.domain.entities;
 /**
  * Implements the student entity as a BaseEntity
  */
-public class Student implements BaseEntity<Integer> {
+public class Student implements BaseEntity<String> {
 
-    private Integer registrationNumber;
+    private String registrationNumber;
     private String name;
     private Integer groupNumber;
 
@@ -16,17 +16,17 @@ public class Student implements BaseEntity<Integer> {
      * @param name               The student's name
      * @param groupNumber        The student's group number
      */
-    public Student(Integer registrationNumber, String name, Integer groupNumber) {
+    public Student(String registrationNumber, String name, Integer groupNumber) {
         this.registrationNumber = registrationNumber;
         this.name = name;
         this.groupNumber = groupNumber;
     }
 
-    public Integer getRegistrationNumber() {
+    public String getRegistrationNumber() {
         return registrationNumber;
     }
 
-    public void setRegistrationNumber(Integer registrationNumber) {
+    public void setRegistrationNumber(String registrationNumber) {
         this.registrationNumber = registrationNumber;
     }
 
@@ -47,12 +47,12 @@ public class Student implements BaseEntity<Integer> {
     }
 
     @Override
-    public Integer getIdentifier() {
+    public String getIdentifier() {
         return registrationNumber;
     }
 
     @Override
     public String toString() {
-        return name + " " + registrationNumber.toString() + " " + groupNumber.toString();
+        return name + " " + registrationNumber + " " + groupNumber.toString();
     }
 }

@@ -2,19 +2,19 @@ package ro.ubb.labproblems.domain.entities;
 
 import java.util.Objects;
 
-public class Assignment implements BaseEntity<Integer> {
+public class Assignment implements BaseEntity<String> {
 
     private final String problemTitle;
-    private final Integer studentRegistrationNumber;
+    private final String studentRegistrationNumber;
     private Double grade;
 
-    public Assignment(String problemTitle, Integer studentRegistrationNumber) {
+    public Assignment(String problemTitle, String studentRegistrationNumber) {
         this.problemTitle = problemTitle;
         this.studentRegistrationNumber = studentRegistrationNumber;
         this.grade = null;
     }
 
-    public Integer getStudentRegistrationNumber() {
+    public String getStudentRegistrationNumber() {
         return studentRegistrationNumber;
     }
 
@@ -31,13 +31,13 @@ public class Assignment implements BaseEntity<Integer> {
     }
 
     @Override
-    public Integer getIdentifier() {
-        return Objects.hash(studentRegistrationNumber, problemTitle);
+    public String getIdentifier() {
+        return studentRegistrationNumber + "#" + problemTitle;
     }
 
     @Override
     public String toString() {
-        return studentRegistrationNumber.toString() + " --- " + problemTitle + " --- " +
+        return studentRegistrationNumber + " --- " + problemTitle + " --- " +
                 (grade == null ? "Not graded" : grade.toString());
     }
 }
