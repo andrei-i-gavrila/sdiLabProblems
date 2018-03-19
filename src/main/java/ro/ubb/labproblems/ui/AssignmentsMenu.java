@@ -1,72 +1,72 @@
 package ro.ubb.labproblems.ui;
 
 import ro.ubb.labproblems.controller.AssignmentController;
-import ro.ubb.labproblems.controller.ProblemController;
-import ro.ubb.labproblems.controller.StudentController;
 
 import java.util.Scanner;
 
+
 public class AssignmentsMenu extends CommandMenu {
+
     private final AssignmentController assignmentController;
-    private final StudentController studentController;
-    private final ProblemController problemController;
 
-    public AssignmentsMenu(AssignmentController assignmentController, StudentController studentController, ProblemController problemController, Scanner scanner) {
-        super("Assign problems", scanner);
-
+    public AssignmentsMenu(AssignmentController assignmentController, Scanner scanner) {
+        super("Problems operations", scanner);
         this.assignmentController = assignmentController;
-        this.studentController = studentController;
-        this.problemController = problemController;
-
         registerCommands();
     }
-
 
     @Override
     protected void registerCommands() {
 
-        registerCommand("assign", "Assign a problem to a student", this::assignCommand);
-        registerCommand("grade", "Grade an assignment", this::gradeCommand);
-        registerCommand("unassign", "Unassign a problem from a student", this::unassignCommand);
-        registerCommand("show", "Shows all assignments", this::showAllCommand);
+        registerCommand("assign", "Assign a problem to a student", this::assign);
+        registerCommand("grade", "Assign a grade", this::grade);
+        registerCommand("unassign", "Unassign a problem from a student", this::unassign);
+        registerCommand("all", "All problems assigned to a student", this::allProblems);
+        registerCommand("most", "Most times assigned problem", this::mostAssignedProblem);
         super.registerCommands();
     }
 
-    private void showAllCommand() {
-        System.out.println(assignmentController.showAll());
-    }
-
-    private void unassignCommand() {
-        Integer studentRegistrationNumber = readRegistrationNumber();
-        String problemTitle = readProblemTitle();
-
-        System.out.println(assignmentController.unnassign(problemTitle, studentRegistrationNumber));
-    }
-
-    private String readProblemTitle() {
+    public void assign() {
         System.out.print("Problem title: ");
-        return scanner.nextLine();
+        String title = scanner.nextLine();
+        System.out.print("Student id: ");
+        Integer registrationNumber = scanner.nextInt();
+
+        System.out.println(assignmentController.assign(title, registrationNumber));
     }
 
-    private Integer readRegistrationNumber() {
-        System.out.print("Student registration number: ");
-        return scanner.nextInt();
-    }
+    public void grade() {
+        System.out.print("Problem title: ");
+        String title = scanner.nextLine();
 
-    private void gradeCommand() {
-        Integer studentRegistrationNumber = readRegistrationNumber();
-        String problemTitle = readProblemTitle();
+        System.out.print("Student id: ");
+        Integer registrationNumber = scanner.nextInt();
 
         System.out.print("Grade: ");
         Double grade = scanner.nextDouble();
 
-        System.out.println(assignmentController.grade(problemTitle, studentRegistrationNumber, grade));
+        System.out.println(assignmentController.grade(title, registrationNumber, grade));
     }
 
-    private void assignCommand() {
-        Integer studentRegistrationNumber = readRegistrationNumber();
-        String problemTitle = readProblemTitle();
+    public void unassign() {
+        System.out.print("Problem title: ");
+        String title = scanner.nextLine();
+        System.out.print("Student id: ");
+        Integer registrationNumber = scanner.nextInt();
 
-        System.out.println(assignmentController.assign(problemTitle, studentRegistrationNumber));
+        System.out.println(assignmentController.unassign(title, registrationNumber));
+    }
+
+    public void allProblems() {
+        System.out.print("Student id: ");
+        Integer registrationNumber = scanner.nextInt();
+
+        System.out.println(assignmentController.filterByStudent(registrationNumber).toString());
+    }
+
+    public void mostAssignedProblem() {
+        System.out.print("The most times assigned problem is ");
+        System.out.println(assignmentController.mostAssignedProblem());
+
     }
 }
