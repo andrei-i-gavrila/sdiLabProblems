@@ -44,7 +44,7 @@ public class AssignmentsMenu extends CommandMenu {
         String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
-        System.out.println(assignmentController.unnassign(problemTitle, studentRegistrationNumber));
+        System.out.println(assignmentController.unassign(problemTitle, studentRegistrationNumber));
     }
 
     private String readProblemTitle() {
@@ -74,14 +74,13 @@ public class AssignmentsMenu extends CommandMenu {
         System.out.println(assignmentController.assign(problemTitle, studentRegistrationNumber));
     }
 
-    public void allProblems() {
-        System.out.print("Student id: ");
-        Integer registrationNumber = scanner.nextInt();
+    private void allProblems() {
+        String registrationNumber = readRegistrationNumber();
 
         System.out.println(assignmentController.filterByStudent(registrationNumber).toString());
     }
 
-    public void mostAssignedProblem() {
+    private void mostAssignedProblem() {
         System.out.print("The most times assigned problem is ");
         System.out.println(assignmentController.mostAssignedProblem());
 

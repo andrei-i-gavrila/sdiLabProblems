@@ -23,7 +23,7 @@ public class StudentValidator implements Validator<Student> {
             throw new ValidatorException("Second digit of group can only be <= 3", entity);
         }
 
-        if (entity.getRegistrationNumber().toString().length() != 4) {
+        if (entity.getRegistrationNumber().length() != 4) {
             throw new ValidatorException("Registration number has to be 4 digits", entity);
         }
 

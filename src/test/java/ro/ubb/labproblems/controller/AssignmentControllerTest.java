@@ -49,8 +49,8 @@ public class AssignmentControllerTest {
 
     @Test
     public void unnassign() {
-        assertEquals("No assignment was present", assignmentController.unnassign(PROBLEM_TITLE, REGISTRATION_NUMBER));
+        assertEquals("No assignment was present", assignmentController.unassign(PROBLEM_TITLE, REGISTRATION_NUMBER));
         assignmentController.assign(PROBLEM_TITLE, REGISTRATION_NUMBER);
-        assertEquals("Unassigned successfully", assignmentController.unnassign(PROBLEM_TITLE, REGISTRATION_NUMBER));
+        assertEquals("Unassigned successfully", assignmentController.unassign(PROBLEM_TITLE, REGISTRATION_NUMBER));
     }
 }
