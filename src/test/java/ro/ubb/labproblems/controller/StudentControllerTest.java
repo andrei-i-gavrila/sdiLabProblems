@@ -65,4 +65,9 @@ public class StudentControllerTest {
         assertEquals("Students must have a name", studentController.add("", REG_NUMBER, GROUP));
         assertEquals("Students must have a name", studentController.update("", REG_NUMBER, GROUP));
     }
+
+    @Test
+    public void testFilterByGroup() {
+        
+    }
 }

@@ -5,6 +5,7 @@ import ro.ubb.labproblems.domain.validators.ValidatorException;
 import ro.ubb.labproblems.repository.Repository;
 import ro.ubb.labproblems.utils.IteratorUtils;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -83,5 +84,21 @@ public class StudentController {
                 .stream(studentRepository.findAll())
                 .map(Object::toString)
                 .collect(Collectors.joining("\n"));
+    }
+
+    /**
+     * @return All students as a list
+     */
+    public List<Student> getAllStudents() {
+        return IteratorUtils.toList(studentRepository.findAll());
+    }
+
+    /**
+     * All students of a given group as a list
+     * @param groupNumber The group's number
+     * @return List of students
+     */
+    public List<Student> filterByGroup(Integer groupNumber) {
+        return getAllStudents().stream().filter(student -> (student.getGroupNumber().equals(groupNumber))).collect(Collectors.toList());
     }
 }

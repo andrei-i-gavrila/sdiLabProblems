@@ -32,6 +32,7 @@ public class StudentsMenu extends CommandMenu {
         registerCommand("all", "Shows all students", this::showAllCommand);
         registerCommand("remove", "Remove a student", this::removeCommand);
         registerCommand("update", "Update a student", this::updateCommand);
+        registerCommand("group","All students of a group", this::groupFilter);
         super.registerCommands();
     }
 
@@ -83,5 +84,12 @@ public class StudentsMenu extends CommandMenu {
         Integer groupNumber = scanner.nextInt();
 
         System.out.println(studentController.update(name, registrationNumber, groupNumber));
+    }
+
+    private void groupFilter() {
+        System.out.print("Group number: ");
+        Integer groupNumber = scanner.nextInt();
+
+        System.out.println(studentController.filterByGroup(groupNumber));
     }
 }

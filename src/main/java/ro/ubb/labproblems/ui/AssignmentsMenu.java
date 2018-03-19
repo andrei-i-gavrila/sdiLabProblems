@@ -32,6 +32,7 @@ public class AssignmentsMenu extends CommandMenu {
         registerCommand("unassign", "Unassign a problem from a student", this::unassignCommand);
         registerCommand("show", "Shows all assignments", this::showAllCommand);
         registerCommand("all", "All problems assigned to a student", this::allProblems);
+        registerCommand("best","List of ids of students solving a problem for a grade greater than 8",this::bestStudents);
         registerCommand("most", "Most times assigned problem", this::mostAssignedProblem);
         super.registerCommands();
     }
@@ -78,6 +79,12 @@ public class AssignmentsMenu extends CommandMenu {
         String registrationNumber = readRegistrationNumber();
 
         System.out.println(assignmentController.filterByStudent(registrationNumber).toString());
+    }
+
+    private void bestStudents() {
+        String problemTitle = readProblemTitle();
+
+        System.out.println(assignmentController.filterByGrade(problemTitle));
     }
 
     private void mostAssignedProblem() {
