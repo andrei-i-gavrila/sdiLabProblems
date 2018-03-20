@@ -6,10 +6,14 @@ package ro.ubb.labproblems.domain.entities;
  *
  * @param <ID> The type of the class unique identifier
  */
-public interface BaseEntity<ID> {
+public abstract class BaseEntity<ID> {
+
+    public BaseEntity() {
+
+    }
 
     /**
      * @return a value that uniquely identifies this entity
      */
-    ID getIdentifier();
+    public abstract ID getIdentifier();
 }

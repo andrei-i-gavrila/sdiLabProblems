@@ -1,29 +1,12 @@
 package ro.ubb.labproblems.ui;
 
-import ro.ubb.labproblems.controller.StudentController;
-
-import java.util.Scanner;
-
 /**
  * Extending {@link CommandMenu CommandMenu}, the StudentsMenu defines the 4 keywords in the map(add, all, remove, update), and then works with the repository's student-type entities
  */
 public class StudentsMenu extends CommandMenu {
 
-    /**
-     * {@link StudentController StudentController} to support the StudentMenu
-     */
-    private final StudentController studentController;
-
-    /**
-     * Constructor of StudentsMenu
-     *
-     * @param studentController {@link StudentController StudentController}-type object
-     * @param scanner           {@link Scanner Scanner}
-     */
-    public StudentsMenu(StudentController studentController, Scanner scanner) {
-        super("Students operations", scanner);
-        this.studentController = studentController;
-        registerCommands();
+    public StudentsMenu(CommandMenu parentMenu) {
+        super("Students operations", parentMenu);
     }
 
     @Override
@@ -32,7 +15,9 @@ public class StudentsMenu extends CommandMenu {
         registerCommand("all", "Shows all students", this::showAllCommand);
         registerCommand("remove", "Remove a student", this::removeCommand);
         registerCommand("update", "Update a student", this::updateCommand);
-        registerCommand("group","All students of a group", this::groupFilter);
+        registerCommand("group", "All students of a group", this::groupFilter);
+        registerCommand("best", "The student having the best average grade", this::bestStudent);
+        registerCommand("assignedProblems", "All problems assigned to a student", this::assignedProblems);
         super.registerCommands();
     }
 
@@ -91,5 +76,15 @@ public class StudentsMenu extends CommandMenu {
         Integer groupNumber = scanner.nextInt();
 
         System.out.println(studentController.filterByGroup(groupNumber));
+    }
+
+    private void bestStudent() {
+        System.out.println(studentController.bestStudent());
+    }
+
+    private void assignedProblems() {
+        String registrationNumber = readRegistrationNumber();
+
+        System.out.println(assignmentController.filterByStudent(registrationNumber));
     }
 }

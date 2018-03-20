@@ -20,7 +20,7 @@ public class ProblemControllerTest {
     private static final String DESCRIPTION2 = "DESCRIPTION1";
     private Problem problem = new Problem(TITLE1, DESCRIPTION1);
     private Repository<String, Problem> problemRepository = new InMemoryRepository<>(new ProblemValidator());
-    private ProblemController problemController = new ProblemController(problemRepository);
+    private ProblemController problemController = new ProblemController(problemRepository, assignmentRepository);
 
     @Test
     public void testAdd() {

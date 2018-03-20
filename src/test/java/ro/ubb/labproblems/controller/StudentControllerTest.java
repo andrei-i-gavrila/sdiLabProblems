@@ -22,7 +22,7 @@ public class StudentControllerTest {
 
     private Student student = new Student(REG_NUMBER, NAME, GROUP);
     private Repository<String, Student> studentRepository = new InMemoryRepository<>(new StudentValidator());
-    private StudentController studentController = new StudentController(studentRepository);
+    private StudentController studentController = new StudentController(studentRepository, assignmentRepository);
 
     @Test
     public void testAdd() {
@@ -68,6 +68,9 @@ public class StudentControllerTest {
 
     @Test
     public void testFilterByGroup() {
-        
+        studentController.add(NAME, REG_NUMBER, GROUP);
+        assertEquals("student1 1234 925", studentController.filterByGroup(GROUP));
+        studentController.add("student2", "2345", 925);
+        assertEquals("student1 1234 925, student2 2345 925", studentController.filterByGroup(925));
     }
 }

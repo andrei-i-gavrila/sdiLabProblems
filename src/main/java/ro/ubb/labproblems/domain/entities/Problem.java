@@ -1,9 +1,11 @@
 package ro.ubb.labproblems.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Implements the problem entity as a BaseEntity
  */
-public class Problem implements BaseEntity<String> {
+public class Problem extends BaseEntity<String> {
 
     /**
      * The problem's title
@@ -13,6 +15,10 @@ public class Problem implements BaseEntity<String> {
      * The problem's whole description
      */
     private String description;
+
+
+    public Problem() {
+    }
 
     /**
      * Constructor for the problem entity
@@ -41,6 +47,7 @@ public class Problem implements BaseEntity<String> {
         this.description = description;
     }
 
+    @JsonIgnore
     @Override
     public String getIdentifier() {
         return title;

@@ -8,10 +8,6 @@ import java.util.Scanner;
  * Extending {@link CommandMenu CommandMenu}, the ProblemsMenu defines the 4 keywords in the map(add, all, remove, update), and then works with the repository's problem-type entities
  */
 public class ProblemsMenu extends CommandMenu {
-    /**
-     * {@link ProblemController Problemcontroller} to support the ProblemsMenu
-     */
-    private final ProblemController problemController;
 
     /**
      * Constructor for ProblemsMenu
@@ -19,10 +15,8 @@ public class ProblemsMenu extends CommandMenu {
      * @param problemController {@link ProblemController ProblemController}-type object
      * @param scanner           {@link Scanner Scanner}
      */
-    public ProblemsMenu(ProblemController problemController, Scanner scanner) {
-        super("Problems operations", scanner);
-        this.problemController = problemController;
-        registerCommands();
+    public ProblemsMenu(CommandMenu parentMenu) {
+        super("Problems operations", parentMenu);
     }
 
     @Override
@@ -32,6 +26,8 @@ public class ProblemsMenu extends CommandMenu {
         registerCommand("all", "Shows all problems", this::showAllCommand);
         registerCommand("remove", "Remove a problem", this::removeCommand);
         registerCommand("update", "Update a problem", this::updateCommand);
+        registerCommand("mostAssigned", "Most assigned problem", this::mostAssignedProblem);
+
         super.registerCommands();
     }
 
@@ -73,9 +69,14 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("Title: ");
         String title = scanner.nextLine();
 
-        System.out.print("Description: ");
+        System.out.print("New description: ");
         String description = scanner.nextLine();
 
         System.out.println(problemController.update(title, description));
+    }
+
+    private void mostAssignedProblem() {
+        System.out.print("The most times assigned problem is ");
+        System.out.println(problemController.mostAssignedProblem());
     }
 }

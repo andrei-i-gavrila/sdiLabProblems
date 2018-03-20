@@ -1,13 +1,19 @@
 package ro.ubb.labproblems.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Implements the student entity as a BaseEntity
  */
-public class Student implements BaseEntity<String> {
+public class Student extends BaseEntity<String> {
 
     private String registrationNumber;
     private String name;
     private Integer groupNumber;
+
+
+    public Student() {
+    }
 
     /**
      * Constructor for a student entity
@@ -46,6 +52,7 @@ public class Student implements BaseEntity<String> {
         this.groupNumber = groupNumber;
     }
 
+    @JsonIgnore
     @Override
     public String getIdentifier() {
         return registrationNumber;

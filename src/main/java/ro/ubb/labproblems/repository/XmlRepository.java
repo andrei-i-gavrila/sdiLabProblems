@@ -1,13 +1,17 @@
 package ro.ubb.labproblems.repository;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import ro.ubb.labproblems.LabProblemsApplication;
 import ro.ubb.labproblems.domain.entities.BaseEntity;
 import ro.ubb.labproblems.domain.validators.Validator;
+import ro.ubb.labproblems.utils.MapSerializer;
 
-public class XmlRepository<ID, T extends BaseEntity<ID>> extends AbstractFileRepository<ID, T> {
+import java.util.Map;
 
-    public XmlRepository(Validator<T> validator, String filename) {
-        super(validator, filename, new XmlMapper().configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, true));
+public class XmlRepository<T extends BaseEntity<String>> extends AbstractFileRepository<T> {
+
+    public XmlRepository(Validator<T> validator, Class<T> type) {
+        super(validator, LabProblemsApplication.class.getResource("/" + type.getSimpleName() + "Repository.xml").getPath(), new XmlMapper().registerModule(new SimpleModule().addSerializer(Map.class, new MapSerializer())), type);
     }
 }

@@ -1,27 +1,42 @@
 package ro.ubb.labproblems.ui;
 
+import ro.ubb.labproblems.controller.AssignmentController;
+import ro.ubb.labproblems.controller.ProblemController;
+import ro.ubb.labproblems.controller.StudentController;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Abstract class to manage the input. Sets up a map for commands, and then communicates with the user
  */
 public abstract class CommandMenu extends Command {
 
+    final AssignmentController assignmentController;
+    final StudentController studentController;
+    final ProblemController problemController;
     /**
      * Storage for commands
      */
-    protected Map<String, Command> subCommands = new LinkedHashMap<>();
+    Map<String, Command> subCommands = new LinkedHashMap<>();
 
     private boolean running = false;
 
-    public CommandMenu(String description, Scanner scanner) {
-        super(description, scanner, null);
+    public CommandMenu(String description, StudentController studentController, ProblemController problemController, AssignmentController assignmentController) {
+        super(description, null);
+        this.studentController = studentController;
+        this.problemController = problemController;
+        this.assignmentController = assignmentController;
+        registerCommands();
     }
 
-    public CommandMenu(String description) {
+    public CommandMenu(String description, CommandMenu parentMenu) {
         super(description, null);
+        this.studentController = parentMenu.studentController;
+        this.problemController = parentMenu.problemController;
+        this.assignmentController = parentMenu.assignmentController;
+
+        registerCommands();
     }
 
     private void printSubCommands() {
@@ -65,5 +80,15 @@ public abstract class CommandMenu extends Command {
 
     protected void registerCommands() {
         registerCommand("exit", "Exits the application or the current menu.", () -> running = false);
+    }
+
+    protected String readProblemTitle() {
+        System.out.print("Problem title: ");
+        return scanner.nextLine();
+    }
+
+    protected String readRegistrationNumber() {
+        System.out.print("Student registration number: ");
+        return scanner.nextLine();
     }
 }

@@ -1,11 +1,12 @@
 package ro.ubb.labproblems.controller;
 
 import ro.ubb.labproblems.domain.entities.Assignment;
+import ro.ubb.labproblems.domain.entities.Student;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
 import ro.ubb.labproblems.repository.Repository;
 import ro.ubb.labproblems.utils.IteratorUtils;
 
-import java.util.*;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -18,20 +19,24 @@ public class AssignmentController {
      * Storage for the assignments
      */
     private final Repository<String, Assignment> assignmentRepository;
+    private Repository<String, Student> studentRepository;
 
     /**
      * Constructor for the controller
      *
      * @param assignmentRepository {@link Repository} to use for storage
+     * @param studentRepository
      */
-    public AssignmentController(Repository<String, Assignment> assignmentRepository) {
+    public AssignmentController(Repository<String, Assignment> assignmentRepository, Repository<String, Student> studentRepository) {
         this.assignmentRepository = assignmentRepository;
+        this.studentRepository = studentRepository;
     }
 
 
     /**
      * Assigns a given problem to a given student
-     * @param problemTitle The title of the problem
+     *
+     * @param problemTitle              The title of the problem
      * @param studentRegistrationNumber The registration number of the student
      * @return A message telling the assignment was successful, or the reason why it wasn't
      */
@@ -47,9 +52,10 @@ public class AssignmentController {
 
     /**
      * Assigns a grade to a given assignment
-     * @param problemTitle The title of the problem
+     *
+     * @param problemTitle              The title of the problem
      * @param studentRegistrationNumber The registration number of the student
-     * @param grade The given grade
+     * @param grade                     The given grade
      * @return A message telling the assignment was successful, or the reason why it wasn't
      */
     public String grade(String problemTitle, String studentRegistrationNumber, Double grade) {
@@ -66,7 +72,8 @@ public class AssignmentController {
 
     /**
      * Unassigns a problem from a student
-     * @param problemTitle The title of the problem
+     *
+     * @param problemTitle              The title of the problem
      * @param studentRegistrationNumber The registration number of the student
      * @return A message telling the unassignment was successful, or the reason why it wasn't
      */
@@ -77,51 +84,31 @@ public class AssignmentController {
     }
 
     /**
-     * Returns all assignments as a list
-     * @return
-     */
-    public List<Assignment> getAllAssignments() {
-        return IteratorUtils.toList(assignmentRepository.findAll());
-    }
-
-    /**
-     * Finds the problem that was assigned most times
-     * @return The title of the most assigned problem
-     */
-    public String mostAssignedProblem() {
-        List<Assignment> assignments = getAllAssignments();
-        Map<String, Integer> freqs = new HashMap<>();
-        for (Assignment a : assignments) {
-            freqs.merge(a.getProblemTitle(),
-                    1,
-                    Integer::sum);
-        }
-        Integer count = freqs.values().stream().max(Comparator.comparingInt(x -> (int) x)).get();
-        return freqs.entrySet().stream().filter(x -> x.getValue().equals(count)).findFirst().get().getKey();
-    }
-
-    /**
      * Returns those assignments that are assigned to a given student
+     *
      * @param registrationNumber The registration number of the student
      * @return A list of filtered assignments
      */
-    public List<Assignment> filterByStudent(String registrationNumber) {
-        return getAllAssignments()
-                .stream()
-                .filter(assignment -> (assignment.getStudentRegistrationNumber().equals(registrationNumber)))
-                .collect(Collectors.toList());
+    public String filterByStudent(String registrationNumber) {
+        return IteratorUtils.stream(assignmentRepository.findAll())
+                .filter(assignment -> assignment.getStudentRegistrationNumber().equals(registrationNumber))
+                .map(Object::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     /**
-     * Returns those assignments that contain a given problem, and the grade given for it is greater or equal to 8
+     * Returns those assignments that contain a given problem, and the grade given for it is greater or equal to the given grade
+     *
      * @param problemTitle The title of the problem
      * @return A list of filtered assignments
      */
-    public List<Assignment> filterByGrade(String problemTitle) {
-        return getAllAssignments()
-                .stream()
-                .filter(assignment -> (assignment.getProblemTitle().equals(problemTitle) && assignment.getGrade()>=8))
-                .collect(Collectors.toList());
+    public String filterByGrade(String problemTitle, Double grade) {
+        return IteratorUtils.stream(assignmentRepository.findAll())
+                .filter(assignment -> assignment.getProblemTitle().equals(problemTitle))
+                .filter(assignment -> Objects.nonNull(assignment.getGrade()))
+                .filter(assignment -> assignment.getGrade() >= grade)
+                .map(Object::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -134,4 +121,3 @@ public class AssignmentController {
                 .collect(Collectors.joining("\n"));
     }
 }
-

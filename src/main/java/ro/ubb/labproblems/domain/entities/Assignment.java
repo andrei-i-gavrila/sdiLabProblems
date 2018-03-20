@@ -1,8 +1,6 @@
 package ro.ubb.labproblems.domain.entities;
 
-import java.util.Objects;
-
-public class Assignment implements BaseEntity<String> {
+public class Assignment extends BaseEntity<String> {
 
     private final String problemTitle;
     private final String studentRegistrationNumber;

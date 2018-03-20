@@ -1,39 +1,20 @@
 package ro.ubb.labproblems.ui;
 
-import ro.ubb.labproblems.controller.AssignmentController;
-import ro.ubb.labproblems.controller.ProblemController;
-import ro.ubb.labproblems.controller.StudentController;
-
-import java.util.Scanner;
-
-
 public class AssignmentsMenu extends CommandMenu {
 
-    private final AssignmentController assignmentController;
-    private final StudentController studentController;
-    private final ProblemController problemController;
 
-    public AssignmentsMenu(AssignmentController assignmentController, StudentController studentController, ProblemController problemController, Scanner scanner) {
-        super("Assign problems", scanner);
-
-        this.assignmentController = assignmentController;
-        this.studentController = studentController;
-        this.problemController = problemController;
-
-        registerCommands();
+    public AssignmentsMenu(CommandMenu parentMenu) {
+        super("Assignment operations", parentMenu);
     }
 
 
     @Override
     protected void registerCommands() {
-
         registerCommand("assign", "Assign a problem to a student", this::assignCommand);
         registerCommand("grade", "Grade an assignment", this::gradeCommand);
         registerCommand("unassign", "Unassign a problem from a student", this::unassignCommand);
-        registerCommand("show", "Shows all assignments", this::showAllCommand);
-        registerCommand("all", "All problems assigned to a student", this::allProblems);
-        registerCommand("best","List of ids of students solving a problem for a grade greater than 8",this::bestStudents);
-        registerCommand("most", "Most times assigned problem", this::mostAssignedProblem);
+        registerCommand("showAll", "Shows all assignments", this::showAllCommand);
+        registerCommand("solvers", "List of ids of students solving a problem for a grade greater than 8", this::bestStudents);
         super.registerCommands();
     }
 
@@ -46,16 +27,6 @@ public class AssignmentsMenu extends CommandMenu {
         String problemTitle = readProblemTitle();
 
         System.out.println(assignmentController.unassign(problemTitle, studentRegistrationNumber));
-    }
-
-    private String readProblemTitle() {
-        System.out.print("Problem title: ");
-        return scanner.nextLine();
-    }
-
-    private String readRegistrationNumber() {
-        System.out.print("Student registration number: ");
-        return scanner.nextLine();
     }
 
     private void gradeCommand() {
@@ -75,21 +46,14 @@ public class AssignmentsMenu extends CommandMenu {
         System.out.println(assignmentController.assign(problemTitle, studentRegistrationNumber));
     }
 
-    private void allProblems() {
-        String registrationNumber = readRegistrationNumber();
-
-        System.out.println(assignmentController.filterByStudent(registrationNumber).toString());
-    }
-
     private void bestStudents() {
         String problemTitle = readProblemTitle();
 
-        System.out.println(assignmentController.filterByGrade(problemTitle));
+        System.out.print("Min grade: ");
+        Double minGrade = scanner.nextDouble();
+
+        System.out.println(assignmentController.filterByGrade(problemTitle, minGrade));
     }
 
-    private void mostAssignedProblem() {
-        System.out.print("The most times assigned problem is ");
-        System.out.println(assignmentController.mostAssignedProblem());
 
-    }
 }

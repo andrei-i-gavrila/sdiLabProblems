@@ -13,15 +13,14 @@ import static ro.ubb.labproblems.utils.Guards.nullGuard;
 /**
  * Implements the general {@link Repository Repository} interface, stores entities in a map
  *
- * @param <ID> The identifier of the entity, will be used as the key
- * @param <T>  The type of the entity we create this repository for
+ * @param <T> The type of the entity we create this repository for
  */
-public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Repository<ID, T> {
+public class InMemoryRepository<T extends BaseEntity<String>> implements Repository<String, T> {
 
     /**
      * Storage for the elements
      */
-    protected Map<ID, T> elements;
+    protected Map<String, T> elements;
     /**
      * Validator of type T
      */
@@ -29,6 +28,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
 
     /**
      * Constructor for the InMemoryRepository
+     *
      * @param validator Validator of type T
      */
     public InMemoryRepository(Validator<T> validator) {
@@ -39,17 +39,19 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
 
     /**
      * Checks if there is an entity registered with the given id
+     *
      * @param id must be not null.
      * @return The entity, if that exists
      */
     @Override
-    public Optional<T> find(ID id) {
+    public Optional<T> find(String id) {
         nullGuard(id);
         return Optional.ofNullable(elements.get(id));
     }
 
     /**
      * All entities
+     *
      * @return An iterable version of all entities
      */
     @Override
@@ -59,6 +61,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
 
     /**
      * Stores a new entity in the repository
+     *
      * @param entity the entity to be stored
      * @return
      * @throws ValidatorException Is thrown, if the input data of the entity was not valid
@@ -80,11 +83,12 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
 
     /**
      * Removes an entity from the repository, if that exists
+     *
      * @param id must not be null.
      * @return
      */
     @Override
-    public Optional<T> delete(ID id) {
+    public Optional<T> delete(String id) {
         nullGuard(id);
 
         return Optional.ofNullable(elements.remove(id));
@@ -92,6 +96,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
 
     /**
      * Updates an entity(it's identifier can not be updated, the rest only)
+     *
      * @param entity Entity to be updated
      * @return
      * @throws ValidatorException Is thrown, if the input data was invalid

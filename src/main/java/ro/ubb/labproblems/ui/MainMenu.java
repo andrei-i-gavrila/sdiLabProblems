@@ -10,17 +10,6 @@ import ro.ubb.labproblems.controller.StudentController;
 public class MainMenu extends CommandMenu {
 
     /**
-     * Controller for the students
-     */
-    private final StudentController studentController;
-
-    /**
-     * Controller for the problems
-     */
-    private final ProblemController problemController;
-    private final AssignmentController assignmentController;
-
-    /**
      * Constructor for the MainMenu
      *
      * @param studentController    {@link StudentController StudentController}-type object
@@ -28,18 +17,14 @@ public class MainMenu extends CommandMenu {
      * @param assignmentController {@link AssignmentController AssignmentController}-type object
      */
     public MainMenu(StudentController studentController, ProblemController problemController, AssignmentController assignmentController) {
-        super("");
-        this.studentController = studentController;
-        this.problemController = problemController;
-        this.assignmentController = assignmentController;
-        registerCommands();
+        super("", studentController, problemController, assignmentController);
     }
 
     @Override
     protected void registerCommands() {
-        subCommands.put("students", new StudentsMenu(studentController, scanner));
-        subCommands.put("problems", new ProblemsMenu(problemController, scanner));
-        subCommands.put("assignments", new AssignmentsMenu(assignmentController, studentController, problemController, scanner));
+        subCommands.put("students", new StudentsMenu(this));
+        subCommands.put("problems", new ProblemsMenu(this));
+        subCommands.put("assignments", new AssignmentsMenu(this));
         super.registerCommands();
     }
 }

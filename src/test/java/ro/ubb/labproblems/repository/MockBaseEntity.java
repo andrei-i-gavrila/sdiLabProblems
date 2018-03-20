@@ -5,7 +5,7 @@ import ro.ubb.labproblems.domain.entities.BaseEntity;
 /**
  * A basic {@link BaseEntity BaseEntity} class, used for testing only
  */
-public class MockBaseEntity implements BaseEntity<Integer> {
+public class MockBaseEntity extends BaseEntity<Integer> {
 
     public String name;
     private Integer id;
