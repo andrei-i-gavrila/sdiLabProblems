@@ -20,15 +20,15 @@ public class MapSerializer extends StdSerializer<Map> {
     @Override
     public void serialize(Map value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         gen.writeStartObject();
-        gen.writeFieldName("entries");
+        gen.writeObjectFieldStart("entries");
         value.forEach((o, o2) -> {
                     try {
                         gen.writeStartObject();
-                        gen.writeFieldName("entry");
+                        gen.writeObjectFieldStart("entry");
                         gen.writeStartObject();
-                        gen.writeFieldName("key");
+                        gen.writeObjectFieldStart("key");
                         gen.writeObject(o);
-                        gen.writeFieldName("value");
+                        gen.writeObjectFieldStart("value");
                         gen.writeObject(o2);
                         gen.writeEndObject();
                         gen.writeEndObject();

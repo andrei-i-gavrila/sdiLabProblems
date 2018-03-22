@@ -9,6 +9,7 @@ import ro.ubb.labproblems.domain.validators.ValidatorException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 public class AbstractFileRepository<T extends BaseEntity<String>> extends InMemoryRepository<T> {
@@ -27,7 +28,7 @@ public class AbstractFileRepository<T extends BaseEntity<String>> extends InMemo
 
     private void storeData() {
         try {
-            mapper.writeValue(new File(filename), elements);
+            mapper.writeValue(new File(filename), elements.values());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,9 +36,10 @@ public class AbstractFileRepository<T extends BaseEntity<String>> extends InMemo
 
     private void loadData(Class<T> type) {
         try {
-            elements = mapper.readValue(new File(filename), TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, type));
-        } catch (IOException e) {
-            e.printStackTrace();
+            List<T> elementsList = mapper.readValue(new File(filename), TypeFactory.defaultInstance().constructCollectionType(List.class, type));
+            elementsList.forEach(t -> elements.put(t.getIdentifier(), t));
+        } catch (IOException ignored) {
+            System.out.println("No data to load for " + type.getSimpleName());
         }
     }
 

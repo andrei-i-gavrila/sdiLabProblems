@@ -39,7 +39,7 @@ public class StudentsMenu extends CommandMenu {
         String registrationNumber = scanner.nextLine();
 
         System.out.print("Group number: ");
-        Integer groupNumber = scanner.nextInt();
+        Integer groupNumber = Integer.parseInt(scanner.nextLine());
 
         System.out.println(studentController.add(name, registrationNumber, groupNumber));
     }
