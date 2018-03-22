@@ -1,7 +1,5 @@
 package ro.ubb.labproblems;
 
-import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 import ro.ubb.labproblems.controller.AssignmentController;
 import ro.ubb.labproblems.controller.ProblemController;
 import ro.ubb.labproblems.controller.StudentController;
@@ -12,10 +10,13 @@ import ro.ubb.labproblems.domain.validators.AssignmentValidator;
 import ro.ubb.labproblems.domain.validators.ProblemValidator;
 import ro.ubb.labproblems.domain.validators.StudentValidator;
 import ro.ubb.labproblems.repository.*;
-import ro.ubb.labproblems.repository.sql.AssignmentSqlHandler;
+import ro.ubb.labproblems.repository.file.StorageProvider;
+import ro.ubb.labproblems.repository.file.XmlRepository;
 import ro.ubb.labproblems.ui.MainMenu;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Public class containing the main function
@@ -36,15 +37,20 @@ public class LabProblemsApplication {
             return;
         }
 
+        StorageProvider storage = new StorageProvider();
 
-        Repository<String, Student> studentRepository = new YamlRepository<>(new StudentValidator(), Student.class);
-        Repository<String, Problem> problemRepository = new YamlRepository<>(new ProblemValidator(), Problem.class);
-        Repository<String, Assignment> assignmentRepository = new DatabaseRepository<>(
-                new AssignmentValidator(studentRepository, problemRepository),
-                db,
-                new AssignmentSqlHandler(),
-                Assignment.class
-        );
+//        Repository<String, Student> studentRepository = new YamlRepository<>(new StudentValidator(), storage, Student.class);
+//        Repository<String, Problem> problemRepository = new YamlRepository<>(new ProblemValidator(), storage, Problem.class);
+//        Repository<String, Assignment> assignmentRepository = new YamlRepository<>(new AssignmentValidator(studentRepository, problemRepository), storage, Assignment.class);
+
+        Repository<String, Student> studentRepository = new XmlRepository<>(new StudentValidator(), storage, Student.class);
+        Repository<String, Problem> problemRepository = new XmlRepository<>(new ProblemValidator(), storage, Problem.class);
+        Repository<String, Assignment> assignmentRepository = new XmlRepository<>(new AssignmentValidator(studentRepository, problemRepository), storage, Assignment.class);
+
+
+//        Repository<String, Student> studentRepository = new DatabaseRepository<>(new StudentValidator(), db, new StudentSqlHandler<>(), Student.class);
+//        Repository<String, Problem> problemRepository = new DatabaseRepository<>(new ProblemValidator(), db, new ProblemSqlHandler(), Problem.class);
+//        Repository<String, Assignment> assignmentRepository = new DatabaseRepository<>(new AssignmentValidator(studentRepository, problemRepository), db, new AssignmentSqlHandler(), Assignment.class);
 
 
 

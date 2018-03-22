@@ -9,8 +9,8 @@ import static ro.ubb.labproblems.utils.Guards.nullGuard;
 
 public class AssignmentValidator implements Validator<Assignment> {
 
-    private Repository<String, Student> studentRepository;
-    private Repository<String, Problem> problemRepository;
+    private final Repository<String, Student> studentRepository;
+    private final Repository<String, Problem> problemRepository;
 
     public AssignmentValidator(Repository<String, Student> studentRepository, Repository<String, Problem> problemRepository) {
         this.studentRepository = studentRepository;

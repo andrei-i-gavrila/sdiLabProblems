@@ -18,8 +18,8 @@ public class ProblemController {
     /**
      * Storage for the problems
      */
-    private Repository<String, Problem> problemRepository;
-    private Repository<String, Assignment> assignmentRepository;
+    private final Repository<String, Problem> problemRepository;
+    private final Repository<String, Assignment> assignmentRepository;
 
     /**
      * Constructs the controller

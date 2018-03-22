@@ -1,5 +1,7 @@
 package ro.ubb.labproblems.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Assignment extends BaseEntity<String> {
 
     private String problemTitle;
@@ -37,6 +39,7 @@ public class Assignment extends BaseEntity<String> {
         this.grade = grade;
     }
 
+    @JsonIgnore
     @Override
     public String getIdentifier() {
         return studentRegistrationNumber + "#" + problemTitle;

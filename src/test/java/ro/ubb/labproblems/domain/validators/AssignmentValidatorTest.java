@@ -5,8 +5,9 @@ import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Assignment;
 import ro.ubb.labproblems.domain.entities.Problem;
 import ro.ubb.labproblems.domain.entities.Student;
-import ro.ubb.labproblems.repository.InMemoryRepository;
+import ro.ubb.labproblems.repository.file.InMemoryRepository;
 import ro.ubb.labproblems.repository.Repository;
+import ro.ubb.labproblems.repository.file.StorageProvider;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -19,8 +20,9 @@ public class AssignmentValidatorTest {
 
     @Before
     public void setUp() throws Exception {
-        studentRepository = new InMemoryRepository<>(new StudentValidator());
-        problemRepository = new InMemoryRepository<>(new ProblemValidator());
+        StorageProvider storageProvider = new StorageProvider();
+        studentRepository = new InMemoryRepository<>(new StudentValidator(), storageProvider, Student.class);
+        problemRepository = new InMemoryRepository<>(new ProblemValidator(), storageProvider, Problem.class);
 
         assignmentValidator = new AssignmentValidator(studentRepository, problemRepository);
     }

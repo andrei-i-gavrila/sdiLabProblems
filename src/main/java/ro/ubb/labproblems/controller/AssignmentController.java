@@ -19,7 +19,7 @@ public class AssignmentController {
      * Storage for the assignments
      */
     private final Repository<String, Assignment> assignmentRepository;
-    private Repository<String, Student> studentRepository;
+    private final Repository<String, Student> studentRepository;
 
     /**
      * Constructor for the controller

@@ -5,7 +5,7 @@ package ro.ubb.labproblems.domain.validators;
  */
 public class ValidatorException extends Exception {
 
-    private Object invalidObject;
+    private final Object invalidObject;
 
 
     public ValidatorException(String message, Object invalidObject) {

@@ -1,15 +1,12 @@
-package ro.ubb.labproblems.repository;
+package ro.ubb.labproblems.repository.file;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import ro.ubb.labproblems.domain.entities.BaseEntity;
 import ro.ubb.labproblems.domain.validators.Validator;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 public class AbstractFileRepository<T extends BaseEntity<String>> extends InMemoryRepository<T> {
@@ -18,8 +15,8 @@ public class AbstractFileRepository<T extends BaseEntity<String>> extends InMemo
     private final String filename;
     private final ObjectMapper mapper;
 
-    public AbstractFileRepository(Validator<T> validator, String filename, ObjectMapper mapper, Class<T> type) {
-        super(validator);
+    public AbstractFileRepository(Validator<T> validator, String filename, ObjectMapper mapper, StorageProvider storage, Class<T> type) {
+        super(validator, storage, type);
         this.filename = filename;
         this.mapper = mapper;
 
@@ -28,7 +25,7 @@ public class AbstractFileRepository<T extends BaseEntity<String>> extends InMemo
 
     private void storeData() {
         try {
-            mapper.writeValue(new File(filename), elements.values());
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), storage.getStorage());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,9 +33,9 @@ public class AbstractFileRepository<T extends BaseEntity<String>> extends InMemo
 
     private void loadData(Class<T> type) {
         try {
-            List<T> elementsList = mapper.readValue(new File(filename), TypeFactory.defaultInstance().constructCollectionType(List.class, type));
-            elementsList.forEach(t -> elements.put(t.getIdentifier(), t));
+            storage.setStorage(mapper.readValue(new File(filename), Storage.class));
         } catch (IOException ignored) {
+            ignored.printStackTrace();
             System.out.println("No data to load for " + type.getSimpleName());
         }
     }

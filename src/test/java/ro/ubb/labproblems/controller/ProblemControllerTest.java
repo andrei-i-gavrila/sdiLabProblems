@@ -1,10 +1,15 @@
 package ro.ubb.labproblems.controller;
 
 import org.junit.Test;
+import ro.ubb.labproblems.domain.entities.Assignment;
 import ro.ubb.labproblems.domain.entities.Problem;
+import ro.ubb.labproblems.domain.entities.Student;
+import ro.ubb.labproblems.domain.validators.AssignmentValidator;
 import ro.ubb.labproblems.domain.validators.ProblemValidator;
-import ro.ubb.labproblems.repository.InMemoryRepository;
+import ro.ubb.labproblems.domain.validators.StudentValidator;
+import ro.ubb.labproblems.repository.file.InMemoryRepository;
 import ro.ubb.labproblems.repository.Repository;
+import ro.ubb.labproblems.repository.file.StorageProvider;
 
 import java.util.Optional;
 
@@ -19,8 +24,13 @@ public class ProblemControllerTest {
     private static final String DESCRIPTION1 = "DESCRIPTION1";
     private static final String DESCRIPTION2 = "DESCRIPTION1";
     private Problem problem = new Problem(TITLE1, DESCRIPTION1);
-    private Repository<String, Problem> problemRepository = new InMemoryRepository<>(new ProblemValidator());
+    private StorageProvider storageProvider = new StorageProvider();
+    private Repository<String, Student> studentRepository = new InMemoryRepository<>(new StudentValidator(), storageProvider, Student.class);
+    private Repository<String, Problem> problemRepository = new InMemoryRepository<>(new ProblemValidator(), storageProvider, Problem.class);
+
+    private Repository<String,Assignment> assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, Assignment.class);
     private ProblemController problemController = new ProblemController(problemRepository, assignmentRepository);
+
 
     @Test
     public void testAdd() {

@@ -15,7 +15,7 @@ public class AssignmentSqlHandler implements SqlHandler<Assignment> {
     }
 
     public String getDeleteStatement() {
-        return "delete from assignments where where concat(studentRegistrationNumber, '#', problemTitle) = ?";
+        return "delete from assignments where concat(studentRegistrationNumber, '#', problemTitle) = ?";
     }
 
     public String getSelectStatement() {

@@ -1,4 +1,4 @@
-package ro.ubb.labproblems.repository;
+package ro.ubb.labproblems.repository.sql;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -6,6 +6,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import ro.ubb.labproblems.domain.entities.BaseEntity;
 import ro.ubb.labproblems.domain.validators.Validator;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
+import ro.ubb.labproblems.repository.Repository;
 import ro.ubb.labproblems.repository.sql.SqlHandler;
 
 import java.sql.Connection;
