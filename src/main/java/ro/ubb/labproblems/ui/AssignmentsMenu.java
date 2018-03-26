@@ -19,14 +19,14 @@ public class AssignmentsMenu extends CommandMenu {
     }
 
     private void showAllCommand() {
-        System.out.println(assignmentController.showAll());
+        System.out.println(assignmentService.showAll());
     }
 
     private void unassignCommand() {
         String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
-        System.out.println(assignmentController.unassign(problemTitle, studentRegistrationNumber));
+        System.out.println(assignmentService.unassign(problemTitle, studentRegistrationNumber));
     }
 
     private void gradeCommand() {
@@ -36,14 +36,14 @@ public class AssignmentsMenu extends CommandMenu {
         System.out.print("Grade: ");
         Double grade = scanner.nextDouble();
 
-        System.out.println(assignmentController.grade(problemTitle, studentRegistrationNumber, grade));
+        System.out.println(assignmentService.grade(problemTitle, studentRegistrationNumber, grade));
     }
 
     private void assignCommand() {
         String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
-        System.out.println(assignmentController.assign(problemTitle, studentRegistrationNumber));
+        System.out.println(assignmentService.assign(problemTitle, studentRegistrationNumber));
     }
 
     private void bestStudents() {
@@ -52,7 +52,7 @@ public class AssignmentsMenu extends CommandMenu {
         System.out.print("Min grade: ");
         Double minGrade = scanner.nextDouble();
 
-        System.out.println(assignmentController.filterByGrade(problemTitle, minGrade));
+        System.out.println(assignmentService.filterByGrade(problemTitle, minGrade));
     }
 
 

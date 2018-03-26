@@ -1,8 +1,8 @@
 package ro.ubb.labproblems;
 
-import ro.ubb.labproblems.controller.AssignmentController;
-import ro.ubb.labproblems.controller.ProblemController;
-import ro.ubb.labproblems.controller.StudentController;
+import ro.ubb.labproblems.service.AssignmentService;
+import ro.ubb.labproblems.service.ProblemService;
+import ro.ubb.labproblems.service.StudentService;
 import ro.ubb.labproblems.domain.entities.Assignment;
 import ro.ubb.labproblems.domain.entities.Problem;
 import ro.ubb.labproblems.domain.entities.Student;
@@ -54,10 +54,10 @@ public class LabProblemsApplication {
 
 
 
-        StudentController studentController = new StudentController(studentRepository, assignmentRepository);
-        ProblemController problemController = new ProblemController(problemRepository, assignmentRepository);
-        AssignmentController assignmentController = new AssignmentController(assignmentRepository, studentRepository);
+        StudentService studentService = new StudentService(studentRepository, assignmentRepository);
+        ProblemService problemService = new ProblemService(problemRepository, assignmentRepository);
+        AssignmentService assignmentService = new AssignmentService(assignmentRepository, studentRepository);
 
-        new MainMenu(studentController, problemController, assignmentController).run();
+        new MainMenu(studentService, problemService, assignmentService).run();
     }
 }

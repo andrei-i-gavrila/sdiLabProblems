@@ -1,4 +1,4 @@
-package ro.ubb.labproblems.controller;
+package ro.ubb.labproblems.service;
 
 import org.junit.Test;
 import ro.ubb.labproblems.domain.entities.Assignment;
@@ -16,9 +16,9 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 /**
- * Class to test every function of {@link StudentController StudentController}, supporting JUnit testing
+ * Class to test every function of {@link StudentService StudentService}, supporting JUnit testing
  */
-public class StudentControllerTest {
+public class StudentServiceTest {
 
     private static final String NAME = "student1";
     private static final String REG_NUMBER = "1234";
@@ -31,27 +31,27 @@ public class StudentControllerTest {
     private Repository<String, Problem> problemRepository = new InMemoryRepository<>(new ProblemValidator(), storageProvider, Problem.class);
 
     private Repository<String,Assignment> assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, Assignment.class);
-    private StudentController studentController = new StudentController(studentRepository, assignmentRepository);
+    private StudentService studentService = new StudentService(studentRepository, assignmentRepository);
 
     @Test
     public void testAdd() {
-        assertEquals("Student added successfully", studentController.add(NAME, REG_NUMBER, GROUP));
+        assertEquals("Student added successfully", studentService.add(NAME, REG_NUMBER, GROUP));
         assertTrue(studentRepository.find(REG_NUMBER).isPresent());
     }
 
     @Test
     public void testRemove() {
-        studentController.add(NAME, REG_NUMBER, GROUP);
-        assertEquals("No student with such registration ID was found", studentController.remove(FAKE_REG_NUMBER));
-        assertEquals("Student removed successfully", studentController.remove(REG_NUMBER));
+        studentService.add(NAME, REG_NUMBER, GROUP);
+        assertEquals("No student with such registration ID was found", studentService.remove(FAKE_REG_NUMBER));
+        assertEquals("Student removed successfully", studentService.remove(REG_NUMBER));
         assertFalse(studentRepository.find(REG_NUMBER).isPresent());
     }
 
     @Test
     public void testUpdate() {
-        studentController.add(NAME, REG_NUMBER, GROUP);
-        assertEquals("No student was found with the given registration number", studentController.update(NAME, FAKE_REG_NUMBER, GROUP));
-        assertEquals("Student updated successfully", studentController.update(NAME + NAME, REG_NUMBER, GROUP));
+        studentService.add(NAME, REG_NUMBER, GROUP);
+        assertEquals("No student was found with the given registration number", studentService.update(NAME, FAKE_REG_NUMBER, GROUP));
+        assertEquals("Student updated successfully", studentService.update(NAME + NAME, REG_NUMBER, GROUP));
 
         Optional<Student> studentFromRepository = studentRepository.find(REG_NUMBER);
         assertTrue(studentFromRepository.isPresent());
@@ -61,25 +61,25 @@ public class StudentControllerTest {
 
     @Test
     public void testPrintAll() {
-        studentController.add(NAME, REG_NUMBER, GROUP);
-        assertEquals(student.toString(), studentController.showAll());
+        studentService.add(NAME, REG_NUMBER, GROUP);
+        assertEquals(student.toString(), studentService.showAll());
 
         Student student2 = new Student(FAKE_REG_NUMBER, NAME, GROUP);
-        studentController.add(NAME, FAKE_REG_NUMBER, GROUP);
-        assertEquals(student + "\n" + student2, studentController.showAll());
+        studentService.add(NAME, FAKE_REG_NUMBER, GROUP);
+        assertEquals(student + "\n" + student2, studentService.showAll());
     }
 
     @Test
     public void testValidationHappens() {
-        assertEquals("Students must have a name", studentController.add("", REG_NUMBER, GROUP));
-        assertEquals("Students must have a name", studentController.update("", REG_NUMBER, GROUP));
+        assertEquals("Students must have a name", studentService.add("", REG_NUMBER, GROUP));
+        assertEquals("Students must have a name", studentService.update("", REG_NUMBER, GROUP));
     }
 
     @Test
     public void testFilterByGroup() {
-        studentController.add(NAME, REG_NUMBER, GROUP);
-        assertEquals("student1 1234 925", studentController.filterByGroup(GROUP));
-        studentController.add("student2", "2345", 925);
-        assertEquals("student1 1234 925, student2 2345 925", studentController.filterByGroup(925));
+        studentService.add(NAME, REG_NUMBER, GROUP);
+        assertEquals("student1 1234 925", studentService.filterByGroup(GROUP));
+        studentService.add("student2", "2345", 925);
+        assertEquals("student1 1234 925, student2 2345 925", studentService.filterByGroup(925));
     }
 }

@@ -1,6 +1,6 @@
 package ro.ubb.labproblems.ui;
 
-import ro.ubb.labproblems.controller.ProblemController;
+import ro.ubb.labproblems.service.ProblemService;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class ProblemsMenu extends CommandMenu {
     /**
      * Constructor for ProblemsMenu
      *
-     * @param problemController {@link ProblemController ProblemController}-type object
+     * @param problemController {@link ProblemService ProblemService}-type object
      * @param scanner           {@link Scanner Scanner}
      */
     public ProblemsMenu(CommandMenu parentMenu) {
@@ -35,7 +35,7 @@ public class ProblemsMenu extends CommandMenu {
      * Command for showing all problems in the repository
      */
     private void showAllCommand() {
-        System.out.println(problemController.showAll() + '\n');
+        System.out.println(problemService.showAll() + '\n');
     }
 
     /**
@@ -48,7 +48,7 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("Description: ");
         String description = scanner.nextLine();
 
-        System.out.println(problemController.add(title, description));
+        System.out.println(problemService.add(title, description));
     }
 
     /**
@@ -58,7 +58,7 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("Title: ");
         String title = scanner.nextLine();
 
-        System.out.println(problemController.remove(title));
+        System.out.println(problemService.remove(title));
 
     }
 
@@ -72,11 +72,11 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("New description: ");
         String description = scanner.nextLine();
 
-        System.out.println(problemController.update(title, description));
+        System.out.println(problemService.update(title, description));
     }
 
     private void mostAssignedProblem() {
         System.out.print("The most times assigned problem is ");
-        System.out.println(problemController.mostAssignedProblem());
+        System.out.println(problemService.mostAssignedProblem());
     }
 }

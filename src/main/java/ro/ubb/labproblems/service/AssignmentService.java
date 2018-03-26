@@ -1,4 +1,4 @@
-package ro.ubb.labproblems.controller;
+package ro.ubb.labproblems.service;
 
 import ro.ubb.labproblems.domain.entities.Assignment;
 import ro.ubb.labproblems.domain.entities.Student;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Implements business logic for {@link Assignment assignments}.
  * Functions returns a printable version of solution to the ui.
  */
-public class AssignmentController {
+public class AssignmentService {
 
     /**
      * Storage for the assignments
@@ -22,12 +22,12 @@ public class AssignmentController {
     private final Repository<String, Student> studentRepository;
 
     /**
-     * Constructor for the controller
+     * Constructor for the service
      *
      * @param assignmentRepository {@link Repository} to use for storage
      * @param studentRepository
      */
-    public AssignmentController(Repository<String, Assignment> assignmentRepository, Repository<String, Student> studentRepository) {
+    public AssignmentService(Repository<String, Assignment> assignmentRepository, Repository<String, Student> studentRepository) {
         this.assignmentRepository = assignmentRepository;
         this.studentRepository = studentRepository;
     }

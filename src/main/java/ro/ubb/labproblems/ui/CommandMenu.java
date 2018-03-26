@@ -1,8 +1,8 @@
 package ro.ubb.labproblems.ui;
 
-import ro.ubb.labproblems.controller.AssignmentController;
-import ro.ubb.labproblems.controller.ProblemController;
-import ro.ubb.labproblems.controller.StudentController;
+import ro.ubb.labproblems.service.AssignmentService;
+import ro.ubb.labproblems.service.ProblemService;
+import ro.ubb.labproblems.service.StudentService;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,9 +12,9 @@ import java.util.Map;
  */
 public abstract class CommandMenu extends Command {
 
-    final AssignmentController assignmentController;
-    final StudentController studentController;
-    final ProblemController problemController;
+    final AssignmentService assignmentService;
+    final StudentService studentService;
+    final ProblemService problemService;
     /**
      * Storage for commands
      */
@@ -22,19 +22,19 @@ public abstract class CommandMenu extends Command {
 
     private boolean running = false;
 
-    public CommandMenu(String description, StudentController studentController, ProblemController problemController, AssignmentController assignmentController) {
+    public CommandMenu(String description, StudentService studentService, ProblemService problemService, AssignmentService assignmentService) {
         super(description, null);
-        this.studentController = studentController;
-        this.problemController = problemController;
-        this.assignmentController = assignmentController;
+        this.studentService = studentService;
+        this.problemService = problemService;
+        this.assignmentService = assignmentService;
         registerCommands();
     }
 
     public CommandMenu(String description, CommandMenu parentMenu) {
         super(description, null);
-        this.studentController = parentMenu.studentController;
-        this.problemController = parentMenu.problemController;
-        this.assignmentController = parentMenu.assignmentController;
+        this.studentService = parentMenu.studentService;
+        this.problemService = parentMenu.problemService;
+        this.assignmentService = parentMenu.assignmentService;
 
         registerCommands();
     }

@@ -25,7 +25,7 @@ public class StudentsMenu extends CommandMenu {
      * Command for showing all the students in the repository
      */
     private void showAllCommand() {
-        System.out.println(studentController.showAll());
+        System.out.println(studentService.showAll());
     }
 
     /**
@@ -41,7 +41,7 @@ public class StudentsMenu extends CommandMenu {
         System.out.print("Group number: ");
         Integer groupNumber = Integer.parseInt(scanner.nextLine());
 
-        System.out.println(studentController.add(name, registrationNumber, groupNumber));
+        System.out.println(studentService.add(name, registrationNumber, groupNumber));
     }
 
     /**
@@ -51,7 +51,7 @@ public class StudentsMenu extends CommandMenu {
         System.out.print("Registration number: ");
         String registrationNumber = scanner.nextLine();
 
-        System.out.println(studentController.remove(registrationNumber));
+        System.out.println(studentService.remove(registrationNumber));
 
     }
 
@@ -68,23 +68,23 @@ public class StudentsMenu extends CommandMenu {
         System.out.print("Group number: ");
         Integer groupNumber = scanner.nextInt();
 
-        System.out.println(studentController.update(name, registrationNumber, groupNumber));
+        System.out.println(studentService.update(name, registrationNumber, groupNumber));
     }
 
     private void groupFilter() {
         System.out.print("Group number: ");
         Integer groupNumber = scanner.nextInt();
 
-        System.out.println(studentController.filterByGroup(groupNumber));
+        System.out.println(studentService.filterByGroup(groupNumber));
     }
 
     private void bestStudent() {
-        System.out.println(studentController.bestStudent());
+        System.out.println(studentService.bestStudent());
     }
 
     private void assignedProblems() {
         String registrationNumber = readRegistrationNumber();
 
-        System.out.println(assignmentController.filterByStudent(registrationNumber));
+        System.out.println(assignmentService.filterByStudent(registrationNumber));
     }
 }
