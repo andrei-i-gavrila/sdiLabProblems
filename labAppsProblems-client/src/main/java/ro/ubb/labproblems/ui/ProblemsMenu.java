@@ -1,9 +1,5 @@
 package ro.ubb.labproblems.ui;
 
-import ro.ubb.labproblems.service.ProblemServiceServer;
-
-import java.util.Scanner;
-
 /**
  * Extending {@link CommandMenu CommandMenu}, the ProblemsMenu defines the 4 keywords in the map(add, all, remove, update), and then works with the repository's problem-type entities
  */
@@ -11,9 +7,6 @@ public class ProblemsMenu extends CommandMenu {
 
     /**
      * Constructor for ProblemsMenu
-     *
-     * @param problemController {@link ProblemServiceServer ProblemService}-type object
-     * @param scanner           {@link Scanner Scanner}
      */
     public ProblemsMenu(CommandMenu parentMenu) {
         super("Problems operations", parentMenu);
@@ -35,7 +28,7 @@ public class ProblemsMenu extends CommandMenu {
      * Command for showing all problems in the repository
      */
     private void showAllCommand() {
-        System.out.println(problemService.showAll() + '\n');
+        printWhenDone( () -> problemService.showAll() + '\n');
     }
 
     /**
@@ -48,7 +41,7 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("Description: ");
         String description = scanner.nextLine();
 
-        System.out.println(problemService.add(title, description));
+        printWhenDone(() -> problemService.add(title, description));
     }
 
     /**
@@ -58,7 +51,7 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("Title: ");
         String title = scanner.nextLine();
 
-        System.out.println(problemService.remove(title));
+        printWhenDone(() -> problemService.remove(title));
 
     }
 
@@ -72,11 +65,11 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("New description: ");
         String description = scanner.nextLine();
 
-        System.out.println(problemService.update(title, description));
+        printWhenDone(() -> problemService.update(title, description));
     }
 
     private void mostAssignedProblem() {
         System.out.print("The most times assigned problem is ");
-        System.out.println(problemService.mostAssignedProblem());
+        printWhenDone(problemService::mostAssignedProblem);
     }
 }

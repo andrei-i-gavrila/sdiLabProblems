@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 /**
  * Implements business logic for {@link Student Students}.
- * Functions returns a string that will be directly printed in the ui.
+ * Functions returns a string that will be directly printed in the ro.ubb.labproblems.ui.
  */
 public class StudentServiceServer implements StudentService {
 

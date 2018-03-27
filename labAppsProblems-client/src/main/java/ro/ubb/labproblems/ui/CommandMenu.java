@@ -6,15 +6,21 @@ import ro.ubb.labproblems.service.StudentService;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Abstract class to manage the input. Sets up a map for commands, and then communicates with the user
  */
 public abstract class CommandMenu extends Command {
 
+    private static final int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
+
     final AssignmentService assignmentService;
     final StudentService studentService;
     final ProblemService problemService;
+    final ExecutorService executorService;
     /**
      * Storage for commands
      */
@@ -27,6 +33,8 @@ public abstract class CommandMenu extends Command {
         this.studentService = studentService;
         this.problemService = problemService;
         this.assignmentService = assignmentService;
+        this.executorService = Executors.newFixedThreadPool(THREAD_COUNT);
+
         registerCommands();
     }
 
@@ -35,6 +43,7 @@ public abstract class CommandMenu extends Command {
         this.studentService = parentMenu.studentService;
         this.problemService = parentMenu.problemService;
         this.assignmentService = parentMenu.assignmentService;
+        this.executorService = parentMenu.executorService;
 
         registerCommands();
     }
@@ -44,6 +53,7 @@ public abstract class CommandMenu extends Command {
     }
 
     private Command readCommand() {
+        System.out.println();
         System.out.print(">> ");
         String inputCommand = scanner.nextLine();
         Command command = subCommands.get(inputCommand);
@@ -90,5 +100,17 @@ public abstract class CommandMenu extends Command {
     protected String readRegistrationNumber() {
         System.out.print("Student registration number: ");
         return scanner.nextLine();
+    }
+
+    protected void printWhenDone(Callable<String> request) {
+        executorService.submit(() -> {
+            try {
+                System.out.println(request.call());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println();
+            System.out.print(">> ");
+        });
     }
 }

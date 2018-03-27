@@ -25,7 +25,7 @@ public class StudentsMenu extends CommandMenu {
      * Command for showing all the students in the repository
      */
     private void showAllCommand() {
-        System.out.println(studentService.showAll());
+        printWhenDone(() -> studentService.showAll());
     }
 
     /**
@@ -41,7 +41,7 @@ public class StudentsMenu extends CommandMenu {
         System.out.print("Group number: ");
         Integer groupNumber = Integer.parseInt(scanner.nextLine());
 
-        System.out.println(studentService.add(name, registrationNumber, groupNumber));
+        printWhenDone(() -> studentService.add(name, registrationNumber, groupNumber));
     }
 
     /**
@@ -51,7 +51,7 @@ public class StudentsMenu extends CommandMenu {
         System.out.print("Registration number: ");
         String registrationNumber = scanner.nextLine();
 
-        System.out.println(studentService.remove(registrationNumber));
+        printWhenDone(() -> studentService.remove(registrationNumber));
 
     }
 
@@ -68,23 +68,23 @@ public class StudentsMenu extends CommandMenu {
         System.out.print("Group number: ");
         Integer groupNumber = scanner.nextInt();
 
-        System.out.println(studentService.update(name, registrationNumber, groupNumber));
+        printWhenDone(() -> studentService.update(name, registrationNumber, groupNumber));
     }
 
     private void groupFilter() {
         System.out.print("Group number: ");
         Integer groupNumber = scanner.nextInt();
 
-        System.out.println(studentService.filterByGroup(groupNumber));
+        printWhenDone(() -> studentService.filterByGroup(groupNumber));
     }
 
     private void bestStudent() {
-        System.out.println(studentService.bestStudent());
+        printWhenDone(studentService::bestStudent);
     }
 
     private void assignedProblems() {
         String registrationNumber = readRegistrationNumber();
 
-        System.out.println(assignmentService.filterByStudent(registrationNumber));
+        printWhenDone(() -> assignmentService.filterByStudent(registrationNumber));
     }
 }

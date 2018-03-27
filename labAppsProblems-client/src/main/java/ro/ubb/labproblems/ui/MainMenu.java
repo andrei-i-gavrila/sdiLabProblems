@@ -10,9 +10,6 @@ public class MainMenu extends CommandMenu {
     /**
      * Constructor for the MainMenu
      *
-     * @param studentService    {@link StudentServiceServer StudentService}-type object
-     * @param problemService    {@link ProblemServiceServer ProblemService}-type object
-     * @param assignmentService {@link AssignmentServiceServer AssignmentService}-type object
      */
     public MainMenu(StudentService studentService, ProblemService problemService, AssignmentService assignmentService) {
         super("", studentService, problemService, assignmentService);

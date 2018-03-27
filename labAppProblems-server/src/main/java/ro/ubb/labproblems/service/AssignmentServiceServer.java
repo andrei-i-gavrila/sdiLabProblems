@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 /**
  * Implements business logic for {@link Assignment assignments}.
- * Functions returns a printable version of solution to the ui.
+ * Functions returns a printable version of solution to the ro.ubb.labproblems.ui.
  */
 public class AssignmentServiceServer implements AssignmentService {
 
