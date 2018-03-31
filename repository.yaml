@@ -1,0 +1,17 @@
+---
+students:
+- registrationNumber: "2125"
+  name: "andrei"
+  groupNumber: 926
+- registrationNumber: "2124"
+  name: "alex"
+  groupNumber: 921
+- registrationNumber: "1234"
+  name: "paul"
+  groupNumber: 926
+problems:
+- title: "dp"
+  description: "knapsack"
+- title: "pls work"
+  description: "anasdasdajofjasod"
+assignments: []

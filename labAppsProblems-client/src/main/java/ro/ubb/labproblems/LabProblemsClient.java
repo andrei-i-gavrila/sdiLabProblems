@@ -8,7 +8,7 @@ public class LabProblemsClient {
 
     public static void main(String... args) {
 
-        TCPClient client = new TCPClient("localhost", 1234);
+        TCPClient client = new TCPClient("localhost", 9877);
 
         StudentService studentService = new StudentServiceClient(client);
         ProblemService problemService = new ProblemServiceClient(client);

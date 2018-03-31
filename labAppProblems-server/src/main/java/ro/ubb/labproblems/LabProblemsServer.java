@@ -1,5 +1,7 @@
 package ro.ubb.labproblems;
 
+import ro.ubb.labproblems.repository.file.StorageProvider;
+import ro.ubb.labproblems.repository.file.YamlRepository;
 import ro.ubb.labproblems.repository.sql.AssignmentSqlHandler;
 import ro.ubb.labproblems.repository.sql.DatabaseRepository;
 import ro.ubb.labproblems.repository.sql.ProblemSqlHandler;
@@ -26,32 +28,32 @@ public class LabProblemsServer {
 
     public static void main(String... args) {
 
-        String url = "jdbc:postgresql://horton.elephantsql.com:5432/bnehzrpc";
-        String username = "bnehzrpc";
-        String password = "OVzZ7JX0ulT4ymExjajVerTLDhOOGlVD";
-        Connection db;
+//        String url = "jdbc:postgresql://horton.elephantsql.com:5432/bnehzrpc";
+//        String username = "bnehzrpc";
+//        String password = "OVzZ7JX0ulT4ymExjajVerTLDhOOGlVD";
+//        Connection db;
+//
+//        try {
+//            db = DriverManager.getConnection(url, username, password);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return;
+//        }
 
-        try {
-            db = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return;
-        }
+        StorageProvider storage = new StorageProvider();
 
-//        StorageProvider storage = new StorageProvider();
-
-//        Repository<String, Student> studentRepository = new YamlRepository<>(new StudentValidator(), storage, Student.class);
-//        Repository<String, Problem> problemRepository = new YamlRepository<>(new ProblemValidator(), storage, Problem.class);
-//        Repository<String, Assignment> assignmentRepository = new YamlRepository<>(new AssignmentValidator(studentRepository, problemRepository), storage, Assignment.class);
+        Repository<String, Student> studentRepository = new YamlRepository<>(new StudentValidator(), storage, Student.class);
+        Repository<String, Problem> problemRepository = new YamlRepository<>(new ProblemValidator(), storage, Problem.class);
+        Repository<String, Assignment> assignmentRepository = new YamlRepository<>(new AssignmentValidator(studentRepository, problemRepository), storage, Assignment.class);
 
 //        Repository<String, Student> studentRepository = new XmlRepository<>(new StudentValidator(), storage, Student.class);
 //        Repository<String, Problem> problemRepository = new XmlRepository<>(new ProblemValidator(), storage, Problem.class);
 //        Repository<String, Assignment> assignmentRepository = new XmlRepository<>(new AssignmentValidator(studentRepository, problemRepository), storage, Assignment.class);
 
 
-        Repository<String, Student> studentRepository = new DatabaseRepository<>(new StudentValidator(), db, new StudentSqlHandler<>(), Student.class);
-        Repository<String, Problem> problemRepository = new DatabaseRepository<>(new ProblemValidator(), db, new ProblemSqlHandler(), Problem.class);
-        Repository<String, Assignment> assignmentRepository = new DatabaseRepository<>(new AssignmentValidator(studentRepository, problemRepository), db, new AssignmentSqlHandler(), Assignment.class);
+//        Repository<String, Student> studentRepository = new DatabaseRepository<>(new StudentValidator(), db, new StudentSqlHandler<>(), Student.class);
+//        Repository<String, Problem> problemRepository = new DatabaseRepository<>(new ProblemValidator(), db, new ProblemSqlHandler(), Problem.class);
+//        Repository<String, Assignment> assignmentRepository = new DatabaseRepository<>(new AssignmentValidator(studentRepository, problemRepository), db, new AssignmentSqlHandler(), Assignment.class);
 
 
 
@@ -63,6 +65,6 @@ public class LabProblemsServer {
         Router router = new Router(studentService, problemService, assignmentService);
 
 
-        new TCPServer(router, 1234).run();
+        new TCPServer(router, 9877).run();
     }
 }

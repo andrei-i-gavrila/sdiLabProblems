@@ -1,0 +1,45 @@
+<Storage>
+  <students>
+    <students>
+      <registrationNumber>2125</registrationNumber>
+      <name>andrei</name>
+      <groupNumber>926</groupNumber>
+    </students>
+    <students>
+      <registrationNumber>1785</registrationNumber>
+      <name>alina</name>
+      <groupNumber>324</groupNumber>
+    </students>
+    <students>
+      <registrationNumber>1234</registrationNumber>
+      <name>alex</name>
+      <groupNumber>123</groupNumber>
+    </students>
+  </students>
+  <problems>
+    <problems>
+      <title>dp</title>
+      <description>knapsack</description>
+    </problems>
+    <problems>
+      <title>haha</title>
+      <description>pls work</description>
+    </problems>
+    <problems>
+      <title>dinamica</title>
+      <description>grea</description>
+    </problems>
+  </problems>
+  <assignments>
+    <assignments>
+      <problemTitle>dp</problemTitle>
+      <studentRegistrationNumber>2125</studentRegistrationNumber>
+      <grade/>
+    </assignments>
+    <assignments>
+      <problemTitle>dinamica</problemTitle>
+      <studentRegistrationNumber>1234</studentRegistrationNumber>
+      <grade>10.0</grade>
+    </assignments>
+  </assignments>
+</Storage>
