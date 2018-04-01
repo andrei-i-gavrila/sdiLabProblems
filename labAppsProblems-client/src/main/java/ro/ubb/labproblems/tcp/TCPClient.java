@@ -11,6 +11,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+
+//TODO delete after implementing the rmi
+
 @Component
 public class TCPClient {
 

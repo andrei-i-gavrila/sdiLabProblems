@@ -3,6 +3,8 @@ package ro.ubb.labproblems.tcp;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+
+//TODO delete after rmi, delete whole tcp package
 public class Router {
 
 

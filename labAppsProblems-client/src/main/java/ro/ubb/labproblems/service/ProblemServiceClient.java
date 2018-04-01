@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import ro.ubb.labproblems.tcp.Request;
 import ro.ubb.labproblems.tcp.TCPClient;
 
+//TODO delete after implementing the rmi
+
 @Service
 public class ProblemServiceClient implements ProblemService {
     private TCPClient client;
