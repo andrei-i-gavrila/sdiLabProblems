@@ -1,9 +1,11 @@
 package ro.ubb.labproblems.repository.sql;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.labproblems.domain.entities.Assignment;
 
 import java.util.Arrays;
 
+@Component
 public class AssignmentSqlHandler implements SqlHandler<Assignment> {
 
     public String getInsertStatement() {

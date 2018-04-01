@@ -1,9 +1,11 @@
 package ro.ubb.labproblems.service;
 
 
+import org.springframework.stereotype.Service;
 import ro.ubb.labproblems.tcp.Request;
 import ro.ubb.labproblems.tcp.TCPClient;
 
+@Service
 public class AssignmentServiceClient implements AssignmentService {
     private TCPClient client;
 

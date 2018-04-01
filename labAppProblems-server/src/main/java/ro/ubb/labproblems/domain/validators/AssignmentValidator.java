@@ -1,5 +1,6 @@
 package ro.ubb.labproblems.domain.validators;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.labproblems.domain.entities.Assignment;
 import ro.ubb.labproblems.domain.entities.Problem;
 import ro.ubb.labproblems.domain.entities.Student;
@@ -7,6 +8,7 @@ import ro.ubb.labproblems.repository.Repository;
 
 import static ro.ubb.labproblems.utils.Guards.nullGuard;
 
+@Component
 public class AssignmentValidator implements Validator<Assignment> {
 
     private final Repository<String, Student> studentRepository;

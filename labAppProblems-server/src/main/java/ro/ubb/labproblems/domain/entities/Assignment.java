@@ -7,8 +7,10 @@ public class Assignment extends BaseEntity<String> {
     private String problemTitle;
     private String studentRegistrationNumber;
     private Double grade;
+
     public Assignment() {
     }
+
     public Assignment(String problemTitle, String studentRegistrationNumber) {
         this.problemTitle = problemTitle;
         this.studentRegistrationNumber = studentRegistrationNumber;

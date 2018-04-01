@@ -3,12 +3,15 @@ package ro.ubb.labproblems.tcp;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+@Component
 public class TCPClient {
 
 
@@ -16,7 +19,7 @@ public class TCPClient {
     private int serverPort;
     private ObjectMapper objectMapper;
 
-    public TCPClient(String serverHost, int serverPort) {
+    public TCPClient(@Value("${server.host}") String serverHost, @Value("${server.port}") int serverPort) {
         this.serverHost = serverHost;
         this.serverPort = serverPort;
         objectMapper = new ObjectMapper()
@@ -27,12 +30,12 @@ public class TCPClient {
 
     public Response sendThenReceive(Request request) {
         try (Socket client = new Socket(serverHost, serverPort);
-             OutputStream ostream = client.getOutputStream();
-             InputStream istream = client.getInputStream()) {
+             OutputStream outputStream = client.getOutputStream();
+             InputStream inputStream = client.getInputStream()) {
 
-            objectMapper.writeValue(ostream, request);
+            objectMapper.writeValue(outputStream, request);
 
-            return objectMapper.readValue(istream, Response.class);
+            return objectMapper.readValue(inputStream, Response.class);
         } catch (IOException e) {
             e.printStackTrace();
             return new Response(false, e.getMessage());

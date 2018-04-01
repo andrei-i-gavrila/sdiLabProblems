@@ -28,7 +28,7 @@ public class ProblemsMenu extends CommandMenu {
      * Command for showing all problems in the repository
      */
     private void showAllCommand() {
-        printWhenDone( () -> problemService.showAll() + '\n');
+        printWhenDone(() -> problemService.showAll() + '\n');
     }
 
     /**

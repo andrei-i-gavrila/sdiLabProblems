@@ -1,5 +1,6 @@
 package ro.ubb.labproblems.domain.validators;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.labproblems.domain.entities.Problem;
 
 import static ro.ubb.labproblems.utils.Guards.nullGuard;
@@ -7,6 +8,7 @@ import static ro.ubb.labproblems.utils.Guards.nullGuard;
 /**
  * Validator class for the problem-type entities
  */
+@Component
 public class ProblemValidator implements Validator<Problem> {
 
     /**

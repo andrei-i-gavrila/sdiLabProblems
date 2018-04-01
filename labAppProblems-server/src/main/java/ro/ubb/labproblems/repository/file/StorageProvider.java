@@ -9,7 +9,7 @@ import ro.ubb.labproblems.domain.entities.Student;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StorageProvider{
+public class StorageProvider {
 
     private Storage storage;
 
@@ -41,6 +41,7 @@ public class StorageProvider{
     }
 
 }
+
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 class Storage {
     List<Student> students;

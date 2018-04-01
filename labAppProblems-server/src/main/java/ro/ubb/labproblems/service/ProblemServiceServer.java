@@ -1,5 +1,6 @@
 package ro.ubb.labproblems.service;
 
+import org.springframework.stereotype.Service;
 import ro.ubb.labproblems.domain.entities.Assignment;
 import ro.ubb.labproblems.domain.entities.Problem;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
  * Implements business logic for {@link Problem Problems}.
  * Functions returns a string that will be directly printed in the ro.ubb.labproblems.ui.
  */
+@Service
 public class ProblemServiceServer implements ProblemService {
 
     /**

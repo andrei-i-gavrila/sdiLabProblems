@@ -7,7 +7,6 @@ import ro.ubb.labproblems.domain.entities.BaseEntity;
 import ro.ubb.labproblems.domain.validators.Validator;
 import ro.ubb.labproblems.domain.validators.ValidatorException;
 import ro.ubb.labproblems.repository.Repository;
-import ro.ubb.labproblems.repository.sql.SqlHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;

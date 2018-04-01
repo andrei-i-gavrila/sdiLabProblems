@@ -25,7 +25,7 @@ public class StudentsMenu extends CommandMenu {
      * Command for showing all the students in the repository
      */
     private void showAllCommand() {
-        printWhenDone(() -> studentService.showAll());
+        printWhenDone(studentService::showAll);
     }
 
     /**

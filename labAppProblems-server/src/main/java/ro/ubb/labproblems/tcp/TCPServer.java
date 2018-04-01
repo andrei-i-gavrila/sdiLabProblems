@@ -3,6 +3,9 @@ package ro.ubb.labproblems.tcp;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,17 +15,18 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class TCPServer {
+@Component
+public class TCPServer implements Runnable {
 
-    public static final int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
     private final ExecutorService executorService;
     private int serverPort;
     private Router router;
 
-    public TCPServer(Router router, int serverPort) {
+    @Autowired
+    public TCPServer(Router router, @Value("${server.port}") int serverPort) {
         this.router = router;
         this.serverPort = serverPort;
-        this.executorService = Executors.newFixedThreadPool(THREAD_COUNT);
+        this.executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
 
@@ -48,7 +52,7 @@ class ClientHandler implements Runnable {
     private Router router;
     private ObjectMapper mapper;
 
-    public ClientHandler(Socket client, Router router) {
+    ClientHandler(Socket client, Router router) {
         this.client = client;
         this.router = router;
         this.mapper = new ObjectMapper()

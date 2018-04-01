@@ -1,11 +1,12 @@
 package ro.ubb.labproblems.repository.sql;
 
-import ro.ubb.labproblems.domain.entities.Assignment;
+import org.springframework.stereotype.Component;
 import ro.ubb.labproblems.domain.entities.Student;
 
 import java.util.Arrays;
 
-public class StudentSqlHandler<T> implements SqlHandler<Student> {
+@Component
+public class StudentSqlHandler implements SqlHandler<Student> {
     public String getInsertStatement() {
         return "insert into students values (?, ?, ?)";
     }

@@ -7,8 +7,8 @@ import ro.ubb.labproblems.domain.entities.Student;
 import ro.ubb.labproblems.domain.validators.AssignmentValidator;
 import ro.ubb.labproblems.domain.validators.ProblemValidator;
 import ro.ubb.labproblems.domain.validators.StudentValidator;
-import ro.ubb.labproblems.repository.file.InMemoryRepository;
 import ro.ubb.labproblems.repository.Repository;
+import ro.ubb.labproblems.repository.file.InMemoryRepository;
 import ro.ubb.labproblems.repository.file.StorageProvider;
 
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class ProblemServiceTest {
     private Repository<String, Student> studentRepository = new InMemoryRepository<>(new StudentValidator(), storageProvider, Student.class);
     private Repository<String, Problem> problemRepository = new InMemoryRepository<>(new ProblemValidator(), storageProvider, Problem.class);
 
-    private Repository<String,Assignment> assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, Assignment.class);
+    private Repository<String, Assignment> assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, Assignment.class);
     private ProblemService problemService = new ProblemServiceServer(problemRepository, assignmentRepository);
 
 
