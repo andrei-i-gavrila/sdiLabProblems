@@ -18,6 +18,8 @@ import ro.ubb.labproblems.repository.sql.AssignmentSqlHandler;
 import ro.ubb.labproblems.repository.sql.DatabaseRepository;
 import ro.ubb.labproblems.repository.sql.ProblemSqlHandler;
 import ro.ubb.labproblems.repository.sql.StudentSqlHandler;
+import ro.ubb.labproblems.service.AssignmentService;
+import ro.ubb.labproblems.service.ProblemService;
 import ro.ubb.labproblems.service.StudentService;
 
 import javax.sql.DataSource;
@@ -58,7 +60,28 @@ public class ServerConfiguration {
 
         return exporter;
     }
-    //TODO: implement above method for problems and assignments
+
+    @Bean
+    public RmiServiceExporter problemServiceExporter(Registry registry, ProblemService problemService) {
+        RmiServiceExporter exporter = new RmiServiceExporter();
+        exporter.setServiceInterface(ProblemService.class);
+        exporter.setServiceName(ProblemService.class.getSimpleName());
+        exporter.setService(problemService);
+        exporter.setRegistry(registry);
+
+        return  exporter;
+    }
+
+    @Bean
+    public  RmiServiceExporter assignmentServiceExporter(Registry registry, AssignmentService assignmentService) {
+        RmiServiceExporter exporter = new RmiServiceExporter();
+        exporter.setServiceInterface(AssignmentService.class);
+        exporter.setServiceName(AssignmentService.class.getSimpleName());
+        exporter.setService(assignmentService);
+        exporter.setRegistry(registry);
+
+        return exporter;
+    }
 
     @Bean
     DataSource dataSource(@Value("${database.url}") String databaseUrl, @Value("${database.username}") String username, @Value("${database.password}") String password) {
