@@ -123,11 +123,6 @@ public class InMemoryRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void updateNull() throws ValidatorException {
-        repository.update(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void requiresValidator() {
         new InMemoryRepository<MockBaseEntity>(null, null, null);
     }

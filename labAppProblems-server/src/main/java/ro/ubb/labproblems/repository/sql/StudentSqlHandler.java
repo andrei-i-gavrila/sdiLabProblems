@@ -16,7 +16,7 @@ public class StudentSqlHandler implements SqlHandler<Student> {
     }
 
     public String getDeleteStatement() {
-        return "delete from students where where registrationNumber = ?";
+        return "delete from students where registrationNumber = ?";
     }
 
     public String getSelectStatement() {

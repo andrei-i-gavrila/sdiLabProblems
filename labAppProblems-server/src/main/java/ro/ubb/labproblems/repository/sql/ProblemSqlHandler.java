@@ -16,7 +16,7 @@ public class ProblemSqlHandler implements SqlHandler<Problem> {
     }
 
     public String getDeleteStatement() {
-        return "delete from problems where where title = ?";
+        return "delete from problems where title = ?";
     }
 
     public String getSelectStatement() {

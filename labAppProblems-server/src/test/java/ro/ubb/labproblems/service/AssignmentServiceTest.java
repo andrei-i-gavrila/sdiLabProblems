@@ -63,7 +63,7 @@ public class AssignmentServiceTest {
     @Test
     public void testMostAssignedProblem() {
         assignmentService.assign(PROBLEM_TITLE, REGISTRATION_NUMBER);
-        assertEquals(problemService.mostAssignedProblem(), PROBLEM_TITLE);
+        assertEquals(problemService.mostAssignedProblem(), PROBLEM_TITLE+"=1");
         try {
             problemRepository.save(new Problem("title1", "description1"));
             studentRepository.save(new Student("2345", "studentname", 925));
@@ -71,7 +71,7 @@ public class AssignmentServiceTest {
         }
         assignmentService.assign("title1", "1234");
         assignmentService.assign("title1", "2345");
-        assertEquals(problemService.mostAssignedProblem(), "title1");
+        assertEquals(problemService.mostAssignedProblem(), "title1=2");
     }
 
     @Test
@@ -85,9 +85,9 @@ public class AssignmentServiceTest {
         assignmentService.assign(PROBLEM_TITLE, "2345");
 
         assignmentService.grade(PROBLEM_TITLE, REGISTRATION_NUMBER, 5.2);
-        assertEquals(studentService.bestStudent(), REGISTRATION_NUMBER);
+        assertEquals(studentService.bestStudent(), new Student(REGISTRATION_NUMBER, "student", 123).toString());
 
         assignmentService.grade(PROBLEM_TITLE, "2345", 8.8);
-        assertEquals(studentService.bestStudent(), "2345");
+        assertEquals(studentService.bestStudent(),new Student("2345", "studentname", 925).toString());
     }
 }

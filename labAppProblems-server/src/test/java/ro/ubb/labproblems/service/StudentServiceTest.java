@@ -80,6 +80,6 @@ public class StudentServiceTest {
         studentService.add(NAME, REG_NUMBER, GROUP);
         assertEquals("student1 1234 925", studentService.filterByGroup(GROUP));
         studentService.add("student2", "2345", 925);
-        assertEquals("student1 1234 925, student2 2345 925", studentService.filterByGroup(925));
+        assertEquals("student1 1234 925\nstudent2 2345 925", studentService.filterByGroup(925));
     }
 }

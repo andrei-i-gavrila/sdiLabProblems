@@ -85,7 +85,7 @@ public class StudentServiceServer implements StudentService {
     public String bestStudent() {
 
         return IteratorUtils.stream(studentRepository.findAll())
-                .min(Comparator.comparing(this::getStudentAverage))
+                .max(Comparator.comparing(this::getStudentAverage))
                 .map(Object::toString)
                 .orElse("There are no students in the database");
     }
