@@ -1,6 +1,5 @@
 package ro.ubb.labproblems.ui;
 
-import ro.ubb.labproblems.utils.Guards;
 
 import java.util.Scanner;
 
@@ -28,7 +27,6 @@ public class Command implements Runnable {
 
     @Override
     public void run() {
-        Guards.nullGuard(runnable);
         runnable.run();
     }
 

@@ -1,9 +1,9 @@
 package ro.ubb.labproblems.ui;
 
 import org.springframework.stereotype.Component;
-import ro.ubb.labproblems.service.AssignmentService;
-import ro.ubb.labproblems.service.ProblemService;
-import ro.ubb.labproblems.service.StudentService;
+import ro.ubb.labproblems.controller.AssignmentRestController;
+import ro.ubb.labproblems.controller.ProblemRestController;
+import ro.ubb.labproblems.controller.StudentRestController;
 
 /**
  * The menu that comes up when the application starts. From here we can freely switch to more exact menus, and come back here from there
@@ -14,8 +14,8 @@ public class MainMenu extends CommandMenu {
     /**
      * Constructor for the MainMenu
      */
-    public MainMenu(StudentService studentService, ProblemService problemService, AssignmentService assignmentService) {
-        super("", studentService, problemService, assignmentService);
+    public MainMenu(StudentRestController studentController, ProblemRestController problemController, AssignmentRestController assignmentController) {
+        super("", studentController, problemController, assignmentController);
     }
 
     @Override

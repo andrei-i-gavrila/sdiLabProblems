@@ -1,7 +1,7 @@
 package ro.ubb.labproblems.ui;
 
 /**
- * Extending {@link CommandMenu CommandMenu}, the ProblemsMenu defines the 4 keywords in the map(add, all, remove, update), and then works with the repository's problem-type entities
+ * Extending {@link CommandMenu CommandMenu}, the ProblemsMenu defines the 4 keywords in the map(add, all, remove, update), and then works with the ro.ubb.labproblems.repository's problem-type entities
  */
 public class ProblemsMenu extends CommandMenu {
 
@@ -19,20 +19,20 @@ public class ProblemsMenu extends CommandMenu {
         registerCommand("all", "Shows all problems", this::showAllCommand);
         registerCommand("remove", "Remove a problem", this::removeCommand);
         registerCommand("update", "Update a problem", this::updateCommand);
-        registerCommand("mostAssigned", "Most assigned problem", this::mostAssignedProblem);
+//        registerCommand("mostAssigned", "Most assigned problem", this::mostAssignedProblem);
 
         super.registerCommands();
     }
 
     /**
-     * Command for showing all problems in the repository
+     * Command for showing all problems in the ro.ubb.labproblems.repository
      */
     private void showAllCommand() {
-        printWhenDone(() -> problemService.showAll() + '\n');
+        printWhenDone(() -> problemController.showAll() + '\n');
     }
 
     /**
-     * Command for adding a problem to the repository
+     * Command for adding a problem to the ro.ubb.labproblems.repository
      */
     private void addCommand() {
         System.out.print("Title: ");
@@ -41,22 +41,22 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("Description: ");
         String description = scanner.nextLine();
 
-        printWhenDone(() -> problemService.add(title, description));
+        printWhenDone(() -> problemController.add(title, description));
     }
 
     /**
-     * Command for removing a problem from the repository
+     * Command for removing a problem from the ro.ubb.labproblems.repository
      */
     private void removeCommand() {
         System.out.print("Title: ");
         String title = scanner.nextLine();
 
-        printWhenDone(() -> problemService.remove(title));
+        printWhenDone(() -> problemController.remove(title));
 
     }
 
     /**
-     * Command for updating a problem in the repository
+     * Command for updating a problem in the ro.ubb.labproblems.repository
      */
     private void updateCommand() {
         System.out.print("Title: ");
@@ -65,11 +65,11 @@ public class ProblemsMenu extends CommandMenu {
         System.out.print("New description: ");
         String description = scanner.nextLine();
 
-        printWhenDone(() -> problemService.update(title, description));
+        printWhenDone(() -> problemController.update(title, description));
     }
 
-    private void mostAssignedProblem() {
-        System.out.print("The most times assigned problem is ");
-        printWhenDone(problemService::mostAssignedProblem);
-    }
+//    private void mostAssignedProblem() {
+//        System.out.print("The most times assigned problem is ");
+//        printWhenDone(problemController::mostAssignedProblem);
+//    }
 }

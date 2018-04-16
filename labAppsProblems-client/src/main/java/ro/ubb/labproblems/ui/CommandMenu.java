@@ -1,8 +1,8 @@
 package ro.ubb.labproblems.ui;
 
-import ro.ubb.labproblems.service.AssignmentService;
-import ro.ubb.labproblems.service.ProblemService;
-import ro.ubb.labproblems.service.StudentService;
+import ro.ubb.labproblems.controller.AssignmentRestController;
+import ro.ubb.labproblems.controller.ProblemRestController;
+import ro.ubb.labproblems.controller.StudentRestController;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,9 +17,9 @@ public abstract class CommandMenu extends Command {
 
     private static final int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
 
-    final AssignmentService assignmentService;
-    final StudentService studentService;
-    final ProblemService problemService;
+    final AssignmentRestController assignmentController;
+    final StudentRestController studentRestController;
+    final ProblemRestController problemController;
     final ExecutorService executorService;
     /**
      * Storage for commands
@@ -28,11 +28,11 @@ public abstract class CommandMenu extends Command {
 
     private boolean running = false;
 
-    public CommandMenu(String description, StudentService studentService, ProblemService problemService, AssignmentService assignmentService) {
+    public CommandMenu(String description, StudentRestController studentRestController, ProblemRestController problemController, AssignmentRestController assignmentController) {
         super(description, null);
-        this.studentService = studentService;
-        this.problemService = problemService;
-        this.assignmentService = assignmentService;
+        this.studentRestController = studentRestController;
+        this.problemController = problemController;
+        this.assignmentController = assignmentController;
         this.executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 
         registerCommands();
@@ -40,9 +40,9 @@ public abstract class CommandMenu extends Command {
 
     public CommandMenu(String description, CommandMenu parentMenu) {
         super(description, null);
-        this.studentService = parentMenu.studentService;
-        this.problemService = parentMenu.problemService;
-        this.assignmentService = parentMenu.assignmentService;
+        this.studentRestController = parentMenu.studentRestController;
+        this.problemController = parentMenu.problemController;
+        this.assignmentController = parentMenu.assignmentController;
         this.executorService = parentMenu.executorService;
 
         registerCommands();

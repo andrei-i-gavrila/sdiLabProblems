@@ -14,19 +14,19 @@ public class AssignmentsMenu extends CommandMenu {
         registerCommand("grade", "Grade an assignment", this::gradeCommand);
         registerCommand("unassign", "Unassign a problem from a student", this::unassignCommand);
         registerCommand("showAll", "Shows all assignments", this::showAllCommand);
-        registerCommand("solvers", "List of ids of students solving a problem for a grade greater than 8", this::bestStudents);
+//        registerCommand("solvers", "List of ids of students solving a problem for a grade greater than 8", this::bestStudents);
         super.registerCommands();
     }
 
     private void showAllCommand() {
-        printWhenDone(assignmentService::showAll);
+        printWhenDone(assignmentController::showAll);
     }
 
     private void unassignCommand() {
         String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
-        printWhenDone(() -> assignmentService.unassign(problemTitle, studentRegistrationNumber));
+        printWhenDone(() -> assignmentController.unassign(problemTitle, studentRegistrationNumber));
     }
 
     private void gradeCommand() {
@@ -36,24 +36,24 @@ public class AssignmentsMenu extends CommandMenu {
         System.out.print("Grade: ");
         Double grade = scanner.nextDouble();
 
-        printWhenDone(() -> assignmentService.grade(problemTitle, studentRegistrationNumber, grade));
+        printWhenDone(() -> assignmentController.grade(problemTitle, studentRegistrationNumber, grade));
     }
 
     private void assignCommand() {
         String studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
-        printWhenDone(() -> assignmentService.assign(problemTitle, studentRegistrationNumber));
+        printWhenDone(() -> assignmentController.assign(problemTitle, studentRegistrationNumber));
     }
 
-    private void bestStudents() {
-        String problemTitle = readProblemTitle();
-
-        System.out.print("Min grade: ");
-        Double minGrade = scanner.nextDouble();
-
-        printWhenDone(() -> assignmentService.filterByGrade(problemTitle, minGrade));
-    }
+//    private void bestStudents() {
+//        String problemTitle = readProblemTitle();
+//
+//        System.out.print("Min grade: ");
+//        Double minGrade = scanner.nextDouble();
+//
+//        printWhenDone(() -> assignmentController.filterByGrade(problemTitle, minGrade));
+//    }
 
 
 }
