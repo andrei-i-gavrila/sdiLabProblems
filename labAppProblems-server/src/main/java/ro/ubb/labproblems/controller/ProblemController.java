@@ -21,7 +21,7 @@ public class ProblemController {
 
     @RequestMapping(path = "/problems/create", method = RequestMethod.POST)
     String create(String title, String description) {
-        log.info("ProblmController create");
+        log.info("Problem Controller create");
         String result = problemService.add(decodeString(title), description);
         log.info("ProblemController create: {}", result);
         return result;

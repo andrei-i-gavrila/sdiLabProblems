@@ -22,7 +22,7 @@ public class AssignmentController {
     @RequestMapping(path = "/assignments/create", method = RequestMethod.POST)
     String create(Integer registrationNumber, String title) {
         log.info("AssignmentController create");
-        String result = assignmentService.assign(registrationNumber, title);
+        String result = assignmentService.assign(registrationNumber, decodeString(title));
         log.info("AssignmentController create: {}", result);
         return result;
     }
@@ -35,16 +35,16 @@ public class AssignmentController {
         return result;
     }
 
-    @RequestMapping(path = "/assignments/{registrationNumber}/delete", method = RequestMethod.POST)
-    String remove(@PathVariable Integer registrationNumber, @RequestParam String title) {
+    @RequestMapping(path = "/assignments/{registrationNumber}/{title}/delete", method = RequestMethod.POST)
+    String remove(@PathVariable Integer registrationNumber, @PathVariable String title) {
         log.info("AssignmentController remove");
-        String result = assignmentService.unassign(title, registrationNumber);
+        String result = assignmentService.unassign(decodeString(title), registrationNumber);
         log.info("AssignmentController remove: {}", result);
         return result;
     }
 
-    @RequestMapping(path = "/assignments/{registrationNumber}", method = RequestMethod.POST)
-    String update(@PathVariable Integer registrationNumber, @RequestParam String title, Double grade) {
+    @RequestMapping(path = "/assignments/{registrationNumber}/{title}", method = RequestMethod.POST)
+    String update(@PathVariable Integer registrationNumber, @PathVariable String title, @RequestParam Double grade) {
         log.info("AssignmentController update");
         String result = assignmentService.grade(decodeString(title), registrationNumber, grade);
         log.info("AssignmentController update: {}", result);

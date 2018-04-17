@@ -21,26 +21,26 @@ public class AssignmentRestController {
         return restTemplate.getForObject(baseUrl + "/assignments", String.class);
     }
 
-    public String unassign(String registrationNumber, String title) {
-        return restTemplate.postForObject(baseUrl + "assigmnetss/{registrationNumber}/delete", null, String.class, title);
+    public String unassign(Integer registrationNumber, String title) {
+        return restTemplate.postForObject(baseUrl + "assignments/{registrationNumber}/{title}/delete", null, String.class, registrationNumber, title);
     }
 
-    public String grade(String registrationNumber, String title, Double grade) {
+    public String grade(Integer registrationNumber, String title, Double grade) {
         String uri = UriComponentsBuilder
-                .fromUriString(baseUrl + "/assignments/{registrationNumber}")
+                .fromUriString(baseUrl + "/assignments/{registrationNumber}/{title}")
                 .queryParam("registrationNumber", registrationNumber)
                 .queryParam("title", title)
-                .queryParam("grade",grade)
-                .build(title).toString();
+                .queryParam("grade", grade)
+                .build(registrationNumber, title).toString();
 
         return restTemplate.postForObject(uri, null, String.class);
     }
 
-    public String assign(String registrationNumber, String problemTitle) {
+    public String assign(Integer registrationNumber, String problemTitle) {
         String uri = UriComponentsBuilder
                 .fromUriString(baseUrl + "/assignments/create")
                 .queryParam("registrationNumber", registrationNumber)
-                .queryParam("problemTitle", problemTitle)
+                .queryParam("title", problemTitle)
                 .build().toUriString();
 
         return restTemplate.postForObject(uri, null, String.class);

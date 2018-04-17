@@ -97,9 +97,9 @@ public abstract class CommandMenu extends Command {
         return scanner.nextLine();
     }
 
-    protected String readRegistrationNumber() {
+    protected Integer readRegistrationNumber() {
         System.out.print("Student registration number: ");
-        return scanner.nextLine();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     protected void printWhenDone(Callable<String> request) {

@@ -23,27 +23,27 @@ public class AssignmentsMenu extends CommandMenu {
     }
 
     private void unassignCommand() {
-        String studentRegistrationNumber = readRegistrationNumber();
+        Integer studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
-        printWhenDone(() -> assignmentController.unassign(problemTitle, studentRegistrationNumber));
+        printWhenDone(() -> assignmentController.unassign(studentRegistrationNumber, problemTitle));
     }
 
     private void gradeCommand() {
-        String studentRegistrationNumber = readRegistrationNumber();
+        Integer studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
         System.out.print("Grade: ");
         Double grade = scanner.nextDouble();
 
-        printWhenDone(() -> assignmentController.grade(problemTitle, studentRegistrationNumber, grade));
+        printWhenDone(() -> assignmentController.grade(studentRegistrationNumber, problemTitle, grade));
     }
 
     private void assignCommand() {
-        String studentRegistrationNumber = readRegistrationNumber();
+        Integer studentRegistrationNumber = readRegistrationNumber();
         String problemTitle = readProblemTitle();
 
-        printWhenDone(() -> assignmentController.assign(problemTitle, studentRegistrationNumber));
+        printWhenDone(() -> assignmentController.assign(studentRegistrationNumber, problemTitle));
     }
 
 //    private void bestStudents() {
