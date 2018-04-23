@@ -1,11 +1,28 @@
+plugins {
+    id "net.ltgt.apt" version "0.15"
+    id "java"
+    id "idea"
+}
+
 allprojects {
     version = '0.1'
 
     apply plugin: 'java'
+    apply plugin: 'net.ltgt.apt'
+    apply plugin: 'idea'
+
 
     sourceCompatibility = 1.8
 
     repositories {
         mavenCentral()
+    }
+
+
+    idea {
+        module {
+            outputDir file('build/classes/main')
+            testOutputDir file('build/classes/test')
+        }
     }
 }

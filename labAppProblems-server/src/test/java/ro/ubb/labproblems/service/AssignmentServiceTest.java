@@ -7,7 +7,7 @@ public class AssignmentServiceTest {
 //
 //    private Repository<String, Student> studentRepository;
 //    private Repository<String, Problem> problemRepository;
-//    private Repository<String, Assignment> assignmentRepository;
+//    private Repository<String, AssignmentMapper> assignmentRepository;
 //    private AssignmentService assignmentService;
 //    private ProblemService problemService;
 //    private StudentService studentService;
@@ -17,7 +17,7 @@ public class AssignmentServiceTest {
 //        StorageProvider storageProvider = new StorageProvider();
 //        studentRepository = new InMemoryRepository<>(new StudentValidator(), storageProvider, Student.class);
 //        problemRepository = new InMemoryRepository<>(new ProblemValidator(), storageProvider, Problem.class);
-//        assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, Assignment.class);
+//        assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, AssignmentMapper.class);
 //        assignmentService = new AssignmentServiceServer(assignmentRepository, studentRepository);
 //        problemService = new ProblemServiceServer(problemRepository, assignmentRepository);
 //        studentService = new StudentServiceServer(studentRepository, assignmentRepository);

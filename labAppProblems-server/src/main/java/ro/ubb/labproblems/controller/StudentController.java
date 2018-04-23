@@ -3,63 +3,79 @@ package ro.ubb.labproblems.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriUtils;
+import ro.ubb.labproblems.ErrorDto;
+import ro.ubb.labproblems.Response;
+import ro.ubb.labproblems.dto.StudentDto;
+import ro.ubb.labproblems.mapper.StudentMapper;
+import ro.ubb.labproblems.model.Student;
 import ro.ubb.labproblems.service.StudentService;
+import ro.ubb.labproblems.validator.StudentValidator;
+import ro.ubb.labproblems.validator.ValidationErrorDto;
 
-import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping(path = "/api/students", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StudentController {
     private static final Logger log = LoggerFactory.getLogger(StudentController.class);
 
     private StudentService studentService;
+    private StudentMapper studentMapper;
+    private StudentValidator studentValidator;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StudentMapper studentMapper, StudentValidator studentValidator) {
         this.studentService = studentService;
+        this.studentMapper = studentMapper;
+        this.studentValidator = studentValidator;
     }
 
-    @RequestMapping(path = "/students/create", method = RequestMethod.POST)
-    String create(String name, Integer registrationNumber, Integer groupNumber) {
-        log.info("StudentController create");
-        String result = studentService.add(decodeString(name), registrationNumber, groupNumber);
-        log.info("StudentController create: {}", result);
-        return result;
-    }
-
-    @RequestMapping(path = "/students", method = RequestMethod.GET)
-    String getAll() {
+    @RequestMapping(method = RequestMethod.GET)
+    Response<List<StudentDto>> index() {
         log.info("StudentController getAll");
-        String result = studentService.showAll();
-        log.info("StudentController getAll: {}", result);
-        return result;
+
+        List<StudentDto> studentDtoList = studentMapper.toDtoList(studentService.getAll());
+
+        log.info("StudentController getAll: {}", studentDtoList);
+
+        return Response.success(studentDtoList);
     }
 
-    @RequestMapping(path = "/students/{registrationNumber}/delete", method = RequestMethod.POST)
-    String remove(@PathVariable Integer registrationNumber) {
-        log.info("StudentController remove");
-        String result = studentService.remove(registrationNumber);
-        log.info("StudentController remove: {}", result);
-        return result;
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    Response<StudentDto> show(@PathVariable Integer id) {
+        log.info("StudentController show: {}", id);
+
+        Optional<Student> optionalStudent = studentService.get(id);
+
+        if (!optionalStudent.isPresent()) {
+            log.info("Student controller show: student not found");
+            return Response.fail(new ErrorDto("Student with id {} does not exist", id));
+        }
+
+        StudentDto studentDto = studentMapper.toDto(optionalStudent.get());
+
+        log.info("Student Controller show: {}", studentDto);
+
+        return Response.success(studentDto);
     }
 
-    @RequestMapping(path = "/students/{registrationNumber}", method = RequestMethod.POST)
-    String update(@PathVariable Integer registrationNumber, @RequestParam String name, Integer groupNumber) {
-        log.info("StudentController update");
-        String result = studentService.update(decodeString(name), registrationNumber, groupNumber);
-        log.info("StudentController update: {}", result);
-        return result;
-    }
+    @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
+    Response<StudentDto> create(@RequestBody StudentDto studentDto) {
+        log.info("StudentController create: {}", studentDto);
 
-    @RequestMapping(path = "/students/group/{groupNumber}", method = RequestMethod.GET)
-    String group(@PathVariable Integer groupNumber) {
-        log.info("StudentController group");
-        String result = studentService.filterByGroup(groupNumber);
-        log.info("StudentController group: {}", result);
-        return result;
-    }
+        Student student = studentMapper.toEntity(studentDto);
 
-    private String decodeString(String value) {
-        return UriUtils.decode(value, Charset.defaultCharset());
+        Optional<List<ValidationErrorDto>> validationErrors = studentValidator.validate(student);
+        if (validationErrors.isPresent()) {
+            return Response.fail(validationErrors.get());
+        }
+
+        student = studentService.save(student);
+        studentDto = studentMapper.toDto(student);
+
+        log.info("StudentController create: {}", studentDto);
+        return Response.success(studentDto);
     }
 }

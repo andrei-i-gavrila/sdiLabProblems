@@ -12,7 +12,7 @@ public class StudentServiceTest {
 //    private Repository<String, Student> studentRepository = new InMemoryRepository<>(new StudentValidator(), storageProvider, Student.class);
 //    private Repository<String, Problem> problemRepository = new InMemoryRepository<>(new ProblemValidator(), storageProvider, Problem.class);
 //
-//    private Repository<String, Assignment> assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, Assignment.class);
+//    private Repository<String, AssignmentMapper> assignmentRepository = new InMemoryRepository<>(new AssignmentValidator(studentRepository, problemRepository), storageProvider, AssignmentMapper.class);
 //    private StudentService studentService = new StudentServiceServer(studentRepository, assignmentRepository);
 //
 //    @Test

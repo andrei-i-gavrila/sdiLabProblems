@@ -21,7 +21,7 @@ public class AssignmentValidatorTest {
 //        problemRepository.save(new Problem("knapsack", "dp problem"));
 //
 //        try {
-//            assignmentValidator.validate(new Assignment("knapsack", "1234"));
+//            assignmentValidator.validate(new AssignmentMapper("knapsack", "1234"));
 //        } catch (ValidatorException e) {
 //            fail("It should not fail");
 //        }
@@ -32,7 +32,7 @@ public class AssignmentValidatorTest {
 //        problemRepository.save(new Problem("asd", "asddd"));
 //
 //        try {
-//            assignmentValidator.validate(new Assignment("asd", "1234"));
+//            assignmentValidator.validate(new AssignmentMapper("asd", "1234"));
 //            fail();
 //        } catch (ValidatorException e) {
 //            assertEquals("Registration number does not exist", e.getMessage());
@@ -44,7 +44,7 @@ public class AssignmentValidatorTest {
 //        studentRepository.save(new Student("1234", "asd", 927));
 //
 //        try {
-//            assignmentValidator.validate(new Assignment("ddsd", "1234"));
+//            assignmentValidator.validate(new AssignmentMapper("ddsd", "1234"));
 //            fail();
 //        } catch (ValidatorException e) {
 //            assertEquals("Problem title does not exist", e.getMessage());
@@ -57,7 +57,7 @@ public class AssignmentValidatorTest {
 //        problemRepository.save(new Problem("knapsack", "dp problem"));
 //
 //        try {
-//            Assignment assignment = new Assignment("knapsack", "1234");
+//            AssignmentMapper assignment = new AssignmentMapper("knapsack", "1234");
 //            assignment.setGrade(-1.0);
 //            assignmentValidator.validate(assignment);
 //            fail();

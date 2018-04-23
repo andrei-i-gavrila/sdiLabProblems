@@ -1,5 +1,4 @@
 rootProject.name = 'mpplab2p2'
 include 'labAppProblems-server'
-include 'labAppsProblems-client'
 include 'labAppProblems-core'
 

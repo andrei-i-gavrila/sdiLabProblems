@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ro.ubb.labproblems.model.Problem;
 
 @Repository
-public interface ProblemRepository extends JpaRepository<Problem, String>{
+public interface ProblemRepository extends JpaRepository<Problem, Integer> {
 }

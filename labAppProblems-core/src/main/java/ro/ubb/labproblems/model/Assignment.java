@@ -1,61 +1,33 @@
 package ro.ubb.labproblems.model;
 
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import lombok.*;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Getter
+@Setter
 @Entity
 public class Assignment implements Serializable {
 
 
-    @EmbeddedId
-    private AssignmentId assignmentId;
+    @Id
+    @GeneratedValue
+    private Integer id;
 
-    public Assignment(Problem problem, Student student, Double grade) {
-        this.assignmentId = new AssignmentId(problem, student);
-        this.grade = grade;
-    }
+    @JoinColumn(name = "problem_id")
+    @ManyToOne
+    private Problem problem;
 
-    public AssignmentId getAssignmentId() {
-        return assignmentId;
-    }
-
+    @JoinColumn(name = "student_id")
+    @ManyToOne
+    private Student student;
     private Double grade;
 
-    public Assignment() {
-    }
 
-    public void setAssignmentId(AssignmentId assignmentId) {
-        this.assignmentId = assignmentId;
-    }
-
-    public Problem getProblem() {
-        return assignmentId.getProblem();
-    }
-
-    public void setProblem(Problem problem) {
-        this.assignmentId.setProblem(problem);
-    }
-
-    public Double getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Double grade) {
-        this.grade = grade;
-    }
-
-    public Student getStudent() {
-        return assignmentId.getStudent();
-    }
-
-    public void setStudent(Student student) {
-        this.assignmentId.setStudent(student);
-    }
-
-    @Override
-    public String toString() {
-        return assignmentId.getStudent().getName() + " --- " + assignmentId.getProblem().getTitle() + ": " + (grade == null? "Not graded" : grade.toString());
-    }
 }
