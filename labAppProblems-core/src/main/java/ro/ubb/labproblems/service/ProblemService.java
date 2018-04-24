@@ -4,6 +4,11 @@ import org.springframework.data.repository.Repository;
 import org.springframework.stereotype.Service;
 import ro.ubb.labproblems.repository.ProblemRepository;
 import ro.ubb.labproblems.utils.IteratorUtils;
+import ro.ubb.labproblems.model.Problem;
+import java.util.List;
+import java.util.Optional;
+
+
 
 import java.util.stream.Collectors;
 
@@ -47,6 +52,15 @@ public class ProblemService {
                 .map(Object::toString)
                 .collect(Collectors.joining("\n"));
     }
+
+    public List<Problem> getAll() {
+        return problemRepository.findAll();
+    }
+
+    public Optional<Problem> get(Integer id) {
+        return problemRepository.findById(id);
+    }
+
 
     /*public String mostAssignedProblem() {
         return IteratorUtils.stream(assignmentRepository.findAll())
