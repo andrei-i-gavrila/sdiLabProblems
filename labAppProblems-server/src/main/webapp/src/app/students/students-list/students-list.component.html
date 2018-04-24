@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor="let student of students">
-    {{student.name}}
+    <a routerLink="/students/{{student.id}}" routerLinkActive="active">{{student.name}}</a>
   </li>
 </ul>

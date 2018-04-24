@@ -1,3 +1,13 @@
-<p>
-  student-create works!
-</p>
+<label>
+  Name: <input type="text" [(ngModel)]="name">
+</label>
+
+<label>
+  Registration number: <input type="number" maxlength="4" minlength="4" [(ngModel)]="registrationNumber">
+</label>
+
+<label>
+  Group number: <input type="number" minlength="3" name="groupNumber" [(ngModel)]="groupNumber">
+</label>
+
+<button (click)="createStudent()">Create</button>

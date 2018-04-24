@@ -1,0 +1,7 @@
+nav {
+  display: flex;
+}
+
+nav > * {
+  padding: 1em;
+}

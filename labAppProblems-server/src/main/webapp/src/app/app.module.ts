@@ -11,6 +11,7 @@ import {StudentCreateComponent} from './students/student-create/student-create.c
 import {HomeComponent} from './home/home.component';
 import {StudentsService} from "./students/shared/students.service";
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [StudentsService, HttpClientModule],
   bootstrap: [AppComponent]

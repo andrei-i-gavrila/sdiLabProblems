@@ -69,6 +69,7 @@ public class StudentController {
 
         Optional<List<ValidationErrorDto>> validationErrors = studentValidator.validate(student);
         if (validationErrors.isPresent()) {
+            log.info("StudentController create errors: {}", validationErrors.get());
             return Response.fail(validationErrors.get());
         }
 
