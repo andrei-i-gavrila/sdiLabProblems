@@ -32,4 +32,9 @@ export class ProblemsService {
     );
   }
 
+  deleteProblem(id:number) : Observable<any>{
+    return this.httpClient.delete(this.problemsUrl+"/delete/" + id).pipe(
+      map(response => console.log(response))
+    );
+  }
 }

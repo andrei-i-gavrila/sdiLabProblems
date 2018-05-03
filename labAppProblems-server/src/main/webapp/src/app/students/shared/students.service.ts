@@ -32,4 +32,10 @@ export class StudentsService {
     );
   }
 
+  deleteStudent(id:number) : Observable<any>{
+    return this.httpClient.delete(this.studentsUrl+"/delete/" + id).pipe(
+      map(response => console.log(response))
+    );
+  }
+
 }

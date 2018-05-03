@@ -14,6 +14,7 @@ import ro.ubb.labproblems.service.StudentService;
 import ro.ubb.labproblems.validator.StudentValidator;
 import ro.ubb.labproblems.validator.ValidationErrorDto;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -78,5 +79,14 @@ public class StudentController {
 
         log.info("StudentController create: {}", studentDto);
         return Response.success(studentDto);
+    }
+
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
+    Response<StudentDto> delete(@PathVariable Integer id) {
+        log.info("Student Controller delete: {}");
+
+        studentService.delete(id);
+
+        return Response.success();
     }
 }

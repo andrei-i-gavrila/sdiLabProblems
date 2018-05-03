@@ -12,6 +12,8 @@ import ro.ubb.labproblems.mapper.ProblemMapper;
 import ro.ubb.labproblems.model.Problem;
 import ro.ubb.labproblems.service.ProblemService;
 import ro.ubb.labproblems.validator.ValidationErrorDto;
+import ro.ubb.labproblems.validator.ProblemValidator;
+import ro.ubb.labproblems.validator.ValidationErrorDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +25,12 @@ public class ProblemController {
 
     private ProblemService problemService;
     private ProblemMapper problemMapper;
+    private ProblemValidator problemValidator;
 
-    public ProblemController(ProblemService problemService, ProblemMapper problemMapper) {
-        this.problemService=problemService;
-        this.problemMapper=problemMapper;
+    public ProblemController(ProblemService problemService, ProblemMapper problemMapper, ProblemValidator problemValidator) {
+        this.problemService = problemService;
+        this.problemMapper = problemMapper;
+        this.problemValidator = problemValidator;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -56,5 +60,33 @@ public class ProblemController {
         log.info("Problem Controller show: {}", problemDto);
 
         return Response.success(problemDto);
+    }
+
+    @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
+    Response<ProblemDto> create(@RequestBody ProblemDto problemDto) {
+        log.info("ProblemController create: {}", problemDto);
+
+        Problem problem = problemMapper.toEntity(problemDto);
+
+        Optional<List<ValidationErrorDto>> validationErrors = problemValidator.validate(problem);
+        if (validationErrors.isPresent()) {
+            log.info("ProblemController create errors: {}", validationErrors.get());
+            return Response.fail(validationErrors.get());
+        }
+
+        problem = problemService.save(problem);
+        problemDto = problemMapper.toDto(problem);
+
+        log.info("ProblemController create: {}", problemDto);
+        return Response.success(problemDto);
+    }
+
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
+    Response<ProblemDto> delete(@PathVariable Integer id) {
+        log.info("Problem Controller delete: {}");
+
+        problemService.delete(id);
+
+        return Response.success();
     }
 }

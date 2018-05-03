@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StudentsService} from "../shared/students.service";
 import {Student} from "../shared/student";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-student-detail',
@@ -12,7 +12,7 @@ export class StudentDetailComponent implements OnInit {
 
   student: Student;
 
-  constructor(private studentService: StudentsService, private route: ActivatedRoute) {
+  constructor(private studentService: StudentsService, private route: ActivatedRoute,private router:Router) {
   }
 
   ngOnInit() {
@@ -21,4 +21,8 @@ export class StudentDetailComponent implements OnInit {
         .subscribe(student => this.student = student));
   }
 
+  deleteStudent()
+  {
+    this.studentService.deleteStudent(this.student.id).subscribe(_ => this.router.navigate(['/students']));
+  }
 }
