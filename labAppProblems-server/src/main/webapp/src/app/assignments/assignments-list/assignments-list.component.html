@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let assignment of assignments">
+    <a routerLink="/assignments/{{assignment.id}}" routerLinkActive="active">{{assignment.student}}</a>
+  </li>
+</ul>

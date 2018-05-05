@@ -1,10 +1,10 @@
 
-<dl>
-  <dt>Title</dt> <dd>{{this.problem.title}}</dd>
-  <dt>Description</dt> <dd>{{this.problem.description}}</dd>
+<dl *ngIf="problem">
+  <dt>Title:</dt> <dd>{{problem.title}}</dd>
+  <dt>Description:</dt> <dd>{{problem.description}}</dd>
 </dl>
 <button (click)="deleteProblem()">Delete</button>
 
 <div>
-<a routerLink="/problems" routerLinkActive="active">Back</a>
+<button routerLink="/problems" routerLinkActive="active">Back</button>
 </div>

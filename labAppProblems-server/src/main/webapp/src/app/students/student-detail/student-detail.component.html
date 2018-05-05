@@ -1,11 +1,10 @@
-
-<dl>
-  <dt>Name</dt> <dd>{{this.student.name}}</dd>
-  <dt>Registration Number</dt> <dd>{{this.student.registrationNumber}}</dd>
-  <dt>Group number</dt> <dd>{{this.student.groupNumber}}</dd>
+<dl *ngIf="student">
+  <dt>Name:</dt> <dd>{{this.student.name}}</dd>
+  <dt>Registration Number:</dt> <dd>{{this.student.registrationNumber}}</dd>
+  <dt>Group number:</dt> <dd>{{this.student.groupNumber}}</dd>
 </dl>
 <button (click)="deleteStudent()">Delete</button>
 
 <div>
-<a routerLink="/students" routerLinkActive="active">Back</a>
+<button routerLink="/students" routerLinkActive="active">Back</button>
 </div>

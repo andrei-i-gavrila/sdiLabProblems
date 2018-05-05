@@ -14,11 +14,15 @@ import {StudentDetailComponent} from './students/student-detail/student-detail.c
 import {StudentCreateComponent} from './students/student-create/student-create.component';
 import {StudentsService} from "./students/shared/students.service";
 
-import {ProblemsComponent} from "./problems/problems.component";
+import {ProblemsComponent} from './problems/problems.component';
 import {ProblemsListComponent} from "./problems/problems-list/problems-list.component";
 import {ProblemDetailComponent} from './problems/problem-detail/problem-detail.component';
 import {ProblemCreateComponent} from './problems/problem-create/problem-create.component';
 import {ProblemsService} from "./problems/shared/problems.service";
+
+import {AssignmentsComponent} from './assignments/assignments.component';
+import {AssignmentsListComponent} from './assignments/assignments-list/assignments-list.component';
+import {AssignmentsService} from './assignments/shared/assignment.service';
 
 
 @NgModule({
@@ -32,6 +36,8 @@ import {ProblemsService} from "./problems/shared/problems.service";
     ProblemsListComponent,
     ProblemDetailComponent,
     ProblemCreateComponent,
+    AssignmentsComponent,
+    AssignmentsListComponent,
     HomeComponent,
   ],
   imports: [
@@ -40,7 +46,7 @@ import {ProblemsService} from "./problems/shared/problems.service";
     HttpClientModule,
     FormsModule
   ],
-  providers: [StudentsService,ProblemsService, HttpClientModule],
+  providers: [StudentsService,ProblemsService,AssignmentsService, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
