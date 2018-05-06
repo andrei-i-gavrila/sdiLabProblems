@@ -1,0 +1,10 @@
+<dl *ngIf="assignment">
+  <dt>Student name:</dt> <dd>{{assignment.studentDto.name}}</dd>
+  <dt>Student registration number:</dt><dd>{{assignment.studentDto.registrationNumber}}</dd>
+  <dt>Problem title:</dt> <dd>{{assignment.problemDto.title}}</dd>
+</dl>
+<button (click)="deleteAssignment()">Delete</button>
+
+<div>
+  <button routerLink="/assignments" routerLinkActive="active">Back</button>
+</div>

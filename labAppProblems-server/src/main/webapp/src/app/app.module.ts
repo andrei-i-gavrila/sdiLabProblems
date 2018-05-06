@@ -23,6 +23,8 @@ import {ProblemsService} from "./problems/shared/problems.service";
 import {AssignmentsComponent} from './assignments/assignments.component';
 import {AssignmentsListComponent} from './assignments/assignments-list/assignments-list.component';
 import {AssignmentsService} from './assignments/shared/assignment.service';
+import {AssignmentDetailComponent} from './assignments/assignment-detail/assignment-detail.component';
+import {AssignmentCreateComponent} from './assignments/assignment-create/assignment-create.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import {AssignmentsService} from './assignments/shared/assignment.service';
     ProblemCreateComponent,
     AssignmentsComponent,
     AssignmentsListComponent,
+    AssignmentDetailComponent,
+    AssignmentCreateComponent,
     HomeComponent,
   ],
   imports: [

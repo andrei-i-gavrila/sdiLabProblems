@@ -1,12 +1,13 @@
+import {Student} from "../../students/shared/student";
+import {Problem} from "../../problems/shared/problem";
 export class Assignment {
   id: number;
-  studentId: number;
-  problemId: number;
+  student: Student;
+  problem: Problem;
   grade: number;
 
-  constructor (studentId: number, probblemId: number) {
-    this.studentId=studentId;
-    this.problemId=probblemId;
+  constructor (student: Student, problem: Problem) {
+    this.student=student;
+    this.problem=problem;
   }
-
 }

@@ -5,6 +5,8 @@ import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 import ro.ubb.labproblems.dto.AssignmentDto;
 import ro.ubb.labproblems.model.Assignment;
+import ro.ubb.labproblems.model.Problem;
+import ro.ubb.labproblems.model.Student;
 
 import java.util.List;
 

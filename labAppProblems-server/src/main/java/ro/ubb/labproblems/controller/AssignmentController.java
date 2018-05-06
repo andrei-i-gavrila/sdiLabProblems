@@ -3,12 +3,14 @@ package ro.ubb.labproblems.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ro.ubb.labproblems.ErrorDto;
 import ro.ubb.labproblems.Response;
 import ro.ubb.labproblems.dto.AssignmentDto;
 import ro.ubb.labproblems.mapper.AssignmentMapper;
+import ro.ubb.labproblems.mapper.AssignmentMapperCustom;
 import ro.ubb.labproblems.model.Assignment;
 import ro.ubb.labproblems.service.AssignmentService;
 import ro.ubb.labproblems.validator.AssignmentValidator;
@@ -24,10 +26,10 @@ public class AssignmentController {
     private static final Logger log = LoggerFactory.getLogger(AssignmentController.class);
 
     private AssignmentService assignmentService;
-    private AssignmentMapper assignmentMapper;
+    private AssignmentMapperCustom assignmentMapper;
     private AssignmentValidator assignmentValidator;
 
-    public AssignmentController(AssignmentService assignmentService, AssignmentMapper assignmentMapper, AssignmentValidator assignmentValidator) {
+    public AssignmentController(AssignmentService assignmentService, AssignmentMapperCustom assignmentMapper, AssignmentValidator assignmentValidator) {
         this.assignmentService = assignmentService;
         this.assignmentMapper = assignmentMapper;
         this.assignmentValidator = assignmentValidator;
@@ -58,7 +60,6 @@ public class AssignmentController {
         AssignmentDto assignmentDto = assignmentMapper.toDto(optionalAssignment.get());
 
         log.info("Assignment Controller show: {}", assignmentDto);
-
         return Response.success(assignmentDto);
     }
 

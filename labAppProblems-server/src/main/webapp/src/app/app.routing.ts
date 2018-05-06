@@ -11,6 +11,8 @@ import {ProblemDetailComponent} from './problems/problem-detail/problem-detail.c
 import {ProblemCreateComponent} from './problems/problem-create/problem-create.component';
 
 import {AssignmentsComponent} from './assignments/assignments.component';
+import {AssignmentDetailComponent} from "./assignments/assignment-detail/assignment-detail.component";
+import {AssignmentCreateComponent} from "./assignments/assignment-create/assignment-create.component";
 
 
 const routes: Routes = [
@@ -20,7 +22,9 @@ const routes: Routes = [
   {path: 'problems', component: ProblemsComponent},
   {path: 'problems/create', component:ProblemCreateComponent},
   {path: 'problems/:id',component: ProblemDetailComponent},
-  {path: 'assignments', component: AssignmentsComponent}
+  {path: 'assignments', component: AssignmentsComponent},
+  {path: 'assignments/:id',component: AssignmentDetailComponent},
+  {path: 'assignments/create', component: AssignmentCreateComponent}
 
 ];
 

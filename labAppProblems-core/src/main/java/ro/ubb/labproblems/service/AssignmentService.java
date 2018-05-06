@@ -15,13 +15,9 @@ import java.util.stream.Collectors;
 public class AssignmentService {
 
     private final AssignmentRepository assignmentRepository;
-    private final StudentRepository studentRepository;
-    private final ProblemRepository problemRepository;
 
-    public AssignmentService(AssignmentRepository assignmentRepository, StudentRepository studentRepository, ProblemRepository problemRepository) {
+    public AssignmentService(AssignmentRepository assignmentRepository) {
         this.assignmentRepository=assignmentRepository;
-        this.studentRepository=studentRepository;
-        this.problemRepository=problemRepository;
     }
 
     public Assignment save(Assignment assignment) { return assignmentRepository.save(assignment);}

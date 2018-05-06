@@ -19,4 +19,22 @@ export class AssignmentsService {
       map((response: ResponseData<Assignment[]>) => response.data)
     );
   }
+
+  getAssignment(id: number): Observable<Assignment> {
+    return this.httpClient.get<ResponseData<Assignment>>(this.assignmentsUrl + "/" + id).pipe(
+      map(response => response.success ? response.data : null)
+    );
+  }
+
+  saveAssignment(assignment : Assignment): Observable<Assignment> {
+    return this.httpClient.post<ResponseData<Assignment>>(this.assignmentsUrl + "/create", assignment).pipe(
+      map(response => response.success ? response.data : null)
+    );
+  }
+
+  deleteAssignment(id:number) : Observable<any>{
+    return this.httpClient.delete(this.assignmentsUrl+"/delete/" + id).pipe(
+      map(response => console.log(response))
+    );
+  }
 }
