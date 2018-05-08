@@ -26,14 +26,14 @@ export class AssignmentsService {
     );
   }
 
-  saveAssignment(assignment : Assignment): Observable<Assignment> {
-    return this.httpClient.post<ResponseData<Assignment>>(this.assignmentsUrl + "/create", assignment).pipe(
+  createAssignment(student, problem): Observable<Assignment> {
+    return this.httpClient.post<ResponseData<Assignment>>(this.assignmentsUrl + "/", {studentId: parseInt(student), problemId: parseInt(problem)}).pipe(
       map(response => response.success ? response.data : null)
     );
   }
 
   deleteAssignment(id:number) : Observable<any>{
-    return this.httpClient.delete(this.assignmentsUrl+"/delete/" + id).pipe(
+    return this.httpClient.delete(this.assignmentsUrl+"/" + id).pipe(
       map(response => console.log(response))
     );
   }

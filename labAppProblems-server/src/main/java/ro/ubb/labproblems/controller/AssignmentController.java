@@ -3,21 +3,23 @@ package ro.ubb.labproblems.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ro.ubb.labproblems.ErrorDto;
 import ro.ubb.labproblems.Response;
 import ro.ubb.labproblems.dto.AssignmentDto;
 import ro.ubb.labproblems.mapper.AssignmentMapper;
-import ro.ubb.labproblems.mapper.AssignmentMapperCustom;
 import ro.ubb.labproblems.model.Assignment;
+import ro.ubb.labproblems.model.Problem;
+import ro.ubb.labproblems.model.Student;
 import ro.ubb.labproblems.service.AssignmentService;
+import ro.ubb.labproblems.service.ProblemService;
+import ro.ubb.labproblems.service.StudentService;
 import ro.ubb.labproblems.validator.AssignmentValidator;
 import ro.ubb.labproblems.validator.ValidationErrorDto;
 
-
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,16 +28,21 @@ public class AssignmentController {
     private static final Logger log = LoggerFactory.getLogger(AssignmentController.class);
 
     private AssignmentService assignmentService;
-    private AssignmentMapperCustom assignmentMapper;
+    private AssignmentMapper assignmentMapper;
     private AssignmentValidator assignmentValidator;
+    private StudentService studentService;
+    private ProblemService problemService;
 
-    public AssignmentController(AssignmentService assignmentService, AssignmentMapperCustom assignmentMapper, AssignmentValidator assignmentValidator) {
+    public AssignmentController(AssignmentService assignmentService, AssignmentMapper assignmentMapper, AssignmentValidator assignmentValidator, StudentService studentService, ProblemService problemService) {
         this.assignmentService = assignmentService;
         this.assignmentMapper = assignmentMapper;
         this.assignmentValidator = assignmentValidator;
+        this.studentService = studentService;
+        this.problemService = problemService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+
+    @GetMapping
     Response<List<AssignmentDto>> index() {
         log.info("AssignmentController getAll");
 
@@ -46,7 +53,41 @@ public class AssignmentController {
         return Response.success(assignmentDtoList);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @PostMapping
+    Response<AssignmentDto> create(@RequestBody Map<String, Integer> params) {
+        Integer studentId = params.get("studentId");
+        Integer problemId = params.get("problemId");
+        log.info("AssignmentController create: {}, {}", studentId, problemId);
+
+        Optional<Student> student = studentService.get(studentId);
+        if (!student.isPresent()) {
+            log.info("AssignmentController create student not found: {}", studentId);
+            return Response.fail(new ErrorDto("Student with id {} not found", studentId));
+        }
+
+        Optional<Problem> problem = problemService.get(problemId);
+        if (!problem.isPresent()) {
+            log.info("AssignmentController create problem not found: {}", problemId);
+            return Response.fail(new ErrorDto("Problem with id {} not found", problemId));
+        }
+
+        Assignment assignment = new Assignment();
+        assignment.setStudent(student.get());
+        assignment.setProblem(problem.get());
+        Optional<List<ValidationErrorDto>> validationErrors = assignmentValidator.validate(assignment);
+        if (validationErrors.isPresent()) {
+            log.info("AssignmentController create errors: {}", validationErrors.get());
+            return Response.fail(validationErrors.get());
+        }
+
+        assignment = assignmentService.save(assignment);
+        AssignmentDto assignmentDto = assignmentMapper.toDto(assignment);
+
+        log.info("AssignmentController create: {}", assignmentDto);
+        return Response.success(assignmentDto);
+    }
+
+    @GetMapping(path = "/{id}")
     Response<AssignmentDto> show(@PathVariable Integer id) {
         log.info("AssignmentController show: {}", id);
 
@@ -63,26 +104,7 @@ public class AssignmentController {
         return Response.success(assignmentDto);
     }
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
-    Response<AssignmentDto> create(@RequestBody AssignmentDto assignmentDto) {
-        log.info("AssignmentController create: {}", assignmentDto);
-
-        Assignment assignment = assignmentMapper.toEntity(assignmentDto);
-
-        Optional<List<ValidationErrorDto>> validationErrors = assignmentValidator.validate(assignment);
-        if (validationErrors.isPresent()) {
-            log.info("AssignmentController create errors: {}", validationErrors.get());
-            return Response.fail(validationErrors.get());
-        }
-
-        assignment = assignmentService.save(assignment);
-        assignmentDto = assignmentMapper.toDto(assignment);
-
-        log.info("AssignmentController create: {}", assignmentDto);
-        return Response.success(assignmentDto);
-    }
-
-    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "/{id}")
     Response<AssignmentDto> delete(@PathVariable Integer id) {
         log.info("Assignment Controller delete: {}");
 

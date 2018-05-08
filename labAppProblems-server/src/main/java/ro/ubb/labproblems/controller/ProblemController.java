@@ -10,8 +10,8 @@ import ro.ubb.labproblems.Response;
 import ro.ubb.labproblems.dto.ProblemDto;
 import ro.ubb.labproblems.mapper.ProblemMapper;
 import ro.ubb.labproblems.model.Problem;
+import ro.ubb.labproblems.service.AssignmentService;
 import ro.ubb.labproblems.service.ProblemService;
-import ro.ubb.labproblems.validator.ValidationErrorDto;
 import ro.ubb.labproblems.validator.ProblemValidator;
 import ro.ubb.labproblems.validator.ValidationErrorDto;
 
@@ -26,15 +26,17 @@ public class ProblemController {
     private ProblemService problemService;
     private ProblemMapper problemMapper;
     private ProblemValidator problemValidator;
+    private AssignmentService assignmentService;
 
-    public ProblemController(ProblemService problemService, ProblemMapper problemMapper, ProblemValidator problemValidator) {
+    public ProblemController(ProblemService problemService, ProblemMapper problemMapper, ProblemValidator problemValidator, AssignmentService assignmentService) {
         this.problemService = problemService;
         this.problemMapper = problemMapper;
         this.problemValidator = problemValidator;
+        this.assignmentService = assignmentService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    Response<List<ProblemDto>> index() {
+    @GetMapping
+    public Response<List<ProblemDto>> index() {
         log.info("ProblemController getAll");
 
         List<ProblemDto> problemDtoList = problemMapper.toDtoList(problemService.getAll());
@@ -44,8 +46,8 @@ public class ProblemController {
         return Response.success(problemDtoList);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    Response<ProblemDto> show(@PathVariable Integer id) {
+    @GetMapping(path = "/{id}")
+    public Response<ProblemDto> show(@PathVariable Integer id) {
         log.info("ProblemController show: {}", id);
 
         Optional<Problem> optionalProblem = problemService.get(id);
@@ -62,8 +64,8 @@ public class ProblemController {
         return Response.success(problemDto);
     }
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
-    Response<ProblemDto> create(@RequestBody ProblemDto problemDto) {
+    @PostMapping
+    public Response<ProblemDto> create(@RequestBody ProblemDto problemDto) {
         log.info("ProblemController create: {}", problemDto);
 
         Problem problem = problemMapper.toEntity(problemDto);
@@ -81,9 +83,11 @@ public class ProblemController {
         return Response.success(problemDto);
     }
 
-    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "/{id}")
     Response<ProblemDto> delete(@PathVariable Integer id) {
         log.info("Problem Controller delete: {}");
+
+        problemService.get(id).ifPresent(problem -> assignmentService.deleteAllOfProblem(problem));
 
         problemService.delete(id);
 

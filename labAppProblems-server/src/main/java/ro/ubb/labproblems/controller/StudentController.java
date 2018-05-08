@@ -10,10 +10,10 @@ import ro.ubb.labproblems.Response;
 import ro.ubb.labproblems.dto.StudentDto;
 import ro.ubb.labproblems.mapper.StudentMapper;
 import ro.ubb.labproblems.model.Student;
+import ro.ubb.labproblems.service.AssignmentService;
 import ro.ubb.labproblems.service.StudentService;
 import ro.ubb.labproblems.validator.StudentValidator;
 import ro.ubb.labproblems.validator.ValidationErrorDto;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -24,16 +24,18 @@ public class StudentController {
     private static final Logger log = LoggerFactory.getLogger(StudentController.class);
 
     private StudentService studentService;
+    private AssignmentService assignmentService;
     private StudentMapper studentMapper;
     private StudentValidator studentValidator;
 
-    public StudentController(StudentService studentService, StudentMapper studentMapper, StudentValidator studentValidator) {
+    public StudentController(StudentService studentService, AssignmentService assignmentService, StudentMapper studentMapper, StudentValidator studentValidator) {
         this.studentService = studentService;
+        this.assignmentService = assignmentService;
         this.studentMapper = studentMapper;
         this.studentValidator = studentValidator;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     Response<List<StudentDto>> index() {
         log.info("StudentController getAll");
 
@@ -44,7 +46,7 @@ public class StudentController {
         return Response.success(studentDtoList);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @GetMapping(path = "/{id}")
     Response<StudentDto> show(@PathVariable Integer id) {
         log.info("StudentController show: {}", id);
 
@@ -62,7 +64,7 @@ public class StudentController {
         return Response.success(studentDto);
     }
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
+    @PostMapping
     Response<StudentDto> create(@RequestBody StudentDto studentDto) {
         log.info("StudentController create: {}", studentDto);
 
@@ -81,10 +83,11 @@ public class StudentController {
         return Response.success(studentDto);
     }
 
-    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "/{id}")
     Response<StudentDto> delete(@PathVariable Integer id) {
         log.info("Student Controller delete: {}");
 
+        studentService.get(id).ifPresent(student -> assignmentService.deleteAllOfStudent(student));
         studentService.delete(id);
 
         return Response.success();

@@ -27,13 +27,13 @@ export class StudentsService {
   }
 
   saveStudent(student: Student): Observable<Student> {
-    return this.httpClient.post<ResponseData<Student>>(this.studentsUrl + "/create", student).pipe(
+    return this.httpClient.post<ResponseData<Student>>(this.studentsUrl + "/", student).pipe(
       map(response => response.success ? response.data : null)
     );
   }
 
   deleteStudent(id:number) : Observable<any>{
-    return this.httpClient.delete(this.studentsUrl+"/delete/" + id).pipe(
+    return this.httpClient.delete(this.studentsUrl+"/" + id).pipe(
       map(response => console.log(response))
     );
   }

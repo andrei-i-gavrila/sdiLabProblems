@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AssignmentsService} from '../shared/assignment.service';
-import {Assignment} from '../shared/assignment'
 import {Router} from "@angular/router";
+import {Student} from "../../students/shared/student";
+import {Problem} from "../../problems/shared/problem";
+import {StudentsService} from "../../students/shared/students.service";
+import {ProblemsService} from "../../problems/shared/problems.service";
 
 @Component({
   selector: 'app-assignment-create',
@@ -10,19 +13,23 @@ import {Router} from "@angular/router";
 })
 export class AssignmentCreateComponent implements OnInit {
 
-  title: string = "";
-  registrationNumber: number;
+  studentId: Student;
+  problemId: Problem;
 
-  constructor(private  assignmentService: AssignmentsService, private  router: Router){}
+  students: Array<Student>;
+  problems: Array<Problem>;
+
+  constructor(private  assignmentService: AssignmentsService, private studentService: StudentsService, private problemService: ProblemsService, private  router: Router) {
+  }
 
   ngOnInit() {
+    this.studentService.getStudents().subscribe(value => this.students = value);
+    this.problemService.getProblems().subscribe(value => this.problems = value);
   }
 
   createAssignment() {
-    console.log(this.registrationNumber)
-    console.log(this.title)
 
-    this.assignmentService.saveAssignment(new Assignment(this.title,this.registrationNumber))
-      .subscribe(_ => this.router.navigate(['/assignment']))
+    this.assignmentService.createAssignment(this.studentId, this.problemId)
+      .subscribe(assignment => this.router.navigate(['/assignment/' + assignment.id]))
   }
 }

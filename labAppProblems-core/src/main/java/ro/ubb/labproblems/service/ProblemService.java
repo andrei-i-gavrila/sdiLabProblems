@@ -2,6 +2,7 @@ package ro.ubb.labproblems.service;
 
 import org.springframework.stereotype.Service;
 import ro.ubb.labproblems.model.Problem;
+import ro.ubb.labproblems.repository.AssignmentRepository;
 import ro.ubb.labproblems.repository.ProblemRepository;
 
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.Optional;
 public class ProblemService {
 
     private final ProblemRepository problemRepository;
+    private final AssignmentRepository assignmentRepository;
 
-    public ProblemService(ProblemRepository problemRepository) {
+    public ProblemService(ProblemRepository problemRepository, AssignmentRepository assignmentRepository) {
         this.problemRepository=problemRepository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     public Problem save(Problem problem) {

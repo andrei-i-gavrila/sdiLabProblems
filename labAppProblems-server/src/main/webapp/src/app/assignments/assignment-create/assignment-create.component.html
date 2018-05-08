@@ -1,10 +1,18 @@
-<label>
-  Student registration number: <input type="number" maxlength="4" minlength="4" [(ngModel)]="registrationNumber">
+<label for="student">
+  Student
 </label>
+<select [(ngModel)]="studentId" id="student">
+  <option value="" disabled selected>>select a student</option>
+  <option *ngFor="let student of students" [value]="student.id">{{student.name}}</option>
+</select>
 
-<label>
-  Problem title: <input type="text" [(ngModel)]="title">
+<label for="problem">
+  Problem
 </label>
+<select [(ngModel)]="problemId" id="problem">
+  <option value="" disabled selected>>select a problem</option>
+  <option *ngFor="let problem of problems" [value]="problem.id">{{problem.title}}</option>
+</select>
 
 
 <button (click)="createAssignment()">Create</button>

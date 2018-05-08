@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor="let assignment of assignments">
-    <a routerLink="/assignments/{{assignment.id}}" routerLinkActive="active">{{assignment.id}}</a>
+    <a routerLink="/assignments/{{assignment.id}}" routerLinkActive="active">{{assignment.studentDto.name}} -- {{assignment.problemDto.title}}</a>
   </li>
 </ul>

@@ -23,8 +23,8 @@ const routes: Routes = [
   {path: 'problems/create', component:ProblemCreateComponent},
   {path: 'problems/:id',component: ProblemDetailComponent},
   {path: 'assignments', component: AssignmentsComponent},
-  {path: 'assignments/:id',component: AssignmentDetailComponent},
-  {path: 'assignments/create', component: AssignmentCreateComponent}
+  {path: 'assignments/create', component: AssignmentCreateComponent},
+  {path: 'assignments/:id',component: AssignmentDetailComponent}
 
 ];
 
