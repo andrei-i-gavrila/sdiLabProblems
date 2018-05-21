@@ -1,32 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AssignmentsService} from '../shared/assignment.service';
 import {Assignment} from '../shared/assignment';
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-assignment-detail',
+  selector: '[app-assignment-detail]',
   templateUrl: './assignment-detail.component.html',
-  styleUrls: ['./assignment-detail.component.css']
 })
-export class AssignmentDetailComponent implements OnInit {
+export class AssignmentDetailComponent {
 
-  assignment: Assignment;
+  @Input() assignment: Assignment;
+  readonly: boolean = true;
 
-  constructor(private assignmentService: AssignmentsService, private route: ActivatedRoute, private  router: Router) {
+  @Output() onTriggerRefresh = new EventEmitter();
+
+  constructor(private assignmentService: AssignmentsService) {
   }
 
-  ngOnInit() {
-    this.route.params
-      .subscribe(value => this.assignmentService.getAssignment(value.id)
-        .subscribe(assignment => {
-          this.assignment = assignment;
-          console.log(this.assignment);
-        }));
+  deleteAssignment() {
+    this.assignmentService
+      .deleteAssignment(this.assignment.id)
+      .subscribe(() => this.onTriggerRefresh.emit());
   }
 
-  deleteAssignment()
-   {
-   this.assignmentService.deleteAssignment(this.assignment.id).subscribe(_ => this.router.navigate(['/assignments']));
-   }
+  gradeAssignment() {
+    this.assignmentService
+      .gradeAssignment(this.assignment)
+      .subscribe(() => this.finishEdit());
+  }
 
+  startEdit() {
+    this.readonly = false;
+  }
+
+  finishEdit() {
+    this.readonly = true;
+    this.assignmentService
+      .getAssignment(this.assignment.id)
+      .subscribe(response => this.assignment = response)
+  }
 }

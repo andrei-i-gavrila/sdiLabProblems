@@ -80,6 +80,7 @@ public class AssignmentController {
             return Response.fail(validationErrors.get());
         }
 
+
         assignment = assignmentService.save(assignment);
         AssignmentDto assignmentDto = assignmentMapper.toDto(assignment);
 
@@ -111,5 +112,16 @@ public class AssignmentController {
         assignmentService.delete(id);
 
         return Response.success();
+    }
+
+    @PutMapping
+    Response<AssignmentDto> grade(@RequestBody AssignmentDto assignmentDto) {
+        Optional<Assignment> optionalAssignment = assignmentService.get(assignmentDto.getId());
+        if (!optionalAssignment.isPresent()) {
+            return Response.fail(new ErrorDto("No assignment with id {}", assignmentDto.getId()));
+        }
+        optionalAssignment.get().setGrade(assignmentDto.getGrade());
+
+        return Response.success(assignmentMapper.toDto(assignmentService.save(optionalAssignment.get())));
     }
 }

@@ -93,4 +93,11 @@ public class ProblemController {
 
         return Response.success();
     }
+
+    @PutMapping
+    Response<ProblemDto> update(@RequestBody ProblemDto problemDto) {
+        return problemService.get(problemDto.getId())
+                .map(student -> Response.success(problemMapper.toDto(problemService.save(problemMapper.updateToEntity(problemDto, student)))))
+                .orElseGet(() -> Response.fail(new ErrorDto("Cannot find student with id {}", problemDto.getId())));
+    }
 }

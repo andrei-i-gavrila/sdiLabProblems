@@ -14,8 +14,8 @@ export class StudentsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getStudents(): Observable<Student[]> {
-    return this.httpClient.get<ResponseData<Student[]>>(this.studentsUrl).pipe(
+  getStudents(nameFilter = ""): Observable<Student[]> {
+    return this.httpClient.get<ResponseData<Student[]>>(this.studentsUrl + (nameFilter !== "" ? ("?nameFilter=" + nameFilter) : "")).pipe(
       map((response: ResponseData<Student[]>) => response.data)
     );
   }
@@ -28,6 +28,12 @@ export class StudentsService {
 
   saveStudent(student: Student): Observable<Student> {
     return this.httpClient.post<ResponseData<Student>>(this.studentsUrl + "/", student).pipe(
+      map(response => response.success ? response.data : null)
+    );
+  }
+
+  updateStudent(student: Student): Observable<Student> {
+    return this.httpClient.put<ResponseData<Student>>(this.studentsUrl, student).pipe(
       map(response => response.success ? response.data : null)
     );
   }

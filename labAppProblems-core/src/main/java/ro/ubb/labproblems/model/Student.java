@@ -2,9 +2,8 @@ package ro.ubb.labproblems.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +12,10 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@NamedEntityGraph(
+        name = "studentWithAssignments",
+        attributeNodes = @NamedAttributeNode(value = "assignments")
+)
 public class Student {
 
     @Id
@@ -22,4 +25,7 @@ public class Student {
     private String name;
     private Integer groupNumber;
 
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Assignment> assignments;
 }

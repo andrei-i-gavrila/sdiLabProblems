@@ -1,13 +1,14 @@
-<label>
-  Name: <input type="text" [(ngModel)]="name">
-</label>
-
-<label>
-  Registration number: <input type="number" maxlength="4" minlength="4" [(ngModel)]="registrationNumber">
-</label>
-
-<label>
-  Group number: <input type="number" minlength="3" name="groupNumber" [(ngModel)]="groupNumber">
-</label>
-
-<button (click)="createStudent()">Create</button>
+<form (ngSubmit)="createStudent()">
+  <div class="form-group">
+    <input class="form-control" type="text" title="name" placeholder="Name" name="name" [(ngModel)]="name">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="number" title="groupNumber" name="groupNumber" placeholder="Group number"
+           [(ngModel)]="groupNumber">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="number" title="registrationNumber" name="registrationNumber"
+           placeholder="Registration number" [(ngModel)]="registrationNumber">
+  </div>
+  <input class="btn btn-primary btn-block" type="submit" value="Create">
+</form>

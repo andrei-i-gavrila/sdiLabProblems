@@ -1,10 +1,7 @@
-
-<dl *ngIf="problem">
-  <dt>Title:</dt> <dd>{{problem.title}}</dd>
-  <dt>Description:</dt> <dd>{{problem.description}}</dd>
-</dl>
-<button (click)="deleteProblem()">Delete</button>
-
-<div>
-<button routerLink="/problems" routerLinkActive="active">Back</button>
-</div>
+<td><input type="text" class="form-control" title="title" [readonly]="readonly" [(ngModel)]="problem.title" name="title"></td>
+<td><input type="text" class="form-control" title="description" [readonly]="readonly" [(ngModel)]="problem.description" name="description"></td>
+<td>{{problem.assignments.length}}</td>
+<td>
+  <button class="btn btn-link" (click)="readonly? startEdit() : updateProblem()"><i [class]="'fas ' + (readonly? 'fa-pencil-alt' : 'fa-save')"></i></button>
+  <button class="btn btn-link" (click)="readonly? deleteProblem() : finishEdit()"><i [class]="'fas ' + (readonly? 'fa-trash-alt' : 'fa-times')"></i></button>
+</td>

@@ -5,6 +5,8 @@ import {Assignment} from './assignment';
 import {environment} from "../../../environments/environment";
 import {ResponseData} from "../../shared/response";
 import {map} from "rxjs/operators";
+import {Student} from "../../students/shared/student";
+import {Problem} from "../../problems/shared/problem";
 
 @Injectable()
 export class AssignmentsService {
@@ -26,8 +28,11 @@ export class AssignmentsService {
     );
   }
 
-  createAssignment(student, problem): Observable<Assignment> {
-    return this.httpClient.post<ResponseData<Assignment>>(this.assignmentsUrl + "/", {studentId: parseInt(student), problemId: parseInt(problem)}).pipe(
+  createAssignment(student: Student, problem: Problem): Observable<Assignment> {
+    return this.httpClient.post<ResponseData<Assignment>>(this.assignmentsUrl, {
+      studentId: student.id,
+      problemId: problem.id
+    }).pipe(
       map(response => response.success ? response.data : null)
     );
   }
@@ -35,6 +40,12 @@ export class AssignmentsService {
   deleteAssignment(id:number) : Observable<any>{
     return this.httpClient.delete(this.assignmentsUrl+"/" + id).pipe(
       map(response => console.log(response))
+    );
+  }
+
+  gradeAssignment(assignment: Assignment): Observable<Assignment> {
+    return this.httpClient.put<ResponseData<Assignment>>(this.assignmentsUrl, assignment).pipe(
+      map(response => response.success ? response.data : null)
     );
   }
 }

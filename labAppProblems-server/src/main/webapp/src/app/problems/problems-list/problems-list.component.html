@@ -1,5 +1,14 @@
-<ul>
-  <li *ngFor="let problem of problems">
-    <a routerLink="/problems/{{problem.id}}" routerLinkActive="active">{{problem.title}}</a>
-  </li>
-</ul>
+<table class="table table-hover table-small">
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Description</td>
+    <td>Assigned students</td>
+    <td></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let problem of problems" app-problem-detail [problem]="problem" (onTriggerRefresh)="getProblems()">
+  </tr>
+  </tbody>
+</table>

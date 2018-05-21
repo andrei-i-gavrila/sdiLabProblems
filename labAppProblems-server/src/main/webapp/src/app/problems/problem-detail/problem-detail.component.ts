@@ -1,29 +1,43 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ProblemsService} from "../shared/problems.service";
 import {Problem} from "../shared/problem";
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-problem-detail',
+  selector: '[app-problem-detail]',
   templateUrl: './problem-detail.component.html',
-  styleUrls: ['./problem-detail.component.css']
 })
-export class ProblemDetailComponent implements OnInit {
+export class ProblemDetailComponent {
 
-  problem: Problem;
+  @Input() problem: Problem;
+  readonly: boolean = true;
+  @Output() onTriggerRefresh = new EventEmitter();
 
-  constructor(private problemService: ProblemsService, private route: ActivatedRoute, private  router: Router) {
-  }
-
-  ngOnInit() {
-    this.route.params
-      .subscribe(value => this.problemService.getProblem(value.id)
-        .subscribe(problem => this.problem = problem));
+  constructor(private problemService: ProblemsService) {
   }
 
   deleteProblem()
   {
-    this.problemService.deleteProblem(this.problem.id).subscribe(_ => this.router.navigate(['/problems']));
+    this.problemService
+      .deleteProblem(this.problem.id)
+      .subscribe(() => this.onTriggerRefresh.emit());
+  }
+
+  updateProblem() {
+    this.problemService
+      .updateProblem(this.problem)
+      .subscribe(() => this.finishEdit())
+
+  }
+
+  startEdit() {
+    this.readonly = false;
+  }
+
+  finishEdit() {
+    this.readonly = true;
+    this.problemService
+      .getProblem(this.problem.id)
+      .subscribe(response => this.problem = response)
   }
 
 }

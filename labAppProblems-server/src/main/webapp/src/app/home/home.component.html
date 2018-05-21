@@ -1,7 +1,23 @@
-<nav>
-  <button routerLink="/students" routerLinkActive="active">Students</button>
-  <button routerLink="/problems" routerLinkActive="active">Problems</button>
-  <button routerLink="/assignments" routerLinkActive="active">Assignments</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav">
+        <button class="btn btn-link nav-item nav-link" routerLink="/students" routerLinkActive="active">Students
+        </button>
+        <button class="btn btn-link nav-item nav-link" routerLink="/problems" routerLinkActive="active">Problems
+        </button>
+        <button class="btn btn-link nav-item nav-link" routerLink="/assignments" routerLinkActive="active">Assignments
+        </button>
+      </div>
+    </div>
+  </div>
+
 </nav>
 
-<router-outlet></router-outlet>
+<div class="container mt-5">
+  <router-outlet></router-outlet>
+</div>

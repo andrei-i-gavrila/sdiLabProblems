@@ -2,10 +2,9 @@ package ro.ubb.labproblems.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +13,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
+@NamedEntityGraph(
+        name = "problemWithAssignments",
+        attributeNodes = @NamedAttributeNode(value = "assignments")
+)
 public class Problem implements Serializable {
 
     @Id
@@ -21,4 +24,7 @@ public class Problem implements Serializable {
     private Integer id;
     private String title;
     private String description;
+
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Assignment> assignments;
 }

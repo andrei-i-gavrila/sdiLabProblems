@@ -1,28 +1,42 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {StudentsService} from "../shared/students.service";
 import {Student} from "../shared/student";
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-student-detail',
+  selector: '[app-student-detail]',
   templateUrl: './student-detail.component.html',
-  styleUrls: ['./student-detail.component.css']
 })
-export class StudentDetailComponent implements OnInit {
+export class StudentDetailComponent {
 
-  student: Student;
+  @Input() student: Student;
+  readonly: boolean = true;
 
-  constructor(private studentService: StudentsService, private route: ActivatedRoute,private router:Router) {
-  }
+  @Output() onTriggerRefresh = new EventEmitter();
 
-  ngOnInit() {
-    this.route.params
-      .subscribe(value => this.studentService.getStudent(value.id)
-        .subscribe(student => this.student = student));
+  constructor(private studentService: StudentsService) {
   }
 
   deleteStudent()
   {
-    this.studentService.deleteStudent(this.student.id).subscribe(_ => this.router.navigate(['/students']));
+    this.studentService
+      .deleteStudent(this.student.id)
+      .subscribe(() => this.onTriggerRefresh.emit());
+  }
+
+  startEdit() {
+    this.readonly = false;
+  }
+
+  finishEdit() {
+    this.readonly = true;
+    this.studentService
+      .getStudent(this.student.id)
+      .subscribe(response => this.student = response);
+  }
+
+  update() {
+    this.studentService
+      .updateStudent(this.student)
+      .subscribe(() => this.finishEdit());
   }
 }

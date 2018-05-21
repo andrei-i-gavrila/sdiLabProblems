@@ -8,13 +8,12 @@ import {ProblemsService} from "../../problems/shared/problems.service";
 
 @Component({
   selector: 'app-assignment-create',
-  templateUrl: './assignment-create.component.html',
-  styleUrls: ['./assignment-create.component.css']
+  templateUrl: './assignment-create.component.html'
 })
 export class AssignmentCreateComponent implements OnInit {
 
-  studentId: Student;
-  problemId: Problem;
+  student: Student = null;
+  problem: Problem = null;
 
   students: Array<Student>;
   problems: Array<Problem>;
@@ -28,8 +27,10 @@ export class AssignmentCreateComponent implements OnInit {
   }
 
   createAssignment() {
-
-    this.assignmentService.createAssignment(this.studentId, this.problemId)
-      .subscribe(assignment => this.router.navigate(['/assignment/' + assignment.id]))
+    if (this.problem == null || this.student == null) {
+      return
+    }
+    this.assignmentService.createAssignment(this.student, this.problem)
+      .subscribe(() => this.router.navigate(['/assignments']))
   }
 }

@@ -1,5 +1,14 @@
-<ul>
-  <li *ngFor="let assignment of assignments">
-    <a routerLink="/assignments/{{assignment.id}}" routerLinkActive="active">{{assignment.studentDto.name}} -- {{assignment.problemDto.title}}</a>
-  </li>
-</ul>
+<table class="table table-hover table-small">
+  <thead>
+  <tr>
+    <td>Problem Title</td>
+    <td>Student name</td>
+    <td>Grade</td>
+    <td></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let assignment of assignments" app-assignment-detail [assignment]="assignment" (onTriggerRefresh)="getAssignments()">
+  </tr>
+  </tbody>
+</table>

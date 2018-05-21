@@ -1,9 +1,10 @@
-<label>
-  Title: <input type="text" [(ngModel)]="title">
-</label>
-
-<label>
-  Description <input type="text" [(ngModel)]="description">
-</label>
-
-<button (click)="createProblem()">Create</button>
+<form (ngSubmit)="createProblem()">
+  <div class="form-group">
+    <input class="form-control" type="text" title="name" placeholder="Title" name="title" [(ngModel)]="title">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" title="description" name="description" placeholder="Description"
+           [(ngModel)]="description">
+  </div>
+  <input class="btn btn-primary btn-block" type="submit" value="Create">
+</form>

@@ -32,6 +32,12 @@ export class ProblemsService {
     );
   }
 
+  updateProblem(problem : Problem): Observable<Problem> {
+    return this.httpClient.put<ResponseData<Problem>>(this.problemsUrl, problem).pipe(
+      map(response => response.success ? response.data : null)
+    );
+  }
+
   deleteProblem(id:number) : Observable<any>{
     return this.httpClient.delete(this.problemsUrl+"/" + id).pipe(
       map(response => console.log(response))

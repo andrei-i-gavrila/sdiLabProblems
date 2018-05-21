@@ -36,10 +36,12 @@ public class StudentController {
     }
 
     @GetMapping
-    Response<List<StudentDto>> index() {
+    @ResponseBody
+    Response<List<StudentDto>> index(@RequestParam(required = false) String nameFilter) {
         log.info("StudentController getAll");
 
-        List<StudentDto> studentDtoList = studentMapper.toDtoList(studentService.getAll());
+        List<Student> students = nameFilter == null ? studentService.getAll() : studentService.filterByName(nameFilter);
+        List<StudentDto> studentDtoList = studentMapper.toDtoList(students);
 
         log.info("StudentController getAll: {}", studentDtoList);
 
@@ -91,5 +93,12 @@ public class StudentController {
         studentService.delete(id);
 
         return Response.success();
+    }
+
+    @PutMapping
+    Response<StudentDto> update(@RequestBody StudentDto studentDto) {
+        return studentService.get(studentDto.getId())
+                .map(student -> Response.success(studentMapper.toDto(studentService.save(studentMapper.updateToEntity(studentDto, student)))))
+                .orElseGet(() -> Response.fail(new ErrorDto("Cannot find student with id {}", studentDto.getId())));
     }
 }

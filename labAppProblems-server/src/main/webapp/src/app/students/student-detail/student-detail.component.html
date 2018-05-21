@@ -1,10 +1,8 @@
-<dl *ngIf="student">
-  <dt>Name:</dt> <dd>{{this.student.name}}</dd>
-  <dt>Registration Number:</dt> <dd>{{this.student.registrationNumber}}</dd>
-  <dt>Group number:</dt> <dd>{{this.student.groupNumber}}</dd>
-</dl>
-<button (click)="deleteStudent()">Delete</button>
-
-<div>
-<button routerLink="/students" routerLinkActive="active">Back</button>
-</div>
+<td><input type="text" class="form-control" title="name" [readonly]="readonly" [(ngModel)]="student.name" name="name"></td>
+<td><input type="text" class="form-control" title="groupNumber" [readonly]="readonly" [(ngModel)]="student.groupNumber" name="groupNumber"></td>
+<td><input type="text" class="form-control" title="registrationNumber" [readonly]="readonly" [(ngModel)]="student.registrationNumber" name="registrationNumber"></td>
+<td>{{student.assignments.length}}</td>
+<td>
+  <button class="btn btn-link" (click)="readonly? startEdit() : update()"><i [class]="'fas ' + (readonly? 'fa-pencil-alt' : 'fa-save')"></i></button>
+  <button class="btn btn-link" (click)="readonly? deleteStudent() : finishEdit()"><i [class]="'fas ' + (readonly? 'fa-trash-alt' : 'fa-times')"></i></button>
+</td>

@@ -1,10 +1,14 @@
-<dl *ngIf="assignment">
-  <dt>Student name:</dt> <dd>{{assignment.studentDto.name}}</dd>
-  <dt>Student registration number:</dt><dd>{{assignment.studentDto.registrationNumber}}</dd>
-  <dt>Problem title:</dt> <dd>{{assignment.problemDto.title}}</dd>
-</dl>
-<button (click)="deleteAssignment()">Delete</button>
+<td>
+  {{assignment.problemDto.title}}
+</td>
+<td>
+  {{assignment.studentDto.name}}
+</td>
+<td>
+  <input type="number" class="form-control" title="grade" [readonly]="readonly" [(ngModel)]="assignment.grade" name="grade">
+</td>
 
-<div>
-  <button routerLink="/assignments" routerLinkActive="active">Back</button>
-</div>
+<td>
+  <button class="btn btn-link" (click)="readonly? startEdit() : gradeAssignment()"><i [class]="'fas ' + (readonly? 'fa-pencil-alt' : 'fa-save')"></i></button>
+  <button class="btn btn-link" (click)="readonly? deleteAssignment() : finishEdit()"><i [class]="'fas ' + (readonly? 'fa-trash-alt' : 'fa-times')"></i></button>
+</td>

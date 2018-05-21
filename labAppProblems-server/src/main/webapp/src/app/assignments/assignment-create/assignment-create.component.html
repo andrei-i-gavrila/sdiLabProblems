@@ -1,18 +1,20 @@
-<label for="student">
-  Student
-</label>
-<select [(ngModel)]="studentId" id="student">
-  <option value="" disabled selected>>select a student</option>
-  <option *ngFor="let student of students" [value]="student.id">{{student.name}}</option>
-</select>
+<form (ngSubmit)="createAssignment()">
+  <div class="form-group">
+    <select class="form-control" [(ngModel)]="student" id="student" name="student" title="student" NG>
+      <option [value]="null" disabled selected>Select a student</option>
+      <option *ngFor="let student of students" [ngValue]="student">{{student.name}}</option>
+    </select>
+  </div>
 
-<label for="problem">
-  Problem
-</label>
-<select [(ngModel)]="problemId" id="problem">
-  <option value="" disabled selected>>select a problem</option>
-  <option *ngFor="let problem of problems" [value]="problem.id">{{problem.title}}</option>
-</select>
+  <div class="form-group">
+    <select class="form-control" [(ngModel)]="problem" id="problem" name="problem" title="problem">
+      <option [value]="null" disabled selected>Select a problem</option>
+      <option *ngFor="let problem of problems" [ngValue]="problem">{{problem.title}}</option>
+    </select>
+  </div>
 
 
-<button (click)="createAssignment()">Create</button>
+  <div class="form-group">
+    <input class="form-control btn btn-primary" type="submit" value="Create"/>
+  </div>
+</form>
