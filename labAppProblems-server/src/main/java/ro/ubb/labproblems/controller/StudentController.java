@@ -12,8 +12,6 @@ import ro.ubb.labproblems.mapper.StudentMapper;
 import ro.ubb.labproblems.model.Student;
 import ro.ubb.labproblems.service.AssignmentService;
 import ro.ubb.labproblems.service.StudentService;
-import ro.ubb.labproblems.validator.StudentValidator;
-import ro.ubb.labproblems.validator.ValidationErrorDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,13 +24,11 @@ public class StudentController {
     private StudentService studentService;
     private AssignmentService assignmentService;
     private StudentMapper studentMapper;
-    private StudentValidator studentValidator;
 
-    public StudentController(StudentService studentService, AssignmentService assignmentService, StudentMapper studentMapper, StudentValidator studentValidator) {
+    public StudentController(StudentService studentService, AssignmentService assignmentService, StudentMapper studentMapper) {
         this.studentService = studentService;
         this.assignmentService = assignmentService;
         this.studentMapper = studentMapper;
-        this.studentValidator = studentValidator;
     }
 
     @GetMapping
@@ -71,12 +67,6 @@ public class StudentController {
         log.info("StudentController create: {}", studentDto);
 
         Student student = studentMapper.toEntity(studentDto);
-
-        Optional<List<ValidationErrorDto>> validationErrors = studentValidator.validate(student);
-        if (validationErrors.isPresent()) {
-            log.info("StudentController create errors: {}", validationErrors.get());
-            return Response.fail(validationErrors.get());
-        }
 
         student = studentService.save(student);
         studentDto = studentMapper.toDto(student);

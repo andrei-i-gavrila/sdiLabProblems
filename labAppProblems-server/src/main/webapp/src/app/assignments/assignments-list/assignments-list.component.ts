@@ -15,13 +15,7 @@ export class AssignmentsListComponent implements OnInit {
 
   getAssignments() {
     this.assignmentService.getAssignments()
-      .subscribe(
-        assignments => {
-          this.assignments = assignments
-          console.log(assignments)
-        },
-        error => console.log(error)
-      );
+      .subscribe(assignments => this.assignments = assignments);
   }
 
   ngOnInit() {

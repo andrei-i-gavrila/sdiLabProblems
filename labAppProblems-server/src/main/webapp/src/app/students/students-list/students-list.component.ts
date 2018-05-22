@@ -15,12 +15,8 @@ export class StudentsListComponent implements OnInit {
   }
 
   getStudents() {
-    console.log(this.nameFilter);
     this.studentService.getStudents(this.nameFilter)
-      .subscribe(
-        students => this.students = students,
-        error => console.log(error)
-      );
+      .subscribe(students => this.students = students);
   }
 
   ngOnInit() {

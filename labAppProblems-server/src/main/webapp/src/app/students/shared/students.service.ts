@@ -3,8 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Student} from "./student";
 import {environment} from "../../../environments/environment";
-import {ResponseData} from "../../shared/response";
-import {map} from "rxjs/operators";
 
 @Injectable()
 export class StudentsService {
@@ -15,33 +13,23 @@ export class StudentsService {
   }
 
   getStudents(nameFilter = ""): Observable<Student[]> {
-    return this.httpClient.get<ResponseData<Student[]>>(this.studentsUrl + (nameFilter !== "" ? ("?nameFilter=" + nameFilter) : "")).pipe(
-      map((response: ResponseData<Student[]>) => response.data)
-    );
+    return this.httpClient.get<Student[]>(this.studentsUrl + (nameFilter !== "" ? ("?nameFilter=" + nameFilter) : ""))
   }
 
   getStudent(id: number): Observable<Student> {
-    return this.httpClient.get<ResponseData<Student>>(this.studentsUrl + "/" + id).pipe(
-      map(response => response.success ? response.data : null)
-    );
+    return this.httpClient.get<Student>(this.studentsUrl + "/" + id)
   }
 
   saveStudent(student: Student): Observable<Student> {
-    return this.httpClient.post<ResponseData<Student>>(this.studentsUrl + "/", student).pipe(
-      map(response => response.success ? response.data : null)
-    );
+    return this.httpClient.post<Student>(this.studentsUrl + "/", student)
   }
 
   updateStudent(student: Student): Observable<Student> {
-    return this.httpClient.put<ResponseData<Student>>(this.studentsUrl, student).pipe(
-      map(response => response.success ? response.data : null)
-    );
+    return this.httpClient.put<Student>(this.studentsUrl, student)
   }
 
   deleteStudent(id:number) : Observable<any>{
-    return this.httpClient.delete(this.studentsUrl+"/" + id).pipe(
-      map(response => console.log(response))
-    );
+    return this.httpClient.delete(this.studentsUrl + "/" + id)
   }
 
 }

@@ -16,6 +16,11 @@ export class ProblemCreateComponent {
 
   createProblem() {
     this.problemService.saveProblem(new Problem(this.title,this.description))
-      .subscribe(_ => this.router.navigate(['/problems']))
+      .subscribe(
+        () => this.router.navigate(['/problems']),
+        () => {
+          this.title = null;
+          this.description = null
+        })
   }
 }

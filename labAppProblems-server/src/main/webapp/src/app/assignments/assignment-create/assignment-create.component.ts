@@ -31,6 +31,12 @@ export class AssignmentCreateComponent implements OnInit {
       return
     }
     this.assignmentService.createAssignment(this.student, this.problem)
-      .subscribe(() => this.router.navigate(['/assignments']))
+      .subscribe(
+        () => this.router.navigate(['/assignments']),
+        () => {
+          this.student = null;
+          this.problem = null;
+        }
+      )
   }
 }

@@ -5,7 +5,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app.routing";
 import {HomeComponent} from './home/home.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 
 import {StudentsComponent} from './students/students.component';
@@ -25,6 +25,10 @@ import {AssignmentsListComponent} from './assignments/assignments-list/assignmen
 import {AssignmentsService} from './assignments/shared/assignment.service';
 import {AssignmentDetailComponent} from './assignments/assignment-detail/assignment-detail.component';
 import {AssignmentCreateComponent} from './assignments/assignment-create/assignment-create.component';
+import {ErrorInterceptor} from "./error.interceptor";
+import {ToasterModule} from "angular2-toaster";
+import {ErrorService} from "./error.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -46,11 +50,16 @@ import {AssignmentCreateComponent} from './assignments/assignment-create/assignm
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ToasterModule.forRoot()
   ],
-  providers: [StudentsService,ProblemsService,AssignmentsService, HttpClientModule],
+  providers: [
+    StudentsService,ProblemsService,AssignmentsService, HttpClientModule, ErrorService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

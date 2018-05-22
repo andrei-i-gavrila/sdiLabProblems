@@ -4,6 +4,12 @@ import org.springframework.stereotype.Service;
 import ro.ubb.labproblems.model.Student;
 import ro.ubb.labproblems.repository.StudentRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +17,8 @@ import java.util.Optional;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -37,6 +45,12 @@ public class StudentService {
     }
 
     public List<Student> filterByName(String nameFilter) {
-        return studentRepository.findAllByNameContaining(nameFilter);
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> studentCriteriaQuery = criteriaBuilder.createQuery(Student.class);
+        Root<Student> root = studentCriteriaQuery.from(Student.class);
+        Predicate filterPredicate = criteriaBuilder.like(root.get("name"), "%" + nameFilter + "%");
+        studentCriteriaQuery.where(filterPredicate);
+
+        return entityManager.createQuery(studentCriteriaQuery).getResultList();
     }
 }

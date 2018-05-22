@@ -16,7 +16,6 @@ import ro.ubb.labproblems.service.AssignmentService;
 import ro.ubb.labproblems.service.ProblemService;
 import ro.ubb.labproblems.service.StudentService;
 import ro.ubb.labproblems.validator.AssignmentValidator;
-import ro.ubb.labproblems.validator.ValidationErrorDto;
 
 import java.util.List;
 import java.util.Map;
@@ -74,12 +73,6 @@ public class AssignmentController {
         Assignment assignment = new Assignment();
         assignment.setStudent(student.get());
         assignment.setProblem(problem.get());
-        Optional<List<ValidationErrorDto>> validationErrors = assignmentValidator.validate(assignment);
-        if (validationErrors.isPresent()) {
-            log.info("AssignmentController create errors: {}", validationErrors.get());
-            return Response.fail(validationErrors.get());
-        }
-
 
         assignment = assignmentService.save(assignment);
         AssignmentDto assignmentDto = assignmentMapper.toDto(assignment);

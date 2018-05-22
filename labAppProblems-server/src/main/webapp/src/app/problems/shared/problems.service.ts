@@ -3,8 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Problem} from "./problem";
 import {environment} from "../../../environments/environment";
-import {ResponseData} from "../../shared/response";
-import {map} from "rxjs/operators";
 
 @Injectable()
 export class ProblemsService {
@@ -15,32 +13,22 @@ export class ProblemsService {
   }
 
   getProblems(): Observable<Problem[]> {
-    return this.httpClient.get<ResponseData<Problem[]>>(this.problemsUrl).pipe(
-      map((response: ResponseData<Problem[]>) => response.data)
-    );
+    return this.httpClient.get<Problem[]>(this.problemsUrl);
   }
 
   getProblem(id: number): Observable<Problem> {
-    return this.httpClient.get<ResponseData<Problem>>(this.problemsUrl + "/" + id).pipe(
-      map(response => response.success ? response.data : null)
-    );
+    return this.httpClient.get<Problem>(this.problemsUrl + "/" + id);
   }
 
   saveProblem(problem : Problem): Observable<Problem> {
-    return this.httpClient.post<ResponseData<Problem>>(this.problemsUrl + "/", problem).pipe(
-      map(response => response.success ? response.data : null)
-    );
+    return this.httpClient.post<Problem>(this.problemsUrl + "/", problem);
   }
 
   updateProblem(problem : Problem): Observable<Problem> {
-    return this.httpClient.put<ResponseData<Problem>>(this.problemsUrl, problem).pipe(
-      map(response => response.success ? response.data : null)
-    );
+    return this.httpClient.put<Problem>(this.problemsUrl, problem);
   }
 
   deleteProblem(id:number) : Observable<any>{
-    return this.httpClient.delete(this.problemsUrl+"/" + id).pipe(
-      map(response => console.log(response))
-    );
+    return this.httpClient.delete(this.problemsUrl + "/" + id);
   }
 }

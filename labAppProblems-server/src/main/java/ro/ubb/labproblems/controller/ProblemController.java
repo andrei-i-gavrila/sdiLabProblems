@@ -13,7 +13,6 @@ import ro.ubb.labproblems.model.Problem;
 import ro.ubb.labproblems.service.AssignmentService;
 import ro.ubb.labproblems.service.ProblemService;
 import ro.ubb.labproblems.validator.ProblemValidator;
-import ro.ubb.labproblems.validator.ValidationErrorDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,12 +68,6 @@ public class ProblemController {
         log.info("ProblemController create: {}", problemDto);
 
         Problem problem = problemMapper.toEntity(problemDto);
-
-        Optional<List<ValidationErrorDto>> validationErrors = problemValidator.validate(problem);
-        if (validationErrors.isPresent()) {
-            log.info("ProblemController create errors: {}", validationErrors.get());
-            return Response.fail(validationErrors.get());
-        }
 
         problem = problemService.save(problem);
         problemDto = problemMapper.toDto(problem);
